@@ -1,0 +1,3485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>수학 구술면접 마스터 · GMS학원 이은정 강사</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2b0810">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --navy:#5c1420; --navy2:#2b0810; --gold:#b8902f; --gold-light:#e9d9a8;
+  --paper:#f6f1e6; --paper2:#eef1f6; --card:#ffffff; --ink:#1b2230; --sub:#6b7280;
+  --good:#2f7d5b; --good-bg:#e7f3ec; --bad:#b3432b; --bad-bg:#fbeae5; --line:#e6ddc8;
+  --rec:#c0392b;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Noto Sans KR',sans-serif;color:var(--ink);
+  background:
+    radial-gradient(1200px 400px at 50% -10%, #7a1f2b 0%, transparent 60%),
+    linear-gradient(180deg,var(--navy2) 0%, var(--navy) 220px, var(--paper) 220px, var(--paper2) 100%);
+  min-height:100vh;padding-bottom:50px;}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 60px;}
+.hero{text-align:center;padding:34px 10px 26px;color:#fff;}
+.hero .eyebrow{font-size:12px;letter-spacing:2px;color:var(--gold-light);font-weight:700;text-transform:uppercase;}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:26px;margin:8px 0 8px;font-weight:900;letter-spacing:-.5px;}
+.hero p{font-size:13px;color:#e0c6c9;margin:0;}
+.mic-badge{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8a2d38,var(--navy2));
+  border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;}
+.card{background:var(--card);border-radius:18px;box-shadow:0 14px 34px rgba(50,10,16,.16);padding:22px 20px;margin-bottom:16px;border:1px solid var(--line);}
+h2.card-title{font-family:'Noto Serif KR',serif;font-size:19px;margin:0 0 4px;color:var(--navy);font-weight:700;}
+.card-sub{font-size:12.5px;color:var(--sub);margin:0 0 14px;}
+label.field-label{display:block;font-size:13.5px;font-weight:700;margin:16px 0 8px;color:var(--ink);}
+input[type=text],input[type=password]{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);font-size:15px;background:#fffdf8;font-family:inherit;box-sizing:border-box;}
+.row2{min-width:0;}
+.row2 input[type=text],.row2 input[type=password]{min-width:0;}
+input[type=text]:focus,input[type=password]:focus{outline:2px solid var(--navy);}
+.chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.chip{border:1.5px solid var(--line);border-radius:14px;padding:12px;text-align:center;cursor:pointer;background:#fffdf8;transition:.15s;}
+.chip b{display:block;font-size:14px;}
+.chip small{color:var(--sub);font-size:11px;}
+.chip.active{border-color:var(--gold);background:#fbf3df;box-shadow:0 0 0 2px rgba(184,144,47,.18) inset;}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap;}
+.opt-chip{flex:1;min-width:64px;text-align:center;border:1.5px solid var(--line);border-radius:12px;padding:10px 6px;font-size:13px;font-weight:700;cursor:pointer;background:#fffdf8;color:var(--sub);}
+.opt-chip.active{border-color:var(--navy);background:#eef1f6;color:var(--navy);}
+.toggle-row{display:flex;align-items:center;gap:8px;margin:14px 0 4px;font-size:13.5px;}
+.toggle-row input{width:18px;height:18px;}
+.mode-card{border:1.6px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:10px;cursor:pointer;background:#fffdf8;}
+.mode-card.active{border-color:var(--navy);background:#eef1f6;box-shadow:0 0 0 2px rgba(27,42,74,.12) inset;}
+.mode-card.disabled{opacity:.5;cursor:not-allowed;}
+.mode-card .mt{font-weight:800;font-size:15px;}
+.mode-card .md{font-size:12px;color:var(--sub);margin-top:3px;line-height:1.5;}
+.btn{display:block;width:100%;text-align:center;padding:15px;border-radius:14px;font-weight:800;font-size:15.5px;border:none;cursor:pointer;box-sizing:border-box;}
+.btn-icon-del{background:none;border:none;cursor:pointer;font-size:15px;padding:2px 6px;border-radius:8px;opacity:0.7;}
+.btn-icon-del:hover{opacity:1;background:#fbeaea;}
+.btn-primary{background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;box-shadow:0 10px 20px rgba(60,10,16,.28);}
+.btn-gold{background:linear-gradient(90deg,#c9a53c,var(--gold));color:#3a2c05;box-shadow:0 8px 16px rgba(184,144,47,.3);}
+.btn-outline{background:#fff;border:1.6px solid var(--navy);color:var(--navy);}
+.btn-ghost{background:#f0eee6;color:var(--ink);}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.row2{display:flex;gap:10px;margin-top:10px;}
+.row2 .btn{flex:1;}
+.small-note{font-size:12px;color:var(--sub);text-align:center;margin-top:10px;line-height:1.6;}
+.hidden{display:none !important;}
+
+.progressbar{height:6px;border-radius:4px;background:#e2ddcb;overflow:hidden;margin-bottom:10px;}
+.progressbar-inner{height:100%;background:linear-gradient(90deg,var(--gold),var(--navy));transition:width .3s ease;}
+.meta-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub);margin-bottom:14px;}
+.answer-timer{display:inline-block;background:#eef1f6;color:var(--navy);font-weight:800;font-size:13px;padding:8px 14px;border-radius:20px;margin-bottom:14px;}
+.answer-timer.urgent{background:var(--bad-bg);color:var(--bad);}
+.cat-tag{display:inline-block;background:var(--navy);color:#fff;font-weight:700;font-size:12px;padding:5px 12px;border-radius:20px;}
+.name-tag{font-size:12.5px;color:var(--sub);}
+
+.qcard{position:relative;background:linear-gradient(180deg,#fffdf8,#fff);border:1.5px solid var(--gold-light);border-radius:16px;padding:22px 20px 20px;margin-bottom:16px;}
+.qtext.reading{background:linear-gradient(90deg,rgba(184,144,47,.18),rgba(184,144,47,.05));border-radius:8px;animation:ttsPulse 1.2s ease-in-out infinite;}
+@keyframes ttsPulse{0%,100%{opacity:1;}50%{opacity:.72;}}
+.prep-num{font-size:34px;font-weight:800;color:var(--navy);margin:6px 0 14px;}
+.kb-mic-hint{display:none;text-align:center;background:linear-gradient(180deg,#fff8e6,#fff);border:2px solid var(--gold);border-radius:12px;padding:14px;margin-bottom:10px;animation:kbHintPulse 1s ease-in-out infinite;}
+.kb-mic-hint.show{display:block;}
+.kb-mic-hint .arrow{font-size:26px;}
+@keyframes kbHintPulse{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+.qcard::before{content:"Q";position:absolute;top:-14px;left:18px;background:var(--gold);color:#3a2c05;font-family:'Noto Serif KR',serif;font-weight:900;font-size:14px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.15);}
+.qtext{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:700;line-height:1.55;margin:10px 0 0;color:var(--navy);}
+
+.rec-zone{border:1.5px dashed var(--line);border-radius:16px;padding:18px;text-align:center;background:#fbf9f3;margin-bottom:14px;}
+.mic-btn{width:74px;height:74px;border-radius:50%;border:none;cursor:pointer;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;
+  background:radial-gradient(circle at 35% 30%,#8a2d38,var(--navy2));box-shadow:0 10px 22px rgba(60,10,16,.3);transition:.15s;}
+.mic-btn.recording{background:radial-gradient(circle at 35% 30%,#e05b47,var(--rec));animation:pulse 1.4s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(192,57,43,.45);}70%{box-shadow:0 0 0 18px rgba(192,57,43,0);}100%{box-shadow:0 0 0 0 rgba(192,57,43,0);}}
+.rec-status{font-size:12.5px;font-weight:700;color:var(--sub);min-height:18px;white-space:pre-line;}
+.rec-status.on{color:var(--rec);}
+.rec-status.err{color:var(--bad);}
+.waveform{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:22px;margin:8px 0 2px;}
+.waveform span{width:3px;background:var(--rec);border-radius:2px;animation:wave 1s infinite ease-in-out;}
+.waveform span:nth-child(1){animation-delay:0s;} .waveform span:nth-child(2){animation-delay:.1s;}
+.waveform span:nth-child(3){animation-delay:.2s;} .waveform span:nth-child(4){animation-delay:.3s;}
+.waveform span:nth-child(5){animation-delay:.4s;} .waveform span:nth-child(6){animation-delay:.5s;}
+.waveform span:nth-child(7){animation-delay:.6s;}
+@keyframes wave{0%,100%{height:5px;}50%{height:22px;}}
+
+textarea.answer-box{width:100%;min-height:110px;padding:14px;border-radius:14px;border:1.5px solid var(--line);font-size:15px;font-family:inherit;background:#fff;resize:vertical;line-height:1.6;}
+textarea.answer-box:focus{outline:2px solid var(--navy);}
+.answer-label{display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px;}
+.answer-label span{font-size:13.5px;font-weight:700;}
+.char-count{font-size:11.5px;color:var(--sub);}
+
+.giveup{display:block;text-align:center;color:var(--sub);font-size:12.5px;margin-top:14px;text-decoration:underline;cursor:pointer;}
+
+.score-wrap{text-align:center;margin:6px 0 4px;}
+.score-ring{width:150px;height:150px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;}
+.score-num{font-family:'Noto Serif KR',serif;font-size:44px;font-weight:900;line-height:1;}
+.score-max{font-size:12px;color:var(--sub);margin-top:2px;}
+.tier-label{text-align:center;font-weight:800;font-size:16px;border-radius:14px;padding:12px;margin:6px 0 16px;}
+.tier-perfect{background:linear-gradient(135deg,#ffe9a8,#e9c65e);color:#5a4200;}
+.tier-good{background:var(--good-bg);color:var(--good);}
+.tier-mid{background:#fdf2e0;color:#a8631a;}
+.tier-low{background:var(--bad-bg);color:var(--bad);}
+
+.kw-section{margin-top:6px;}
+.kw-title{font-size:13.5px;font-weight:700;margin:14px 0 8px;color:var(--ink);}
+.kw-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.kw-chip{border-radius:20px;padding:7px 13px;font-size:12.5px;font-weight:700;}
+.kw-chip.ok{background:var(--good-bg);color:var(--good);border:1px solid #bfe3cd;}
+.kw-chip.miss{background:var(--bad-bg);color:var(--bad);border:1px solid #f2c9bd;}
+
+.ans-box{border-radius:14px;padding:14px 16px;font-size:14px;line-height:1.65;margin:10px 0;}
+.ans-box.mine{background:#eef1f6;color:var(--navy);}
+.ans-box.model{background:#fbf3df;color:#5a4200;}
+.ans-box b{display:block;margin-bottom:6px;font-size:13px;letter-spacing:.3px;}
+
+.result-list{margin-top:4px;}
+.result-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid var(--line);margin-bottom:8px;background:#fffdf8;}
+.result-item .ri-q{font-size:13px;flex:1;padding-right:10px;line-height:1.4;}
+.result-item .ri-score{font-weight:900;font-size:15px;min-width:52px;text-align:right;}
+.avg-big{text-align:center;font-family:'Noto Serif KR',serif;font-size:52px;font-weight:900;color:var(--navy);margin:4px 0 0;}
+.avg-sub{text-align:center;color:var(--sub);font-size:13px;margin-bottom:16px;}
+
+.warnbox{background:#fdf2e0;border-radius:12px;padding:12px 14px;font-size:12.5px;color:#7a5a1a;margin-bottom:14px;line-height:1.65;white-space:pre-line;}
+.infobox{background:#eef1f6;border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--navy);margin-bottom:14px;line-height:1.65;white-space:pre-line;}
+.footer-copy{text-align:center;color:#9aa0ac;font-size:11.5px;margin-top:22px;}
+.hist-item{border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:9px;background:#fffdf8;cursor:pointer;}
+.hist-top{display:flex;justify-content:space-between;font-weight:700;font-size:13.5px;}
+.hist-sub{font-size:11.5px;color:var(--sub);margin-top:3px;}
+
+.wrongitem{border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;margin-bottom:10px;background:#fffdf8;}
+.wrongitem .wq{font-weight:700;margin-bottom:6px;font-size:14px;color:var(--navy);}
+.wrongitem .wmeta{font-size:11px;color:var(--sub);margin-bottom:8px;}
+.wrongitem .wa{color:var(--bad);font-size:13px;margin-bottom:4px;}
+.wrongitem .wc{color:var(--good);font-size:13px;}
+
+.tabbar{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:14px;overflow-x:auto;}
+.tabbtn{flex:1;text-align:center;padding:10px 4px;font-size:13px;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
+.tabbtn.active{color:var(--navy);border-color:var(--gold);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+.scrollable-table{overflow-x:auto;}
+.sticky-name-table th:first-child,.sticky-name-table td:first-child{position:sticky;left:0;z-index:2;box-shadow:2px 0 4px rgba(0,0,0,.06);}
+.sticky-name-table th:first-child{background:#fbf9f3;}
+.sticky-name-table td:first-child{background:#fff;}
+.sticky-name-table tr.clickable:active td:first-child{background:#f3f0e6;}
+.scrollable-table table{width:auto;min-width:100%;}
+.scrollable-table th,.scrollable-table td{white-space:nowrap;padding-left:10px;padding-right:10px;}
+th,td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--line);}
+th{color:var(--sub);font-weight:700;background:#fbf9f3;}
+tr.clickable{cursor:pointer;}
+tr.clickable:active{background:#f4eeee;}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(10,15,30,.55);display:flex;align-items:center;justify-content:center;z-index:1200;padding:24px;}
+.modal-overlay.hidden{display:none !important;}
+.modal-box{background:#fff;border-radius:20px;padding:24px 20px;max-width:340px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.3);}
+.modal-box p{font-size:14.5px;line-height:1.6;margin:0 0 18px;text-align:center;color:var(--ink);white-space:pre-line;}@media print{
+  body *{ visibility:hidden; }
+  #printArea, #printArea *{ visibility:visible; }
+  #printArea{ position:absolute; left:0; top:0; width:100%; padding:20px; }
+  #printArea .print-item{ break-inside:avoid; page-break-inside:avoid; }
+}
+.print-item{ break-inside:avoid; page-break-inside:avoid; border:1px solid #ccc;border-radius:6px;padding:10px 12px;margin-bottom:8px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="mic-badge">🎙️</div>
+  <div class="eyebrow">GMS학원 이은정 강사 · 자사·특목·과고반 대비</div>
+  <h1>중등 수학 구술면접 마스터</h1>
+  <p>질문을 읽고 실제 면접처럼 목소리로 답해보세요</p>
+</div>
+<div class="wrap" id="app"></div>
+<div id="printArea" class="hidden"></div>
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal-box">
+    <p id="modalMsg"></p>
+    <div class="row2" id="modalBtns"></div>
+  </div>
+</div>
+
+<script>
+/* ===================== 문제 은행 ===================== */
+const QUESTIONS = [
+{id:'N1',cat:'수와 연산',grade:'중1',q:'소수의 정의는 무엇인가요?',
+ a:'1과 자기 자신만을 약수로 가지는 1보다 큰 자연수를 소수라고 합니다.',
+ kw:[{l:'1과 자기 자신만을 약수로 가짐',a:['1과 자기 자신','자기 자신만']},{l:'1보다 큰 자연수',a:['1보다 큰']}]},
+{id:'N2',cat:'수와 연산',grade:'중1',q:'합성수의 정의는 무엇인가요?',
+ a:'1보다 큰 자연수 중에서 소수가 아닌 수, 즉 약수가 3개 이상인 수를 합성수라고 합니다.',
+ kw:[{l:'소수가 아닌 1보다 큰 자연수',a:['소수가 아닌']},{l:'약수가 3개 이상',a:['약수가 3개','3개 이상']}]},
+{id:'N3',cat:'수와 연산',grade:'중1',q:'1은 소수인가요, 합성수인가요? 그 까닭도 설명하시오.',
+ a:'1은 소수도 합성수도 아닙니다. 소수는 약수가 2개인 수, 합성수는 약수가 3개 이상인 수인데, 1은 약수가 자기 자신 하나뿐이기 때문입니다.',
+ kw:[{l:'소수도 합성수도 아님',a:['소수도','합성수도']},{l:'약수가 1개뿐',a:['약수가 1개','하나뿐']}]},
+{id:'N4',cat:'수와 연산',grade:'중1',q:'소인수분해의 뜻과 그 결과를 표현할 때 지켜야 할 규칙을 설명하시오.',
+ a:'자연수를 소인수만의 곱으로 나타내는 것을 소인수분해라고 하며, 결과를 표현할 때는 같은 소인수의 곱은 거듭제곱으로, 소인수는 작은 수부터 크기순으로 나열합니다.',
+ kw:[{l:'소인수만의 곱으로 나타냄',a:['소인수','곱']},{l:'거듭제곱으로, 작은 수부터',a:['거듭제곱','작은 수']}]},
+{id:'N5',cat:'수와 연산',grade:'중1',q:'두 자연수의 최대공약수와 최소공배수를 소인수분해를 이용해 구하는 방법을 설명하시오.',
+ a:'두 수를 각각 소인수분해한 뒤, 최대공약수는 공통인 소인수를 지수가 작거나 같은 것끼리 곱하고, 최소공배수는 모든 소인수를 지수가 크거나 같은 것끼리 곱하여 구합니다.',
+ kw:[{l:'공통 소인수 중 작은 지수(최대공약수)',a:['공통','작은 지수']},{l:'모든 소인수 중 큰 지수(최소공배수)',a:['모든 소인수','큰 지수']}]},
+{id:'N6',cat:'수와 연산',grade:'중1',q:'서로소의 정의는 무엇인가요?',
+ a:'두 자연수의 최대공약수가 1일 때, 이 두 수를 서로소라고 합니다.',
+ kw:[{l:'최대공약수가 1',a:['최대공약수가 1']}]},
+{id:'N7',cat:'수와 연산',grade:'중1',q:'정수와 유리수의 정의를 각각 설명하시오.',
+ a:'정수는 양의 정수, 0, 음의 정수를 통틀어 이르는 수이고, 유리수는 분수 a/b(a, b는 정수, b는 0이 아님) 꼴로 나타낼 수 있는 수입니다.',
+ kw:[{l:'정수: 양의 정수, 0, 음의 정수',a:['양의 정수','음의 정수']},{l:'유리수: 분수 꼴로 나타낼 수 있는 수',a:['분수','a/b']}]},
+{id:'N8',cat:'수와 연산',grade:'중1',q:'절댓값의 뜻과 수직선에서의 의미를 설명하시오.',
+ a:'절댓값은 수직선 위에서 어떤 수를 나타내는 점과 원점 사이의 거리를 말하며, 항상 0 또는 양수입니다.',
+ kw:[{l:'원점으로부터의 거리',a:['원점','거리']},{l:'항상 0 또는 양수',a:['0 또는 양수','음수가 아님']}]},
+{id:'N9',cat:'수와 연산',grade:'중1',q:'유리수의 대소를 비교하는 기본 원칙을 설명하시오.',
+ a:'양수는 0보다 크고, 음수는 0보다 작으며, 양수는 절댓값이 클수록 크고, 음수는 절댓값이 클수록 작습니다.',
+ kw:[{l:'양수>0>음수',a:['양수','음수']},{l:'음수는 절댓값이 클수록 작음',a:['음수','절댓값이 클수록 작']}]},
+{id:'N10',cat:'수와 연산',grade:'중1',q:'유한소수의 정의는 무엇인가요?',
+ a:'소수점 아래에 0이 아닌 숫자가 유한 개인 소수를 유한소수라고 합니다.',
+ kw:[{l:'소수점 아래 0이 아닌 숫자가 유한 개',a:['유한 개','유한개']}]},
+{id:'N11',cat:'수와 연산',grade:'중2',q:'무한소수의 정의는 무엇인가요?',
+ a:'소수점 아래에 0이 아닌 숫자가 무한히 많은 소수를 무한소수라고 합니다.',
+ kw:[{l:'소수점 아래 0이 아닌 숫자가 무한히 많음',a:['무한히 많']}]},
+{id:'N12',cat:'수와 연산',grade:'중2',q:'순환소수와 순환마디의 정의를 각각 설명하시오.',
+ a:'순환소수는 소수점 아래의 어떤 자리에서부터 일정한 숫자의 배열이 한없이 되풀이되는 무한소수이고, 순환마디는 그 되풀이되는 소수점 아래의 한 부분을 말합니다.',
+ kw:[{l:'순환소수: 일정한 배열이 한없이 되풀이되는 무한소수',a:['되풀이','한없이']},{l:'순환마디: 되풀이되는 한 부분',a:['순환마디','되풀이되는 부분']}]},
+{id:'N13',cat:'수와 연산',grade:'중2',q:'기약분수의 분모를 소인수분해했을 때, 그 분수를 유한소수로 나타낼 수 있는 조건은 무엇인가요?',
+ a:'기약분수의 분모를 소인수분해했을 때 분모의 소인수가 2나 5뿐이면 그 분수는 유한소수로 나타낼 수 있습니다.',
+ kw:[{l:'분모의 소인수가 2나 5뿐',a:['2나 5','2와 5']}]},
+{id:'N14',cat:'수와 연산',grade:'중2',q:'정수가 아닌 유리수와 소수의 관계를 설명하시오.',
+ a:'정수가 아닌 유리수는 유한소수 또는 순환소수로 나타낼 수 있고, 유한소수와 순환소수는 모두 유리수입니다.',
+ kw:[{l:'유한소수 또는 순환소수로 나타낼 수 있음',a:['유한소수','순환소수']},{l:'유한소수·순환소수는 모두 유리수',a:['모두 유리수']}]},
+{id:'N15',cat:'수와 연산',grade:'중3',q:'제곱근의 정의는 무엇인가요?',
+ a:'어떤 수 x를 제곱하여 a가 될 때, 즉 x제곱=a일 때 x를 a의 제곱근이라고 합니다.',
+ kw:[{l:'제곱하여 a가 되는 수',a:['제곱하여','a가 되는']}]},
+{id:'N16',cat:'수와 연산',grade:'중3',q:'양수 a의 제곱근은 몇 개이며, 그 부호는 어떠한가요?',
+ a:'양수 a의 제곱근은 절댓값이 같고 부호가 다른 양의 제곱근과 음의 제곱근 2개가 있습니다.',
+ kw:[{l:'2개',a:['2개']},{l:'절댓값이 같고 부호가 다름(양·음)',a:['절댓값이 같','부호가 다름']}]},
+{id:'N17',cat:'수와 연산',grade:'중3',q:'0의 제곱근은 몇 개인가요?',
+ a:'0의 제곱근은 0 하나뿐입니다.',
+ kw:[{l:'0 하나뿐',a:['0 하나','1개']}]},
+{id:'N18',cat:'수와 연산',grade:'중3',q:'무리수의 정의는 무엇인가요?',
+ a:'유리수가 아닌 수, 즉 순환하지 않는 무한소수로 나타내어지는 수를 무리수라고 합니다.',
+ kw:[{l:'유리수가 아닌 수',a:['유리수가 아닌']},{l:'순환하지 않는 무한소수',a:['순환하지 않는','무한소수']}]},
+{id:'N19',cat:'수와 연산',grade:'중3',q:'실수의 정의는 무엇인가요?',
+ a:'유리수와 무리수를 통틀어 실수라고 합니다.',
+ kw:[{l:'유리수와 무리수를 통틀어',a:['유리수와 무리수']}]},
+{id:'N20',cat:'수와 연산',grade:'중3',q:'모든 실수는 수직선 위의 점과 어떤 관계가 있나요?',
+ a:'수직선은 유리수와 무리수, 즉 모든 실수로 완전히 채워져 있어서 모든 실수는 수직선 위의 점에 하나씩 대응되고, 수직선 위의 점도 하나의 실수에 대응됩니다.',
+ kw:[{l:'수직선이 실수로 빈틈없이 채워짐',a:['빈틈없이','채워']},{l:'점과 실수가 일대일로 대응',a:['대응']}]},
+{id:'N21',cat:'수와 연산',grade:'중3',q:'제곱근의 곱셈과 나눗셈에 대한 기본 성질을 설명하시오.',
+ a:'a>0, b>0일 때 루트a×루트b는 루트(ab)이고, 루트a÷루트b는 루트(a/b)입니다.',
+ kw:[{l:'루트a×루트b=루트(ab)',a:['ab','곱']},{l:'루트a÷루트b=루트(a/b)',a:['a/b','나눗셈']}]},
+{id:'N22',cat:'수와 연산',grade:'중3',q:'분모의 유리화란 무엇인가요?',
+ a:'분모가 근호를 포함한 무리수일 때, 분모와 분자에 0이 아닌 같은 수를 곱하여 분모를 유리수로 고치는 것을 분모의 유리화라고 합니다.',
+ kw:[{l:'분모를 유리수로 고침',a:['분모','유리수로']},{l:'분모·분자에 같은 수를 곱함',a:['같은 수를 곱']}]},
+{id:'N23',cat:'수와 연산',grade:'중1',q:'분수를 소인수분해를 이용해 유한소수로 고치는 방법을 설명하시오.',
+ a:'분모, 분자에 2 또는 5의 거듭제곱을 적당히 곱해 분모를 10의 거듭제곱 꼴로 고치면 유한소수로 나타낼 수 있습니다.',
+ kw:[{l:'분모를 10의 거듭제곱으로 고침',a:['10의 거듭제곱']},{l:'2 또는 5의 거듭제곱을 곱함',a:['2 또는 5']}]},
+{id:'N24',cat:'수와 연산',grade:'중2',q:'순환소수를 분수로 나타내는 일반적인 방법의 첫 단계를 설명하시오.',
+ a:'주어진 순환소수를 x로 놓고, 양변에 10의 거듭제곱을 곱하여 소수점 아래의 순환하는 부분이 같은 두 식을 만든 뒤 두 식을 빼서 반복되는 부분을 없앱니다.',
+ kw:[{l:'x로 놓고 10의 거듭제곱을 곱함',a:['x로 놓','10의 거듭제곱']},{l:'두 식을 빼서 순환 부분을 없앰',a:['빼서','없앰']}]},
+{id:'N25',cat:'수와 연산',grade:'중1',q:'분모의 소인수 중에 2와 5 이외의 소인수가 있으면 그 분수는 어떻게 되나요?',
+ a:'그 분수는 유한소수로 나타낼 수 없고 순환소수로만 나타낼 수 있습니다.',
+ kw:[{l:'유한소수로 나타낼 수 없음',a:['유한소수로 나타낼 수 없']},{l:'순환소수가 됨',a:['순환소수']}]},
+{id:'N26',cat:'수와 연산',grade:'중3',q:'a가 어떤 실수이든 관계없이 루트(a제곱)의 값을 절댓값 기호를 써서 나타내면?',
+ a:'루트(a제곱)은 항상 |a|와 같습니다. 즉 a가 0 이상이면 a, a가 0보다 작으면 -a가 됩니다.',
+ kw:[{l:'|a|와 같음',a:['절댓값','|a|']},{l:'a≥0이면 a, a<0이면 -a',a:['a≥0','a<0']}]},
+{id:'N27',cat:'수와 연산',grade:'중1',q:'유리수의 나눗셈은 어떤 계산으로 바꾸어 할 수 있나요?',
+ a:'나누는 수의 역수를 곱하는 곱셈으로 바꾸어 계산할 수 있습니다.',
+ kw:[{l:'역수를 곱하는 곱셈',a:['역수']}]},
+{id:'N28',cat:'수와 연산',grade:'중3',q:'근호를 포함한 식의 덧셈과 뺄셈은 어떤 항끼리 계산하나요?',
+ a:'근호 안의 수가 같은 항끼리 동류항처럼 모아서 계수만 더하거나 빼서 계산합니다.',
+ kw:[{l:'근호 안의 수가 같은 항끼리',a:['근호 안의 수가 같']}]},
+{id:'N29',cat:'수와 연산',grade:'중1',q:'거듭제곱에서 밑과 지수는 각각 무엇을 의미하나요?',
+ a:'거듭제곱은 같은 수나 문자를 여러 번 곱한 것을 간단히 나타낸 것으로, 곱한 수를 밑, 곱한 횟수를 지수라고 합니다.',
+ kw:[{l:'밑: 곱한 수',a:['밑']},{l:'지수: 곱한 횟수',a:['지수','횟수']}]},
+{id:'N30',cat:'수와 연산',grade:'중1',q:'소인수의 정의는 무엇인가요?',
+ a:'자연수의 약수 중에서 소수인 것을 그 수의 소인수라고 합니다.',
+ kw:[{l:'약수 중 소수인 것',a:['약수','소수']}]},
+{id:'NA1',cat:'수와 연산',grade:'중3',level:'advanced',q:'루트2가 유리수가 아님을 증명하시오.',
+ a:'루트2가 유리수라고 가정하면 서로소인 자연수 a, b에 대하여 루트2=a/b로 나타낼 수 있습니다. 양변을 제곱하면 2b제곱=a제곱이므로 a제곱은 짝수이고 따라서 a도 짝수입니다. a=2k로 놓으면 2b제곱=4k제곱이므로 b제곱=2k제곱이 되어 b도 짝수가 되는데, 이는 a, b가 서로소라는 가정에 모순되므로 루트2는 유리수가 아닙니다.',
+ kw:[{l:'유리수라고 가정(귀류법)',a:['가정','귀류법']},{l:'a, b가 모두 짝수가 되어 서로소에 모순',a:['짝수','모순','서로소']}]},
+{id:'NA2',cat:'수와 연산',grade:'중2',level:'advanced',q:'유한소수와 순환소수는 왜 모두 유리수인지 설명하시오.',
+ a:'유한소수와 순환소수는 모두 분수 a/b(a, b는 정수, b는 0이 아님) 꼴로 나타낼 수 있기 때문에, 유리수의 정의에 따라 모두 유리수입니다.',
+ kw:[{l:'모두 분수 a/b 꼴로 나타낼 수 있음',a:['분수','a/b']},{l:'유리수의 정의를 만족',a:['유리수의 정의']}]},
+{id:'NA3',cat:'수와 연산',grade:'중3',level:'advanced',q:'원주율 파이가 유리수가 아닌 까닭을 설명하시오.',
+ a:'원주율은 순환하지 않는 무한소수인 무리수로 알려져 있으며, 유리수는 유한소수이거나 순환소수여야 하는데 원주율은 이 조건을 만족하지 않으므로 유리수가 아닙니다.',
+ kw:[{l:'순환하지 않는 무한소수',a:['순환하지 않는']},{l:'유리수의 조건(유한·순환소수)을 만족하지 못함',a:['유한소수','순환소수']}]},
+{id:'NA4',cat:'수와 연산',grade:'중3',level:'advanced',q:'두 무리수를 더하면 항상 무리수가 되는지, 반례를 들어 설명하시오.',
+ a:'항상 무리수가 되는 것은 아닙니다. 예를 들어 루트2와 -루트2는 각각 무리수이지만 이 둘을 더하면 0이 되어 유리수가 됩니다.',
+ kw:[{l:'항상 무리수는 아님',a:['항상','아님']},{l:'루트2와 -루트2를 더하면 0(유리수)',a:['루트2','-루트2','0']}]},
+{id:'NA5',cat:'수와 연산',grade:'중1',level:'advanced',q:'서로 다른 두 소수 p, q에 대하여 p와 q의 최소공배수는 얼마인지, 그 까닭과 함께 설명하시오.',
+ a:'서로 다른 두 소수는 공통인 소인수를 가지지 않으므로 최대공약수는 1이고, 이때 최소공배수는 두 수를 그대로 곱한 p×q가 됩니다.',
+ kw:[{l:'공통 소인수가 없어 최대공약수가 1',a:['최대공약수가 1']},{l:'최소공배수는 p×q',a:['p×q','두 수의 곱']}]},
+{id:'NA6',cat:'수와 연산',grade:'중2',level:'advanced',q:'0.999…(0.9의 순환소수)가 1과 같은 수임을 순환소수를 분수로 바꾸는 방법을 이용해 보이시오.',
+ a:'x=0.999…로 놓으면 10x=9.999…이고, 10x-x=9이므로 9x=9, 즉 x=1이 됩니다. 따라서 0.999…는 1과 같은 수입니다.',
+ kw:[{l:'10x-x로 소거하여 9x=9를 얻음',a:['10x','9x=9']},{l:'x=1, 즉 0.999…=1',a:['x=1','1과 같']}]},
+{id:'NA7',cat:'수와 연산',grade:'중3',level:'advanced',q:'넓이가 2인 정사각형의 한 변의 길이가 무리수임을 어떻게 알 수 있는지 설명하시오.',
+ a:'한 변의 길이를 x라 하면 x제곱=2이므로 x는 2의 양의 제곱근인 루트2인데, 루트2는 순환하지 않는 무한소수인 무리수이므로 한 변의 길이는 무리수입니다.',
+ kw:[{l:'한 변의 길이가 루트2',a:['루트2']},{l:'루트2는 무리수',a:['무리수']}]},
+{id:'NA8',cat:'수와 연산',grade:'중1',level:'advanced',q:'세 자연수의 최대공약수가 1이라고 해서 그중 어느 두 수도 서로소라고 할 수 있는지, 반례를 들어 설명하시오.',
+ a:'항상 그런 것은 아닙니다. 예를 들어 4, 6, 9는 세 수 전체의 최대공약수가 1이지만, 4와 6의 최대공약수는 2이므로 4와 6은 서로소가 아닙니다.',
+ kw:[{l:'항상 그런 것은 아님',a:['항상','아님']},{l:'4, 6, 9 같은 반례(일부는 서로소가 아님)',a:['반례','서로소가 아님']}]},
+{id:'A1',cat:'문자와 식',grade:'중1',q:'다항식에서 항, 상수항, 계수의 뜻을 각각 설명하시오.',
+ a:'항은 수 또는 문자의 곱으로 이루어진 식의 하나하나를 말하고, 상수항은 문자 없이 수로만 이루어진 항이며, 계수는 문자 앞에 곱해진 수를 말합니다.',
+ kw:[{l:'항: 수·문자의 곱으로 이루어진 각 부분',a:['항']},{l:'상수항: 수로만 이루어진 항',a:['상수항']},{l:'계수: 문자 앞의 수',a:['계수']}]},
+{id:'A2',cat:'문자와 식',grade:'중1',q:'일차식의 정의는 무엇인가요?',
+ a:'다항식에서 차수가 가장 큰 항의 차수가 1인 다항식을 일차식이라고 합니다.',
+ kw:[{l:'차수가 가장 큰 항의 차수가 1',a:['차수','1']}]},
+{id:'A3',cat:'문자와 식',grade:'중1',q:'동류항의 정의는 무엇인가요?',
+ a:'문자와 차수가 각각 같은 항을 동류항이라고 합니다.',
+ kw:[{l:'문자와 차수가 각각 같은 항',a:['문자','차수가 같']}]},
+{id:'A4',cat:'문자와 식',grade:'중1',q:'등식과 방정식의 차이를 설명하시오.',
+ a:'등식은 등호를 사용하여 두 수 또는 식이 같음을 나타낸 식이고, 방정식은 미지수의 값에 따라 참이 되기도 하고 거짓이 되기도 하는 등식을 말합니다.',
+ kw:[{l:'등식: 등호로 나타낸 식',a:['등식','등호']},{l:'방정식: 미지수 값에 따라 참·거짓이 달라지는 등식',a:['방정식','참이 되기도']}]},
+{id:'A5',cat:'문자와 식',grade:'중1',q:'항등식의 정의는 무엇인가요?',
+ a:'미지수에 어떤 값을 대입해도 항상 참이 되는 등식을 항등식이라고 합니다.',
+ kw:[{l:'어떤 값을 대입해도 항상 참',a:['항상 참','어떤 값']}]},
+{id:'A6',cat:'문자와 식',grade:'중1',q:'등식의 성질을 이용해 방정식을 푸는 기본 원리를 설명하시오.',
+ a:'등식의 양변에 같은 수를 더하거나 빼거나, 같은 수(0이 아닌 수)를 곱하거나 나누어도 등식은 성립하므로, 이 성질을 이용해 미지수만 남도록 식을 변형하여 방정식을 풉니다.',
+ kw:[{l:'양변에 같은 수를 더하거나 빼거나 곱하거나 나눔',a:['양변','같은 수']},{l:'등식은 계속 성립',a:['성립']}]},
+{id:'A7',cat:'문자와 식',grade:'중1',q:'이항이란 무엇인가요?',
+ a:'등식의 한쪽 변에 있는 항을 부호를 바꾸어 다른 변으로 옮기는 것을 이항이라고 합니다.',
+ kw:[{l:'부호를 바꾸어 다른 변으로 옮김',a:['부호를 바꾸','옮김']}]},
+{id:'A8',cat:'문자와 식',grade:'중2',q:'단항식의 곱셈에서 같은 문자끼리 곱할 때 지수는 어떻게 계산하나요?',
+ a:'지수법칙에 따라 밑이 같은 두 거듭제곱을 곱할 때는 지수끼리 더합니다.',
+ kw:[{l:'지수끼리 더함',a:['지수끼리 더함','더한다']}]},
+{id:'A9',cat:'문자와 식',grade:'중2',q:'거듭제곱의 거듭제곱을 계산하는 지수법칙을 설명하시오.',
+ a:'(a의 m제곱)의 n제곱은 지수끼리 곱하여 a의 mn제곱이 됩니다.',
+ kw:[{l:'지수끼리 곱함',a:['지수끼리 곱']}]},
+{id:'A10',cat:'문자와 식',grade:'중2',q:'같은 밑을 가진 거듭제곱의 나눗셈에서, 지수의 크기에 따라 결과가 어떻게 달라지나요?',
+ a:'m>n이면 지수끼리 빼서 a의 (m-n)제곱이 되고, m=n이면 1이 되며, m<n이면 분모에 a의 (n-m)제곱이 오는 분수 꼴이 됩니다.',
+ kw:[{l:'m>n일 때 지수끼리 뺌',a:['m>n','뺌']},{l:'m=n이면 1, m<n이면 분수 꼴',a:['m=n','m<n']}]},
+{id:'A11',cat:'문자와 식',grade:'중2',q:'다항식의 덧셈과 뺄셈은 어떻게 계산하나요?',
+ a:'괄호를 풀고 동류항끼리 모아서 간단히 정리하며, 뺄셈은 빼는 식의 각 항의 부호를 바꾸어 더하는 방식으로 계산합니다.',
+ kw:[{l:'괄호를 풀고 동류항끼리 정리',a:['동류항']},{l:'뺄셈은 부호를 바꾸어 더함',a:['부호를 바꾸']}]},
+{id:'A12',cat:'문자와 식',grade:'중2',q:'단항식과 다항식의 곱셈에서 이용하는 법칙은 무엇이며, 어떻게 계산하나요?',
+ a:'분배법칙을 이용하여 단항식을 다항식의 각 항에 곱하여 계산합니다.',
+ kw:[{l:'분배법칙',a:['분배법칙']},{l:'각 항에 곱함',a:['각 항']}]},
+{id:'A13',cat:'문자와 식',grade:'중2',q:'부등식이란 무엇인가요?',
+ a:'부등호(>, <, ≥, ≤)를 사용하여 수 또는 식의 대소 관계를 나타낸 식을 부등식이라고 합니다.',
+ kw:[{l:'부등호로 대소 관계를 나타낸 식',a:['부등호','대소 관계']}]},
+{id:'A14',cat:'문자와 식',grade:'중2',q:'부등식의 양변에 같은 음수를 곱하거나 나누면 부등호의 방향은 어떻게 되나요?',
+ a:'부등호의 방향이 반대로 바뀝니다.',
+ kw:[{l:'부등호의 방향이 바뀜(반대)',a:['바뀐다','반대']}]},
+{id:'A15',cat:'문자와 식',grade:'중2',q:'일차부등식의 정의는 무엇인가요?',
+ a:'부등식의 우변에 있는 모든 항을 좌변으로 이항하여 정리했을 때, (일차식)>0, <0, ≥0, ≤0 중 어느 하나의 꼴이 되는 부등식을 일차부등식이라고 합니다.',
+ kw:[{l:'이항하여 정리했을 때 일차식과 0의 대소 관계',a:['일차식','0']}]},
+{id:'A16',cat:'문자와 식',grade:'중2',q:'미지수가 2개인 연립일차방정식이란 무엇인가요?',
+ a:'미지수가 2개인 두 일차방정식을 한 쌍으로 묶어 나타낸 것을 연립일차방정식이라고 합니다.',
+ kw:[{l:'두 일차방정식을 한 쌍으로 묶음',a:['한 쌍','두 일차방정식']}]},
+{id:'A17',cat:'문자와 식',grade:'중2',q:'연립방정식을 가감법으로 푸는 방법을 설명하시오.',
+ a:'적당한 수를 곱하여 한 미지수의 계수의 절댓값이 같도록 만든 뒤, 두 식을 변끼리 더하거나 빼서 그 미지수를 소거하여 나머지 미지수의 값을 구합니다.',
+ kw:[{l:'계수의 절댓값을 같게 맞춤',a:['계수','절댓값']},{l:'더하거나 빼서 소거',a:['더하','빼서','소거']}]},
+{id:'A18',cat:'문자와 식',grade:'중2',q:'연립방정식을 대입법으로 푸는 방법을 설명하시오.',
+ a:'한 일차방정식을 한 미지수에 대한 식으로 나타낸 뒤, 이를 다른 방정식에 대입하여 하나의 미지수만 남은 방정식을 풀어서 해를 구합니다.',
+ kw:[{l:'한 미지수에 대한 식으로 나타냄',a:['한 미지수']},{l:'다른 방정식에 대입',a:['대입']}]},
+{id:'A19',cat:'문자와 식',grade:'중2',q:'해가 무수히 많은 연립방정식과 해가 없는 연립방정식은 각각 두 방정식을 변형했을 때 어떤 특징을 가지나요?',
+ a:'두 방정식을 변형하였을 때 x, y의 계수와 상수항이 각각 같으면 해가 무수히 많고, x, y의 계수는 각각 같지만 상수항이 다르면 해가 없습니다.',
+ kw:[{l:'계수와 상수항이 모두 같으면 해가 무수히 많음',a:['상수항이 같','무수히 많']},{l:'계수는 같고 상수항이 다르면 해가 없음',a:['상수항이 다름','해가 없']}]},
+{id:'A20',cat:'문자와 식',grade:'중3',q:'다항식의 곱셈에서 곱셈 공식 (a+b)의 제곱을 전개하면 어떻게 되나요?',
+ a:'(a+b)의 제곱은 a제곱+2ab+b제곱이 됩니다.',
+ kw:[{l:'a제곱+2ab+b제곱',a:['2ab','제곱']}]},
+{id:'A21',cat:'문자와 식',grade:'중3',q:'곱셈 공식 (a+b)(a-b)를 전개하면 어떻게 되나요?',
+ a:'(a+b)(a-b)는 a제곱-b제곱이 됩니다.',
+ kw:[{l:'a제곱-b제곱',a:['a제곱','b제곱']}]},
+{id:'A22',cat:'문자와 식',grade:'중3',q:'인수분해란 무엇인가요?',
+ a:'하나의 다항식을 두 개 이상의 다항식의 곱으로 나타내는 것을 인수분해라고 하며, 전개와는 반대의 과정입니다.',
+ kw:[{l:'다항식을 곱의 꼴로 나타냄',a:['곱의 꼴','곱으로']},{l:'전개의 반대 과정',a:['전개','반대']}]},
+{id:'A23',cat:'문자와 식',grade:'중3',q:'완전제곱식을 이용한 인수분해 공식 a제곱+2ab+b제곱은 어떻게 인수분해되나요?',
+ a:'a제곱+2ab+b제곱은 (a+b)의 제곱으로 인수분해됩니다.',
+ kw:[{l:'(a+b)의 제곱',a:['a+b','제곱']}]},
+{id:'A24',cat:'문자와 식',grade:'중3',q:'a제곱-b제곱은 어떤 공식을 이용해 인수분해할 수 있나요?',
+ a:'합차 공식을 이용해 (a+b)(a-b)로 인수분해할 수 있습니다.',
+ kw:[{l:'(a+b)(a-b)',a:['a+b','a-b']}]},
+{id:'A25',cat:'문자와 식',grade:'중3',q:'이차방정식의 정의는 무엇인가요?',
+ a:'미지수가 1개이고 그 차수가 2인 방정식, 즉 (이차식)=0의 꼴로 나타낼 수 있는 방정식을 이차방정식이라고 합니다.',
+ kw:[{l:'미지수의 차수가 2',a:['차수가 2','이차식']}]},
+{id:'A26',cat:'문자와 식',grade:'중3',q:'이차방정식을 인수분해를 이용해 푸는 원리를 설명하시오.',
+ a:'두 수 또는 두 식을 곱하여 0이 되면 그중 적어도 하나는 0이라는 성질을 이용하여, 좌변을 인수분해한 뒤 각 인수를 0으로 놓아 해를 구합니다.',
+ kw:[{l:'곱이 0이면 하나는 0이라는 성질',a:['곱이 0']},{l:'각 인수를 0으로 놓음',a:['인수를 0']}]},
+{id:'A27',cat:'문자와 식',grade:'중3',q:'이차방정식의 근의 공식은 무엇인가요?',
+ a:'ax제곱+bx+c=0(a≠0)의 근은 x=(-b±루트(b제곱-4ac))/2a입니다.',
+ kw:[{l:'x=(-b±루트(b²-4ac))/2a',a:['근의 공식','b','4ac']}]},
+{id:'A28',cat:'문자와 식',grade:'중3',q:'이차방정식 ax제곱+bx+c=0에서 근의 개수를 판별하는 데 쓰이는 식과 그 판별 방법을 설명하시오.',
+ a:'판별식 b제곱-4ac의 값을 이용하는데, 이 값이 양수이면 서로 다른 두 근, 0이면 중근(한 근), 음수이면 실근이 없습니다.',
+ kw:[{l:'판별식 b²-4ac',a:['판별식','b²-4ac']},{l:'양수:두 근, 0:중근, 음수:실근 없음',a:['중근','실근이 없']}]},
+{id:'A29',cat:'문자와 식',grade:'중1',q:'부등식 x>a의 해를 수직선 위에 나타낼 때, a를 나타내는 점은 어떻게 표시하나요?',
+ a:'등호가 포함되지 않으므로 a를 나타내는 점을 빈 원(속이 빈 동그라미)으로 표시합니다.',
+ kw:[{l:'빈 원(속이 빈 점)',a:['빈 원','속이 빈']}]},
+{id:'A30',cat:'문자와 식',grade:'중1',q:'문자를 사용하여 식을 나타낼 때 곱셈 기호와 나눗셈 기호를 생략하는 규칙을 설명하시오.',
+ a:'곱셈 기호는 생략하고 수를 문자 앞에 쓰며, 같은 문자의 곱은 거듭제곱으로 나타내고, 나눗셈 기호는 생략하고 분수 꼴로 나타냅니다.',
+ kw:[{l:'곱셈 기호 생략, 수를 앞에',a:['곱셈 기호']},{l:'나눗셈은 분수 꼴로',a:['분수 꼴']}]},
+{id:'A31',cat:'문자와 식',grade:'중2',q:'이차식의 정의는 무엇인가요?',
+ a:'다항식의 각 항의 차수 중에서 가장 큰 차수가 2인 다항식을 이차식이라고 합니다.',
+ kw:[{l:'가장 큰 차수가 2',a:['차수가 2']}]},
+{id:'A32',cat:'문자와 식',grade:'중2',q:'다항식을 단항식으로 나눌 때 흔히 저지르기 쉬운 실수는 무엇인가요?',
+ a:'다항식의 모든 항을 각각 나누어야 하는데, 그중 어느 한 항만 나누고 나머지 항은 나누지 않는 실수를 하기 쉽습니다.',
+ kw:[{l:'모든 항을 나누지 않고 일부만 나눔',a:['일부','한 항만']}]},
+{id:'A33',cat:'문자와 식',grade:'중3',q:'곱셈 공식 (x+a)(x+b)를 전개하면 어떻게 되나요?',
+ a:'(x+a)(x+b)는 x제곱+(a+b)x+ab가 됩니다.',
+ kw:[{l:'x²+(a+b)x+ab',a:['a+b','ab']}]},
+{id:'A34',cat:'문자와 식',grade:'중3',q:'x제곱+(a+b)x+ab 꼴의 이차식은 어떻게 인수분해하나요?',
+ a:'곱이 ab이고 합이 a+b가 되는 두 수 a, b를 찾아 (x+a)(x+b)로 인수분해합니다.',
+ kw:[{l:'곱이 ab, 합이 a+b인 두 수를 찾음',a:['곱','합']},{l:'(x+a)(x+b)로 인수분해',a:['x+a','x+b']}]},
+{id:'A35',cat:'문자와 식',grade:'중1',q:'복잡한 일차방정식에서 계수가 소수나 분수일 때는 어떻게 처리하여 푸나요?',
+ a:'계수가 소수이면 양변에 10의 거듭제곱을 곱하고, 계수가 분수이면 양변에 분모의 최소공배수를 곱하여 계수를 정수로 바꾼 뒤 풉니다.',
+ kw:[{l:'소수: 10의 거듭제곱을 곱함',a:['10의 거듭제곱']},{l:'분수: 분모의 최소공배수를 곱함',a:['최소공배수']}]},
+{id:'AA1',cat:'문자와 식',grade:'중3',level:'advanced',q:'이차방정식의 근의 공식을 완전제곱식을 이용해 유도하시오.',
+ a:'ax제곱+bx+c=0의 양변을 a로 나누면 x제곱+(b/a)x+c/a=0이 되고, 양변에 (b/2a)의 제곱을 더해 좌변을 완전제곱식으로 만들면 (x+b/2a)의 제곱=(b제곱-4ac)/4a제곱이 됩니다. 양변에 제곱근을 취하고 정리하면 x=(-b±루트(b제곱-4ac))/2a라는 근의 공식을 얻습니다.',
+ kw:[{l:'양변을 a로 나누고 완전제곱식을 만듦',a:['완전제곱식']},{l:'제곱근을 취해 근의 공식을 유도',a:['제곱근','근의 공식']}]},
+{id:'AA2',cat:'문자와 식',grade:'중2',level:'advanced',q:'가감법과 대입법 중 어느 방법을 쓰는 것이 더 편리한지는 방정식의 형태에 따라 달라집니다. 방정식 중 하나가 y=(x의 식) 꼴일 때 어느 방법이 더 편리한지, 그 까닭과 함께 설명하시오.',
+ a:'이 경우에는 대입법이 더 편리한데, 이미 한 미지수가 다른 미지수의 식으로 정리되어 있어서 이를 다른 방정식에 바로 대입하면 계수를 맞추는 과정 없이 곧바로 하나의 미지수만 남은 방정식을 얻을 수 있기 때문입니다.',
+ kw:[{l:'대입법이 편리함',a:['대입법']},{l:'이미 한 미지수가 정리되어 있어 바로 대입 가능',a:['바로 대입','정리되어']}]},
+{id:'AA3',cat:'문자와 식',grade:'중3',level:'advanced',q:'이차방정식의 두 근을 α, β라고 할 때, 이 이차방정식을 α, β를 이용해 인수분해된 형태로 나타내면 어떻게 되는지 설명하시오.',
+ a:'이차방정식 ax제곱+bx+c=0의 두 근이 α, β이면 이 이차방정식은 a(x-α)(x-β)=0의 꼴로 나타낼 수 있습니다.',
+ kw:[{l:'a(x-α)(x-β)=0',a:['x-α','x-β']}]},
+{id:'AA4',cat:'문자와 식',grade:'중2',level:'advanced',q:'서로 평행한 두 직선을 나타내는 두 일차방정식을 연립하면 해가 어떻게 되는지, 그 까닭과 함께 설명하시오.',
+ a:'평행한 두 직선은 기울기는 같지만 y절편이 다르기 때문에 서로 만나는 점이 없으므로, 이 두 직선을 나타내는 연립방정식은 해가 없습니다.',
+ kw:[{l:'평행한 두 직선은 만나는 점이 없음',a:['만나는 점이 없','평행']},{l:'연립방정식의 해가 없음',a:['해가 없']}]},
+{id:'AA5',cat:'문자와 식',grade:'중3',level:'advanced',q:'이차방정식의 판별식이 음수일 때 실근이 없다고 말하는 까닭을 근의 공식과 관련지어 설명하시오.',
+ a:'근의 공식에는 루트(b제곱-4ac)라는 제곱근이 포함되어 있는데, 근호 안의 값인 판별식 b제곱-4ac가 음수이면 실수의 범위에서는 그 제곱근을 구할 수 없으므로 실근이 존재하지 않게 됩니다.',
+ kw:[{l:'근호 안의 값(판별식)이 음수',a:['판별식','음수']},{l:'실수 범위에서 제곱근을 구할 수 없음',a:['실수 범위','제곱근을 구할 수 없']}]},
+{id:'AA6',cat:'문자와 식',grade:'중1',level:'advanced',q:'등식의 성질 중 양변에 0을 곱하면 등식이 어떻게 되는지, 그리고 이 성질을 방정식을 풀 때 사용하지 않는 까닭을 설명하시오.',
+ a:'등식의 양변에 0을 곱하면 양변이 모두 0이 되어 항상 참인 등식이 되지만, 이렇게 하면 원래 방정식이 가진 미지수에 대한 정보가 모두 사라져 버려 방정식의 해를 구하는 데 쓸모가 없으므로 사용하지 않습니다.',
+ kw:[{l:'양변이 모두 0이 되어 버림',a:['0이 됨','모두 0']},{l:'미지수 정보가 사라져 해를 구할 수 없음',a:['정보가 사라','해를 구할 수 없']}]},
+{id:'AA7',cat:'문자와 식',grade:'중3',level:'advanced',q:'이차방정식 x제곱=k(k는 실수)의 근의 개수가 k의 부호에 따라 어떻게 달라지는지 설명하시오.',
+ a:'k>0이면 양의 제곱근과 음의 제곱근인 서로 다른 두 실근을 가지고, k=0이면 x=0이라는 하나의 중근을 가지며, k<0이면 제곱하여 음수가 되는 실수가 없으므로 실근을 가지지 않습니다.',
+ kw:[{l:'k>0: 서로 다른 두 실근',a:['k>0','두 실근']},{l:'k=0: 중근, k<0: 실근 없음',a:['중근','실근이 없']}]},
+{id:'AA8',cat:'문자와 식',grade:'중2',level:'advanced',q:'부등식의 양변에 같은 음수를 곱할 때 부등호의 방향이 바뀌는 까닭을 구체적인 수의 예를 들어 설명하시오.',
+ a:'예를 들어 2<3은 참인 부등식인데, 양변에 -1을 곱하면 -2와 -3이 되고 실제로는 -2>-3이 성립합니다. 이처럼 음수를 곱하면 수의 크고 작은 순서가 수직선 위에서 서로 반대쪽으로 뒤집히기 때문에 부등호의 방향도 반대로 바뀌어야 부등식이 계속 참이 될 수 있습니다.',
+ kw:[{l:'수의 순서가 반대로 뒤집힘',a:['뒤집','반대']},{l:'구체적인 수의 예',a:['2<3','-2','-3']}]},
+{id:'F1',cat:'함수',grade:'중1',q:'함수의 정의는 무엇인가요?',
+ a:'두 변수 x, y에 대하여 x의 값이 변함에 따라 y의 값이 하나씩 정해지는 대응 관계가 있을 때, y를 x에 대한 함수라고 합니다.',
+ kw:[{l:'x의 값에 따라 y의 값이 하나씩 정해짐',a:['하나씩 정해']}]},
+{id:'F2',cat:'함수',grade:'중1',q:'정비례 관계와 반비례 관계의 식은 각각 어떤 꼴인가요?',
+ a:'정비례 관계는 y=ax(a는 0이 아닌 상수) 꼴이고, 반비례 관계는 y=a/x(a는 0이 아닌 상수) 꼴입니다.',
+ kw:[{l:'정비례: y=ax',a:['y=ax']},{l:'반비례: y=a/x',a:['a/x']}]},
+{id:'F3',cat:'함수',grade:'중1',q:'좌표평면 위의 한 점의 좌표를 순서쌍으로 나타낼 때, 그 순서는 무엇을 의미하나요?',
+ a:'점의 좌표 (a, b)에서 앞의 a는 x좌표, 뒤의 b는 y좌표를 의미하며, 이 순서는 서로 바뀌면 다른 점을 나타냅니다.',
+ kw:[{l:'앞은 x좌표, 뒤는 y좌표',a:['x좌표','y좌표']}]},
+{id:'F4',cat:'함수',grade:'중2',q:'일차함수의 정의는 무엇인가요?',
+ a:'y가 x에 대한 일차식 y=ax+b(a, b는 상수, a는 0이 아님)로 나타내어질 때, 이 함수를 일차함수라고 합니다.',
+ kw:[{l:'y=ax+b(a≠0) 꼴',a:['ax+b','a≠0']}]},
+{id:'F5',cat:'함수',grade:'중2',q:'일차함수 y=ax+b의 그래프는 일차함수 y=ax의 그래프를 어떻게 이동한 것인가요?',
+ a:'y축의 방향으로 b만큼 평행이동한 직선입니다.',
+ kw:[{l:'y축의 방향으로 b만큼 평행이동',a:['y축','평행이동','b만큼']}]},
+{id:'F6',cat:'함수',grade:'중2',q:'일차함수의 그래프에서 x절편과 y절편의 정의를 각각 설명하시오.',
+ a:'x절편은 그래프가 x축과 만나는 점의 x좌표로 y=0일 때의 x의 값이고, y절편은 그래프가 y축과 만나는 점의 y좌표로 x=0일 때의 y의 값입니다.',
+ kw:[{l:'x절편: y=0일 때 x의 값',a:['x절편']},{l:'y절편: x=0일 때 y의 값',a:['y절편']}]},
+{id:'F7',cat:'함수',grade:'중2',q:'일차함수의 그래프에서 기울기의 정의는 무엇인가요?',
+ a:'x의 값의 증가량에 대한 y의 값의 증가량의 비율로, 일차함수 y=ax+b에서 이 비율은 항상 a로 일정합니다.',
+ kw:[{l:'x의 증가량에 대한 y의 증가량의 비율',a:['증가량의 비율']},{l:'항상 a로 일정',a:['a로 일정']}]},
+{id:'F8',cat:'함수',grade:'중2',q:'일차함수 y=ax+b의 그래프에서 a의 부호가 그래프의 모양에 어떤 영향을 주나요?',
+ a:'a가 양수이면 x의 값이 증가할 때 y의 값도 증가하는 오른쪽 위로 향하는 직선이고, a가 음수이면 x의 값이 증가할 때 y의 값은 감소하는 오른쪽 아래로 향하는 직선입니다.',
+ kw:[{l:'a>0: 오른쪽 위로 향함(증가)',a:['오른쪽 위','증가']},{l:'a<0: 오른쪽 아래로 향함(감소)',a:['오른쪽 아래','감소']}]},
+{id:'F9',cat:'함수',grade:'중2',q:'두 일차함수의 그래프가 서로 평행하기 위한 조건은 무엇인가요?',
+ a:'두 일차함수의 기울기가 같고 y절편은 다를 때, 두 그래프는 서로 평행합니다.',
+ kw:[{l:'기울기가 같고 y절편이 다름',a:['기울기가 같','y절편이 다름']}]},
+{id:'F10',cat:'함수',grade:'중2',q:'기울기와 한 점을 알 때 일차함수의 식을 구하는 순서를 설명하시오.',
+ a:'구하는 일차함수의 식을 y=ax+b로 놓은 뒤, 주어진 점의 좌표를 대입하여 b의 값을 구합니다.',
+ kw:[{l:'y=ax+b로 놓음',a:['y=ax+b']},{l:'점의 좌표를 대입해 b를 구함',a:['대입','b']}]},
+{id:'F11',cat:'함수',grade:'중2',q:'미지수가 2개인 일차방정식 ax+by+c=0의 그래프는 어떤 함수의 그래프와 같은가요?',
+ a:'y를 x에 대한 식으로 정리했을 때 얻어지는 일차함수 y=-(a/b)x-(c/b)의 그래프와 같습니다.',
+ kw:[{l:'y에 대해 정리한 일차함수의 그래프와 같음',a:['일차함수']}]},
+{id:'F12',cat:'함수',grade:'중2',q:'일차방정식 x=m의 그래프는 어떤 모양의 직선인가요?',
+ a:'점 (m, 0)을 지나고 y축에 평행한(x축에 수직인) 직선입니다.',
+ kw:[{l:'y축에 평행(x축에 수직)',a:['y축에 평행','수직']}]},
+{id:'F13',cat:'함수',grade:'중2',q:'연립방정식의 해와 두 일차방정식의 그래프는 어떤 관계가 있나요?',
+ a:'연립방정식의 해는 두 일차방정식의 그래프의 교점의 좌표와 같습니다.',
+ kw:[{l:'두 그래프의 교점의 좌표',a:['교점']}]},
+{id:'F14',cat:'함수',grade:'중2',q:'연립방정식의 해가 한 쌍, 없음, 무수히 많음일 때 두 직선의 위치 관계는 각각 어떠한가요?',
+ a:'해가 한 쌍이면 두 직선은 한 점에서 만나고, 해가 없으면 두 직선은 평행하며, 해가 무수히 많으면 두 직선은 일치합니다.',
+ kw:[{l:'한 쌍: 한 점에서 만남',a:['한 점']},{l:'없음: 평행, 무수히 많음: 일치',a:['평행','일치']}]},
+{id:'F15',cat:'함수',grade:'중3',q:'이차함수의 정의는 무엇인가요?',
+ a:'y가 x에 대한 이차식 y=ax제곱+bx+c(a, b, c는 상수, a는 0이 아님)로 나타내어질 때, 이 함수를 이차함수라고 합니다.',
+ kw:[{l:'y=ax²+bx+c(a≠0)',a:['ax²','a≠0']}]},
+{id:'F16',cat:'함수',grade:'중3',q:'이차함수 y=ax제곱의 그래프는 어떤 모양의 곡선인가요?',
+ a:'원점을 꼭짓점으로 하고 y축을 축으로 하는 좌우 대칭인 포물선입니다.',
+ kw:[{l:'포물선',a:['포물선']},{l:'원점이 꼭짓점, y축 대칭',a:['원점','y축','대칭']}]},
+{id:'F17',cat:'함수',grade:'중3',q:'이차함수 y=ax제곱에서 a의 절댓값이 커질수록 그래프의 폭은 어떻게 변하나요?',
+ a:'a의 절댓값이 커질수록 그래프의 폭은 좁아지고, a의 절댓값이 작아질수록 그래프의 폭은 넓어집니다.',
+ kw:[{l:'절댓값이 클수록 폭이 좁아짐',a:['절댓값이 크','좁아']}]},
+{id:'F18',cat:'함수',grade:'중3',q:'이차함수 y=a(x-p)의 제곱+q의 그래프의 꼭짓점의 좌표는 무엇인가요?',
+ a:'꼭짓점의 좌표는 (p, q)입니다.',
+ kw:[{l:'(p, q)',a:['p','q']}]},
+{id:'F19',cat:'함수',grade:'중3',q:'이차함수 y=ax제곱의 그래프를 x축의 방향으로 p만큼, y축의 방향으로 q만큼 평행이동하면 어떤 식이 되나요?',
+ a:'y=a(x-p)의 제곱+q가 됩니다.',
+ kw:[{l:'y=a(x-p)²+q',a:['x-p','q']}]},
+{id:'F20',cat:'함수',grade:'중3',q:'이차함수 y=ax제곱+bx+c의 그래프에서 a의 부호는 그래프의 모양에 어떤 영향을 주나요?',
+ a:'a가 양수이면 아래로 볼록한 포물선이고, a가 음수이면 위로 볼록한 포물선입니다.',
+ kw:[{l:'a>0: 아래로 볼록',a:['아래로 볼록']},{l:'a<0: 위로 볼록',a:['위로 볼록']}]},
+{id:'F21',cat:'함수',grade:'중1',q:'정비례 관계 y=ax(a≠0)의 그래프는 어떤 도형이며, 어떤 점을 지나나요?',
+ a:'원점을 지나는 직선이며, a의 값에 따라 지나는 사분면과 기울기가 달라집니다.',
+ kw:[{l:'원점을 지나는 직선',a:['원점','직선']}]},
+{id:'F22',cat:'함수',grade:'중1',q:'반비례 관계 y=a/x(a≠0)의 그래프는 어떤 곡선의 모양인가요?',
+ a:'좌표축에 한없이 가까워지면서 한 쌍의 매끄러운 곡선을 이루는 쌍곡선 모양입니다.',
+ kw:[{l:'쌍곡선',a:['쌍곡선']}]},
+{id:'F23',cat:'함수',grade:'중2',q:'x절편과 y절편을 알 때 일차함수의 그래프를 그리는 순서를 설명하시오.',
+ a:'x절편과 y절편을 각각 구하여 x축, y축과 만나는 두 점을 좌표평면 위에 나타내고, 이 두 점을 직선으로 연결합니다.',
+ kw:[{l:'두 절편으로 두 점을 나타냄',a:['두 점']},{l:'직선으로 연결',a:['직선으로 연결']}]},
+{id:'F24',cat:'함수',grade:'중2',q:'함숫값이란 무엇인가요?',
+ a:'함수 y=f(x)에서 x의 값에 따라 하나씩 정해지는 y의 값 f(x)를 x에 대한 함숫값이라고 합니다.',
+ kw:[{l:'x에 따라 정해지는 y의 값 f(x)',a:['f(x)']}]},
+{id:'F25',cat:'함수',grade:'중2',q:'서로 다른 두 점을 지나는 직선의 기울기를 구하는 방법을 설명하시오.',
+ a:'두 점의 좌표를 (x1, y1), (x2, y2)라고 하면 기울기는 (y2-y1)을 (x2-x1)로 나눈 값, 즉 y의 값의 증가량을 x의 값의 증가량으로 나눈 값입니다.',
+ kw:[{l:'(y2-y1)/(x2-x1)',a:['y2-y1','x2-x1']}]},
+{id:'FA1',cat:'함수',grade:'중2',level:'advanced',q:'두 일차함수의 그래프가 일치하기 위한 조건은 무엇이며, 이때 연립방정식의 해는 어떻게 되는지 설명하시오.',
+ a:'두 일차함수의 기울기와 y절편이 각각 같으면 두 그래프는 일치하며, 이때는 두 방정식이 사실상 같은 직선을 나타내므로 그 직선 위의 모든 점이 해가 되어 연립방정식의 해가 무수히 많아집니다.',
+ kw:[{l:'기울기와 y절편이 모두 같음',a:['기울기','y절편']},{l:'해가 무수히 많음',a:['무수히 많']}]},
+{id:'FA2',cat:'함수',grade:'중3',level:'advanced',q:'이차함수 y=ax제곱+bx+c의 그래프의 축의 방정식을 완전제곱식으로 고쳐서 구하는 과정을 설명하시오.',
+ a:'y=ax제곱+bx+c를 a로 묶어 완전제곱식 꼴로 변형하면 y=a(x+b/2a)의 제곱-(b제곱-4ac)/4a가 되므로, 이 식의 꼭짓점의 x좌표인 x=-b/2a가 축의 방정식이 됩니다.',
+ kw:[{l:'완전제곱식으로 변형',a:['완전제곱식']},{l:'축의 방정식 x=-b/2a',a:['-b/2a']}]},
+{id:'FA3',cat:'함수',grade:'중1',level:'advanced',q:'정비례 관계 y=ax와 반비례 관계 y=a/x의 그래프가 어떤 점에서 만나는지, a>0인 경우를 예로 들어 설명하시오.',
+ a:'a>0일 때 두 식을 연립하면 ax=a/x이므로 x제곱=1, 즉 x=1 또는 x=-1이 되어, 두 그래프는 제1사분면의 점 (1, a)와 제3사분면의 점 (-1, -a)에서 만납니다.',
+ kw:[{l:'x²=1을 풀어 x=±1',a:['x=1','x=-1']},{l:'제1사분면과 제3사분면에서 만남',a:['제1사분면','제3사분면']}]},
+{id:'FA4',cat:'함수',grade:'중2',level:'advanced',q:'온도가 일정한 비율로 변하는 상황을 일차함수로 나타내는 방법을 예를 들어 설명하시오.',
+ a:'처음 온도가 a도이고 1분마다 온도가 k도씩 변한다면, x분 후의 온도를 y도라고 할 때 y=a+kx라는 일차함수로 나타낼 수 있으며, 이는 y절편이 a이고 기울기가 k인 직선입니다.',
+ kw:[{l:'y=a+kx 꼴로 나타냄',a:['y=a+kx']},{l:'y절편은 처음값, 기울기는 변화율',a:['y절편','기울기']}]},
+{id:'FA5',cat:'함수',grade:'중3',level:'advanced',q:'이차함수 y=ax제곱+bx+c의 그래프가 x축과 만나는 점의 개수는 무엇을 풀어서 알 수 있는지 설명하시오.',
+ a:'이차함수의 그래프가 x축과 만나는 점의 x좌표는 y=0일 때의 x의 값이므로, 이차방정식 ax제곱+bx+c=0을 풀어서 판별식의 부호로 실근의 개수를 확인하면 x축과 만나는 점의 개수를 알 수 있습니다.',
+ kw:[{l:'이차방정식 ax²+bx+c=0을 풀어 확인',a:['이차방정식']},{l:'판별식으로 실근의 개수를 확인',a:['판별식']}]},
+{id:'FA6',cat:'함수',grade:'중2',level:'advanced',q:'속력이 일정한 두 물체가 서로 다른 지점에서 동시에 출발해 마주 보고 이동할 때, 두 물체가 만나는 시각을 구하는 데 일차함수가 어떻게 활용될 수 있는지 설명하시오.',
+ a:'각 물체의 위치를 시간 x에 대한 일차함수 y로 각각 나타낸 뒤, 두 일차함수를 연립하여 풀면 두 그래프의 교점에 해당하는 x, y의 값을 구할 수 있는데, 이 교점의 x값이 바로 두 물체가 만나는 시각이 됩니다.',
+ kw:[{l:'각 물체의 위치를 일차함수로 나타냄',a:['일차함수로 나타']},{l:'두 그래프의 교점이 만나는 시각',a:['교점']}]},
+{id:'G1',cat:'기하',grade:'중1',q:'맞꼭지각의 정의와 그 크기의 성질을 설명하시오.',
+ a:'두 직선이 한 점에서 만날 때 서로 마주 보는 두 각을 맞꼭지각이라고 하며, 맞꼭지각의 크기는 항상 서로 같습니다.',
+ kw:[{l:'서로 마주 보는 두 각',a:['마주 보는']},{l:'크기가 서로 같음',a:['같다','같음']}]},
+{id:'G2',cat:'기하',grade:'중1',q:'평행선이 한 직선과 만날 때 생기는 동위각과 엇각의 정의를 각각 설명하시오.',
+ a:'동위각은 두 직선이 다른 한 직선과 만날 때 서로 같은 위치에 있는 각이고, 엇각은 서로 엇갈린 위치에 있는 각입니다.',
+ kw:[{l:'동위각: 같은 위치의 각',a:['동위각','같은 위치']},{l:'엇각: 엇갈린 위치의 각',a:['엇각','엇갈린']}]},
+{id:'G3',cat:'기하',grade:'중1',q:'평행선의 성질을 설명하시오.',
+ a:'두 직선이 평행하면 동위각의 크기와 엇각의 크기가 각각 같습니다.',
+ kw:[{l:'동위각의 크기가 같음',a:['동위각']},{l:'엇각의 크기가 같음',a:['엇각']}]},
+{id:'G4',cat:'기하',grade:'중1',q:'작도란 무엇이며, 작도에 사용하는 두 가지 도구는 무엇인가요?',
+ a:'작도는 눈금 없는 자와 컴퍼스만을 사용하여 도형을 그리는 것으로, 자는 두 점을 잇는 직선을 그리는 데, 컴퍼스는 원을 그리거나 선분의 길이를 옮기는 데 사용합니다.',
+ kw:[{l:'눈금 없는 자와 컴퍼스',a:['자','컴퍼스']}]},
+{id:'G5',cat:'기하',grade:'중1',q:'삼각형이 하나로 결정되기 위한 조건(SSS, SAS, ASA)을 각각 간단히 설명하시오.',
+ a:'세 변의 길이가 주어질 때(SSS), 두 변의 길이와 그 끼인각의 크기가 주어질 때(SAS), 한 변의 길이와 그 양 끝 각의 크기가 주어질 때(ASA) 삼각형이 하나로 결정됩니다.',
+ kw:[{l:'SSS: 세 변의 길이',a:['세 변']},{l:'SAS: 두 변과 끼인각',a:['끼인각']},{l:'ASA: 한 변과 양 끝 각',a:['양 끝 각']}]},
+{id:'G6',cat:'기하',grade:'중1',q:'삼각형의 합동 조건 세 가지를 말하시오.',
+ a:'대응하는 세 변의 길이가 각각 같을 때(SSS 합동), 대응하는 두 변의 길이와 그 끼인각의 크기가 각각 같을 때(SAS 합동), 대응하는 한 변의 길이와 그 양 끝 각의 크기가 각각 같을 때(ASA 합동) 두 삼각형은 합동입니다.',
+ kw:[{l:'SSS 합동',a:['SSS']},{l:'SAS 합동',a:['SAS']},{l:'ASA 합동',a:['ASA']}]},
+{id:'G7',cat:'기하',grade:'중1',q:'다각형의 외각의 크기의 합은 항상 몇 도인가요?',
+ a:'다각형의 종류와 관계없이 외각의 크기의 합은 항상 360°입니다.',
+ kw:[{l:'항상 360°',a:['360']}]},
+{id:'G8',cat:'기하',grade:'중1',q:'정n각형의 한 내각의 크기를 구하는 식은 무엇인가요?',
+ a:'정n각형의 한 내각의 크기는 180°×(n-2)를 n으로 나눈 값입니다.',
+ kw:[{l:'180°×(n-2)÷n',a:['n-2','180']}]},
+{id:'G9',cat:'기하',grade:'중1',q:'부채꼴에서 호, 현, 중심각의 관계를 설명하시오.',
+ a:'한 원에서 호의 길이와 부채꼴의 넓이는 중심각의 크기에 정비례하지만, 현의 길이는 중심각의 크기에 정비례하지 않습니다.',
+ kw:[{l:'호의 길이·넓이는 중심각에 정비례',a:['정비례']},{l:'현의 길이는 정비례하지 않음',a:['현','정비례하지 않']}]},
+{id:'G10',cat:'기하',grade:'중1',q:'다면체와 회전체의 정의를 각각 설명하시오.',
+ a:'다면체는 다각형인 면으로만 둘러싸인 입체도형이고, 회전체는 평면도형을 한 직선을 축으로 하여 1회전 시킬 때 만들어지는 입체도형입니다.',
+ kw:[{l:'다면체: 다각형인 면으로 둘러싸인 입체',a:['다면체','다각형']},{l:'회전체: 평면도형을 회전시켜 만든 입체',a:['회전체','회전']}]},
+{id:'G11',cat:'기하',grade:'중1',q:'정다면체의 정의는 무엇인가요?',
+ a:'각 면이 모두 합동인 정다각형이고, 각 꼭짓점에 모인 면의 개수가 모두 같은 다면체를 정다면체라고 합니다.',
+ kw:[{l:'각 면이 모두 합동인 정다각형',a:['합동','정다각형']},{l:'각 꼭짓점에 모인 면의 개수가 같음',a:['꼭짓점','면의 개수']}]},
+{id:'G12',cat:'기하',grade:'중1',q:'정다면체는 모두 몇 가지가 있나요?',
+ a:'정다면체는 정사면체, 정육면체, 정팔면체, 정십이면체, 정이십면체의 5가지뿐입니다.',
+ kw:[{l:'5가지',a:['5가지','다섯 가지']},{l:'정사면체·정육면체·정팔면체·정십이면체·정이십면체',a:['정사면체','정육면체']}]},
+{id:'S1',cat:'확률과 통계',grade:'중1',q:'줄기와 잎 그림에서 줄기와 잎은 각각 무엇을 나타내나요?',
+ a:'변량을 큰 자리의 수와 작은 자리의 수로 구분할 때, 큰 자리의 수를 줄기, 작은 자리의 수를 잎이라고 합니다.',
+ kw:[{l:'줄기: 큰 자리의 수',a:['줄기','큰 자리']},{l:'잎: 작은 자리의 수',a:['잎','작은 자리']}]},
+{id:'S2',cat:'확률과 통계',grade:'중1',q:'도수분포표에서 계급, 계급값, 도수의 뜻을 각각 설명하시오.',
+ a:'계급은 변량을 일정한 간격으로 나눈 구간이고, 계급값은 계급을 대표하는 값으로 계급의 양 끝 값의 평균이며, 도수는 각 계급에 속하는 변량의 개수입니다.',
+ kw:[{l:'계급: 나눈 구간',a:['계급','구간']},{l:'계급값: 구간의 대표값',a:['계급값']},{l:'도수: 변량의 개수',a:['도수','개수']}]},
+{id:'S3',cat:'확률과 통계',grade:'중1',q:'상대도수의 정의는 무엇인가요?',
+ a:'전체 도수에 대한 각 계급의 도수의 비율을 상대도수라고 합니다.',
+ kw:[{l:'전체 도수에 대한 각 계급 도수의 비율',a:['비율']}]},
+{id:'G16',cat:'기하',grade:'중2',q:'이등변삼각형의 정의와 두 밑각의 크기 사이의 관계를 설명하시오.',
+ a:'이등변삼각형은 두 변의 길이가 같은 삼각형이며, 이등변삼각형의 두 밑각의 크기는 항상 서로 같습니다.',
+ kw:[{l:'두 변의 길이가 같은 삼각형',a:['두 변']},{l:'두 밑각의 크기가 같음',a:['두 밑각','같다']}]},
+{id:'G17',cat:'기하',grade:'중2',q:'이등변삼각형의 꼭지각의 이등분선은 밑변과 어떤 관계에 있나요?',
+ a:'이등변삼각형의 꼭지각의 이등분선은 밑변을 수직이등분합니다.',
+ kw:[{l:'밑변을 수직이등분',a:['수직이등분']}]},
+{id:'G18',cat:'기하',grade:'중2',q:'직각삼각형의 합동 조건 두 가지(RHA, RHS)를 설명하시오.',
+ a:'빗변의 길이와 한 예각의 크기가 각각 같은 두 직각삼각형은 합동(RHA 합동)이고, 빗변의 길이와 다른 한 변의 길이가 각각 같은 두 직각삼각형도 합동(RHS 합동)입니다.',
+ kw:[{l:'RHA: 빗변과 한 예각',a:['RHA','예각']},{l:'RHS: 빗변과 다른 한 변',a:['RHS']}]},
+{id:'G19',cat:'기하',grade:'중2',q:'삼각형의 외심의 정의는 무엇인가요?',
+ a:'삼각형의 세 변의 수직이등분선의 교점을 외심이라고 하며, 외심에서 세 꼭짓점에 이르는 거리는 모두 같습니다.',
+ kw:[{l:'세 변의 수직이등분선의 교점',a:['수직이등분선','교점']},{l:'세 꼭짓점까지의 거리가 같음',a:['꼭짓점','거리가 같']}]},
+{id:'G20',cat:'기하',grade:'중2',q:'삼각형의 내심의 정의는 무엇인가요?',
+ a:'삼각형의 세 내각의 이등분선의 교점을 내심이라고 하며, 내심에서 세 변에 이르는 거리는 모두 같습니다.',
+ kw:[{l:'세 내각의 이등분선의 교점',a:['내각의 이등분선','교점']},{l:'세 변까지의 거리가 같음',a:['변','거리가 같']}]},
+{id:'G21',cat:'기하',grade:'중2',q:'평행사변형이 되는 조건을 한 가지 이상 말해보세요.',
+ a:'두 쌍의 대변이 각각 평행하거나, 두 쌍의 대변의 길이가 각각 같거나, 두 쌍의 대각의 크기가 각각 같거나, 두 대각선이 서로 다른 것을 이등분하면 평행사변형이 됩니다.',
+ kw:[{l:'두 쌍의 대변이 각각 평행',a:['대변이','평행']},{l:'두 대각선이 서로를 이등분',a:['대각선','이등분']}]},
+{id:'G22',cat:'기하',grade:'중2',q:'직사각형과 마름모는 각각 어떤 사각형으로 정의되나요?',
+ a:'직사각형은 네 내각의 크기가 모두 같은 사각형이고, 마름모는 네 변의 길이가 모두 같은 사각형입니다.',
+ kw:[{l:'직사각형: 네 내각이 모두 같음',a:['내각이 모두 같']},{l:'마름모: 네 변이 모두 같음',a:['변이 모두 같']}]},
+{id:'G23',cat:'기하',grade:'중2',q:'정사각형은 직사각형과 마름모 중 어느 성질을 모두 가지고 있나요?',
+ a:'정사각형은 직사각형인 동시에 마름모여서 두 도형의 성질을 모두 가지고 있습니다.',
+ kw:[{l:'직사각형이면서 마름모',a:['직사각형','마름모']}]},
+{id:'G24',cat:'기하',grade:'중2',q:'등변사다리꼴의 정의는 무엇인가요?',
+ a:'아랫변의 양 끝 각의 크기가 같은 사다리꼴을 등변사다리꼴이라고 합니다.',
+ kw:[{l:'아랫변의 양 끝 각의 크기가 같음',a:['양 끝 각']}]},
+{id:'G25',cat:'기하',grade:'중2',q:'닮음의 정의와 닮음비의 뜻을 각각 설명하시오.',
+ a:'한 도형을 일정한 비율로 확대 또는 축소한 것이 다른 도형과 합동일 때 두 도형은 닮음 관계에 있다고 하고, 닮음비는 닮은 두 도형에서 대응하는 변의 길이의 비를 말합니다.',
+ kw:[{l:'확대·축소한 것이 다른 도형과 합동',a:['확대','축소','합동']},{l:'닮음비: 대응변의 길이의 비',a:['닮음비','대응변']}]},
+{id:'G26',cat:'기하',grade:'중2',q:'삼각형의 닮음 조건 세 가지(SSS, SAS, AA)를 말하시오.',
+ a:'세 쌍의 대응변의 길이의 비가 같을 때(SSS 닮음), 두 쌍의 대응변의 길이의 비가 같고 그 끼인각의 크기가 같을 때(SAS 닮음), 두 쌍의 대응각의 크기가 각각 같을 때(AA 닮음) 두 삼각형은 닮음입니다.',
+ kw:[{l:'SSS 닮음',a:['SSS']},{l:'SAS 닮음',a:['SAS']},{l:'AA 닮음',a:['AA']}]},
+{id:'G27',cat:'기하',grade:'중2',q:'닮은 두 평면도형의 넓이의 비는 닮음비와 어떤 관계가 있나요?',
+ a:'닮음비가 m:n이면 넓이의 비는 m의 제곱 대 n의 제곱, 즉 m제곱:n제곱입니다.',
+ kw:[{l:'닮음비의 제곱',a:['제곱']}]},
+{id:'G28',cat:'기하',grade:'중2',q:'닮은 두 입체도형의 부피의 비는 닮음비와 어떤 관계가 있나요?',
+ a:'닮음비가 m:n이면 부피의 비는 m의 세제곱 대 n의 세제곱, 즉 m세제곱:n세제곱입니다.',
+ kw:[{l:'닮음비의 세제곱',a:['세제곱']}]},
+{id:'G29',cat:'기하',grade:'중2',q:'삼각형에서 두 변의 중점을 연결한 선분은 나머지 한 변과 어떤 관계에 있나요?',
+ a:'삼각형의 두 변의 중점을 연결한 선분은 나머지 한 변과 평행하고, 그 길이는 나머지 한 변의 길이의 절반입니다.',
+ kw:[{l:'나머지 변과 평행',a:['평행']},{l:'길이는 절반',a:['절반']}]},
+{id:'G30',cat:'기하',grade:'중2',q:'삼각형의 무게중심의 정의와 그 성질을 설명하시오.',
+ a:'삼각형의 세 중선의 교점을 무게중심이라고 하며, 무게중심은 각 중선의 길이를 꼭짓점으로부터 2:1로 나눕니다.',
+ kw:[{l:'세 중선의 교점',a:['중선','교점']},{l:'꼭짓점으로부터 2:1로 나눔',a:['2:1']}]},
+{id:'G31',cat:'기하',grade:'중2',q:'피타고라스 정리를 설명하시오.',
+ a:'직각삼각형에서 직각을 낀 두 변의 길이를 각각 a, b라 하고 빗변의 길이를 c라고 하면, a제곱+b제곱=c제곱이 성립합니다.',
+ kw:[{l:'a²+b²=c²',a:['a²','b²','c²']}]},
+{id:'G32',cat:'기하',grade:'중2',q:'세 변의 길이가 a, b, c(c가 가장 긴 변)인 삼각형이 직각삼각형이 되기 위한 조건은 무엇인가요?',
+ a:'a제곱+b제곱=c제곱이 성립하면 이 삼각형은 빗변의 길이가 c인 직각삼각형입니다.',
+ kw:[{l:'a²+b²=c²이 성립',a:['a²+b²=c²']}]},
+{id:'S4',cat:'확률과 통계',grade:'중2',q:'사건이 일어날 확률을 구하는 기본 공식은 무엇인가요?',
+ a:'모든 경우가 일어날 가능성이 같을 때, 확률은 어떤 사건이 일어나는 경우의 수를 모든 경우의 수로 나눈 값입니다.',
+ kw:[{l:'(사건이 일어나는 경우의 수)÷(모든 경우의 수)',a:['경우의 수']}]},
+{id:'S5',cat:'확률과 통계',grade:'중2',q:'어떤 사건이 일어날 확률과 일어나지 않을 확률 사이의 관계는 무엇인가요?',
+ a:'사건 A가 일어날 확률을 p라고 하면, 사건 A가 일어나지 않을 확률은 1-p입니다.',
+ kw:[{l:'1-p',a:['1-p','1에서 뺌']}]},
+{id:'G35',cat:'기하',grade:'중3',q:'직각삼각형에서 삼각비 사인(sin), 코사인(cos), 탄젠트(tan)의 정의를 각각 설명하시오.',
+ a:'한 예각의 크기를 A라고 할 때, sinA는 빗변에 대한 높이(대변)의 비, cosA는 빗변에 대한 밑변의 비, tanA는 밑변에 대한 높이(대변)의 비로 정의됩니다.',
+ kw:[{l:'sinA=높이/빗변',a:['sin']},{l:'cosA=밑변/빗변',a:['cos']},{l:'tanA=높이/밑변',a:['tan']}]},
+{id:'G36',cat:'기하',grade:'중3',q:'삼각비를 이용해 직각삼각형의 넓이를 구하는 공식을 설명하시오.',
+ a:'두 변의 길이와 그 끼인각을 알 때, 삼각형의 넓이는 두 변의 길이의 곱에 끼인각의 사인값을 곱한 후 2로 나누어 구할 수 있습니다.',
+ kw:[{l:'두 변의 곱×사인값÷2',a:['sin','2로 나눔']}]},
+{id:'G37',cat:'기하',grade:'중3',q:'원의 중심에서 현에 내린 수선은 그 현과 어떤 관계에 있나요?',
+ a:'원의 중심에서 현에 내린 수선은 그 현을 수직이등분합니다.',
+ kw:[{l:'현을 수직이등분함',a:['수직이등분']}]},
+{id:'G38',cat:'기하',grade:'중3',q:'원의 접선과 그 접점을 지나는 반지름은 어떤 관계에 있나요?',
+ a:'원의 접선은 그 접점을 지나는 반지름과 서로 수직입니다.',
+ kw:[{l:'서로 수직',a:['수직']}]},
+{id:'G39',cat:'기하',grade:'중3',q:'원 밖의 한 점에서 그 원에 그은 두 접선의 길이는 어떤 관계에 있나요?',
+ a:'원 밖의 한 점에서 그 원에 그은 두 접선의 길이는 서로 같습니다.',
+ kw:[{l:'서로 같음',a:['같다','같음']}]},
+{id:'G40',cat:'기하',grade:'중3',q:'원주각의 정의는 무엇인가요?',
+ a:'원 위의 한 점에서 그 원 위의 다른 두 점을 이은 두 선분이 이루는 각을 원주각이라고 합니다.',
+ kw:[{l:'원 위의 한 점에서 다른 두 점을 이은 각',a:['원 위의 한 점']}]},
+{id:'G41',cat:'기하',grade:'중3',q:'한 원에서 호에 대한 원주각과 그 호에 대한 중심각의 크기 사이의 관계를 설명하시오.',
+ a:'한 호에 대한 원주각의 크기는 그 호에 대한 중심각의 크기의 절반입니다.',
+ kw:[{l:'중심각의 절반',a:['절반','1/2']}]},
+{id:'G42',cat:'기하',grade:'중3',q:'한 원에서 같은 호에 대한 원주각들의 크기는 어떤 관계에 있나요?',
+ a:'한 호에 대한 원주각의 크기는 모두 같습니다.',
+ kw:[{l:'모두 같음',a:['같다','같음']}]},
+{id:'G43',cat:'기하',grade:'중3',q:'반원에 대한 원주각의 크기는 몇 도인가요?',
+ a:'반원에 대한 원주각의 크기는 항상 90°입니다.',
+ kw:[{l:'90°',a:['90']}]},
+{id:'G44',cat:'기하',grade:'중1',q:'다각형의 대각선의 개수를 구하는 방법을 설명하시오.',
+ a:'n각형의 한 꼭짓점에서 그을 수 있는 대각선은 (n-3)개이므로, 전체 대각선의 개수는 n×(n-3)을 2로 나눈 값입니다.',
+ kw:[{l:'n(n-3)/2',a:['n-3','2로 나눔']}]},
+{id:'G45',cat:'기하',grade:'중1',q:'각기둥과 각뿔의 옆면은 각각 어떤 모양인가요?',
+ a:'각기둥의 옆면은 모두 직사각형이고, 각뿔의 옆면은 모두 삼각형입니다.',
+ kw:[{l:'각기둥: 직사각형',a:['직사각형']},{l:'각뿔: 삼각형',a:['삼각형']}]},
+{id:'GA1',cat:'기하',grade:'중2',level:'advanced',q:'삼각형의 외심이 항상 하나만 존재하는 까닭을 증명하시오.',
+ a:'삼각형의 두 변의 수직이등분선은 평행하지 않으므로 반드시 한 점에서 만나는데, 이 교점은 두 수직이등분선의 성질에 의해 두 꼭짓점 쌍으로부터 각각 같은 거리에 있으므로 결국 세 꼭짓점 모두로부터 같은 거리에 있게 됩니다. 따라서 나머지 한 변의 수직이등분선도 반드시 이 점을 지나게 되어 세 수직이등분선이 한 점(외심)에서 만나게 되고, 이 점은 유일합니다.',
+ kw:[{l:'두 수직이등분선의 교점은 세 꼭짓점에서 같은 거리',a:['수직이등분선','같은 거리']},{l:'나머지 수직이등분선도 그 점을 지남(유일)',a:['한 점','유일']}]},
+{id:'GA2',cat:'기하',grade:'중2',level:'advanced',q:'삼각형의 내심이 항상 하나만 존재하는 까닭을 증명하시오.',
+ a:'삼각형의 두 내각의 이등분선은 평행하지 않으므로 반드시 한 점에서 만나는데, 각의 이등분선 위의 점은 그 각의 두 변에서 같은 거리에 있다는 성질에 의해 이 교점은 삼각형의 세 변 모두로부터 같은 거리에 있게 됩니다. 따라서 나머지 한 내각의 이등분선도 반드시 이 점을 지나게 되어 세 내각의 이등분선이 한 점(내심)에서 만나게 되고, 이 점은 유일합니다.',
+ kw:[{l:'각의 이등분선 위의 점은 두 변에서 같은 거리',a:['이등분선','같은 거리']},{l:'세 이등분선이 한 점에서 만남(유일)',a:['한 점','유일']}]},
+{id:'GA3',cat:'기하',grade:'중2',level:'advanced',q:'삼각형의 무게중심이 항상 하나만 존재하는 까닭을 간단히 설명하시오.',
+ a:'삼각형의 두 중선은 평행하지 않으므로 반드시 한 점에서 만나며, 삼각형의 성질에 의해 이 교점은 세 중선을 모두 꼭짓점으로부터 2:1로 나누는 지점이 됩니다. 이 비율은 어느 두 중선으로 구해도 같으므로 나머지 한 중선도 이 점을 지나게 되어 세 중선이 한 점(무게중심)에서 만나며 이 점은 유일합니다.',
+ kw:[{l:'두 중선의 교점이 항상 2:1 지점',a:['2:1']},{l:'세 중선이 한 점에서 만남(유일)',a:['한 점','유일']}]},
+{id:'GA4',cat:'기하',grade:'중2',level:'advanced',q:'피타고라스 정리를 두 가지 이상의 방법으로 증명하시오.',
+ a:'첫 번째 방법은 직각삼각형 ABC에서 각 변을 연장해 한 변의 길이가 a+b인 큰 정사각형을 만들고, 그 안에 빗변의 길이 c를 한 변으로 하는 정사각형과 원래의 직각삼각형 4개를 배치하는 방법으로, 큰 정사각형의 넓이를 두 가지 방식으로 계산해 비교하면 c의 제곱이 a의 제곱과 b의 제곱의 합과 같음을 보일 수 있습니다. 두 번째 방법은 직각삼각형의 각 변을 지름으로 하는 세 반원을 그려 넓이 사이의 관계를 이용하는 방법으로, 빗변을 지름으로 하는 반원의 넓이가 나머지 두 변을 지름으로 하는 반원의 넓이의 합과 같음을 보여 같은 결론을 얻을 수 있습니다.',
+ kw:[{l:'정사각형 넓이 비교를 이용한 증명',a:['정사각형','넓이']},{l:'세 반원의 넓이 관계를 이용한 증명',a:['반원']}]},
+{id:'GA5',cat:'기하',grade:'중1',level:'advanced',q:'정다면체가 정사면체, 정육면체, 정팔면체, 정십이면체, 정이십면체의 5가지뿐인 까닭을 증명하시오.',
+ a:'정다면체가 만들어지려면 한 꼭짓점에 모이는 각의 크기의 합이 360°보다 작아야 하고, 한 꼭짓점에 적어도 3개의 면이 모여야 합니다. 정삼각형(한 내각 60°)은 3개, 4개, 5개가 모일 때만 조건을 만족해 정사면체, 정팔면체, 정이십면체가 되고, 정사각형(한 내각 90°)은 3개가 모일 때만 만족해 정육면체가 되며, 정오각형(한 내각 108°)도 3개가 모일 때만 만족해 정십이면체가 됩니다. 정육각형부터는 한 내각이 120° 이상이어서 3개만 모여도 360° 이상이 되어 정다면체를 만들 수 없으므로, 정다면체는 이 5가지뿐입니다.',
+ kw:[{l:'한 꼭짓점에서 각의 합이 360°보다 작아야 함',a:['360°','작아야']},{l:'정육각형 이상은 조건을 만족할 수 없음',a:['정육각형','만족할 수 없']}]},
+{id:'GA6',cat:'기하',grade:'중3',level:'advanced',q:'한 호에 대한 원주각의 크기가 모두 같다는 사실을 원주각과 중심각의 관계를 이용해 설명하시오.',
+ a:'한 호에 대한 원주각의 크기는 그 호에 대한 중심각의 크기의 절반으로 일정하게 정해지는데, 중심각의 크기는 원주 위의 점의 위치와 관계없이 그 호에 대해 하나로 고정되어 있으므로, 그 절반인 원주각의 크기도 원주 위의 어느 점에서 재더라도 항상 같은 값을 가지게 됩니다.',
+ kw:[{l:'원주각은 중심각의 절반으로 일정',a:['중심각의 절반']},{l:'중심각이 고정되어 있어 원주각도 항상 같음',a:['고정','항상 같']}]},
+{id:'GA7',cat:'기하',grade:'중3',level:'advanced',q:'직각삼각형의 세 변의 길이 사이의 관계인 피타고라스 정리와 삼각비 사이에는 어떤 연관이 있는지 설명하시오.',
+ a:'직각삼각형에서 sin의 제곱과 cos의 제곱을 더하면 (대변/빗변)의 제곱과 (밑변/빗변)의 제곱의 합이 되는데, 분자에 피타고라스 정리를 적용하면 대변의 제곱과 밑변의 제곱의 합이 빗변의 제곱과 같으므로 이 값은 항상 1이 됩니다. 즉 sin의 제곱과 cos의 제곱의 합은 피타고라스 정리로부터 항상 1이라는 관계가 나옵니다.',
+ kw:[{l:'sin²+cos²의 분자에 피타고라스 정리를 적용',a:['피타고라스']},{l:'sin²+cos²=1',a:['1']}]},
+{id:'GA8',cat:'기하',grade:'중2',level:'advanced',q:'닮음비가 m:n인 두 평면도형의 넓이의 비가 m제곱:n제곱이 되는 까닭을 삼각형을 예로 들어 설명하시오.',
+ a:'닮음비가 m:n인 두 삼각형은 밑변의 길이도 m:n, 높이도 m:n의 비를 가지므로, 넓이는 밑변과 높이를 곱한 값에 비례하여 (m×m):(n×n), 즉 m제곱:n제곱의 비를 가지게 됩니다.',
+ kw:[{l:'밑변과 높이가 모두 m:n의 비',a:['밑변','높이']},{l:'넓이는 두 길이의 곱이라 제곱의 비가 됨',a:['제곱','곱']}]},
+{id:'GA9',cat:'기하',grade:'중2',level:'advanced',q:'정삼각형에서 외심과 내심이 일치하는 까닭을 설명하시오.',
+ a:'정삼각형은 세 변의 길이와 세 각의 크기가 모두 같으므로, 각 꼭짓점에서 대변에 내린 수선은 그 대변을 수직이등분하는 동시에 그 꼭짓점의 각을 이등분하는 선이 됩니다. 따라서 외심을 결정하는 수직이등분선과 내심을 결정하는 각의 이등분선이 정삼각형에서는 완전히 같은 선이 되므로, 외심과 내심이 한 점에서 일치하게 됩니다.',
+ kw:[{l:'수선이 수직이등분선이면서 각의 이등분선이 됨',a:['수직이등분선','각의 이등분선']},{l:'외심과 내심이 같은 점이 됨',a:['일치']}]},
+{id:'GA10',cat:'기하',grade:'중3',level:'advanced',q:'원 밖의 한 점에서 그 원에 그은 두 접선의 길이가 서로 같은 까닭을 증명하시오.',
+ a:'원 밖의 한 점 P에서 원에 그은 두 접선의 접점을 각각 A, B라고 하면, 삼각형 PAO와 삼각형 PBO에서 반지름 OA와 OB의 길이가 같고, 접선은 접점을 지나는 반지름과 수직이므로 두 각이 모두 직각으로 같으며, 빗변 PO는 공통입니다. 따라서 두 직각삼각형은 RHS 합동이므로 대응변인 PA와 PB의 길이는 서로 같습니다.',
+ kw:[{l:'두 직각삼각형(PAO, PBO)이 RHS 합동',a:['RHS','합동']},{l:'대응변 PA=PB',a:['PA','PB']}]},
+{id:'S6',cat:'확률과 통계',grade:'중2',q:'경우의 수란 무엇인가요?',
+ a:'같은 조건에서 반복할 수 있는 실험이나 관찰에서 어떤 사건이 일어나는 가짓수를 경우의 수라고 합니다.',
+ kw:[{l:'사건이 일어나는 가짓수',a:['가짓수']}]},
+{id:'S7',cat:'확률과 통계',grade:'중2',q:'두 사건 A, B가 동시에 일어나지 않을 때, 사건 A 또는 사건 B가 일어나는 경우의 수는 어떻게 구하나요?',
+ a:'사건 A가 일어나는 경우의 수와 사건 B가 일어나는 경우의 수를 더하여 구합니다.',
+ kw:[{l:'각 경우의 수를 더함',a:['더함','더한다']}]},
+{id:'S8',cat:'확률과 통계',grade:'중2',q:'사건 A와 사건 B가 동시에 일어나는 경우의 수는 어떻게 구하나요?',
+ a:'사건 A가 일어나는 경우의 수와 그 각각에 대하여 사건 B가 일어나는 경우의 수를 곱하여 구합니다.',
+ kw:[{l:'두 경우의 수를 곱함',a:['곱함','곱한다']}]},
+{id:'S9',cat:'확률과 통계',grade:'중2',q:'n명을 한 줄로 세우는 경우의 수를 구하는 식을 설명하시오.',
+ a:'n명을 한 줄로 세우는 경우의 수는 n×(n-1)×(n-2)×…×2×1로 구합니다.',
+ kw:[{l:'n×(n-1)×…×1',a:['n-1','1까지 곱함']}]},
+{id:'S10',cat:'확률과 통계',grade:'중2',q:'확률의 값의 범위는 어떻게 되나요?',
+ a:'어떤 사건이 일어날 확률 p는 항상 0 이상 1 이하, 즉 0≤p≤1입니다.',
+ kw:[{l:'0 이상 1 이하',a:['0','1']}]},
+{id:'S11',cat:'확률과 통계',grade:'중2',q:'반드시 일어나는 사건과 절대로 일어나지 않는 사건의 확률은 각각 얼마인가요?',
+ a:'반드시 일어나는 사건의 확률은 1이고, 절대로 일어나지 않는 사건의 확률은 0입니다.',
+ kw:[{l:'반드시 일어남: 확률 1',a:['1']},{l:'절대 일어나지 않음: 확률 0',a:['0']}]},
+{id:'S12',cat:'확률과 통계',grade:'중2',q:'두 사건 A, B가 동시에 일어나지 않을 때, 사건 A 또는 사건 B가 일어날 확률은 어떻게 구하나요?',
+ a:'사건 A가 일어날 확률과 사건 B가 일어날 확률을 더하여 구합니다.',
+ kw:[{l:'각 확률을 더함',a:['더함']}]},
+{id:'S13',cat:'확률과 통계',grade:'중2',q:'두 사건 A, B가 서로 영향을 끼치지 않을 때, 사건 A와 사건 B가 동시에 일어날 확률은 어떻게 구하나요?',
+ a:'사건 A가 일어날 확률과 사건 B가 일어날 확률을 곱하여 구합니다.',
+ kw:[{l:'각 확률을 곱함',a:['곱함']}]},
+{id:'S14',cat:'확률과 통계',grade:'중2',q:'뽑은 것을 다시 넣고 연속하여 뽑는 경우와 다시 넣지 않고 연속하여 뽑는 경우, 두 번째 사건이 일어날 확률에는 어떤 차이가 있나요?',
+ a:'다시 넣고 뽑으면 처음과 나중의 조건이 같아 두 번째 확률도 처음과 같지만, 다시 넣지 않고 뽑으면 조건이 달라져 두 번째 확률이 처음과 달라집니다.',
+ kw:[{l:'다시 넣으면 조건이 같음(확률 동일)',a:['같음']},{l:'다시 넣지 않으면 조건이 다름(확률 달라짐)',a:['다름','달라']}]},
+{id:'S15',cat:'확률과 통계',grade:'중3',q:'자료의 대푯값이란 무엇이며, 대표적인 대푯값 세 가지는 무엇인가요?',
+ a:'자료 전체의 특징을 하나의 수로 나타낸 값을 대푯값이라고 하며, 대표적으로 평균, 중앙값, 최빈값이 있습니다.',
+ kw:[{l:'자료 전체의 특징을 하나의 수로 나타냄',a:['자료 전체']},{l:'평균, 중앙값, 최빈값',a:['평균','중앙값','최빈값']}]},
+{id:'S16',cat:'확률과 통계',grade:'중3',q:'중앙값의 정의는 무엇인가요?',
+ a:'자료를 크기순으로 나열했을 때 한가운데 있는 값을 중앙값이라고 합니다.',
+ kw:[{l:'크기순으로 나열했을 때 한가운데 값',a:['한가운데','가운데']}]},
+{id:'S17',cat:'확률과 통계',grade:'중3',q:'최빈값의 정의는 무엇인가요?',
+ a:'자료에서 가장 많이 나타나는 값을 최빈값이라고 합니다.',
+ kw:[{l:'가장 많이 나타나는 값',a:['가장 많이']}]},
+{id:'S18',cat:'확률과 통계',grade:'중3',q:'편차의 정의는 무엇인가요?',
+ a:'변량에서 평균을 뺀 값을 편차라고 하며, 편차의 총합은 항상 0입니다.',
+ kw:[{l:'변량에서 평균을 뺀 값',a:['변량','평균을 뺀']},{l:'편차의 합은 항상 0',a:['합은 0']}]},
+{id:'S19',cat:'확률과 통계',grade:'중3',q:'분산과 표준편차는 각각 어떻게 구하나요?',
+ a:'분산은 편차를 제곱한 값의 평균이고, 표준편차는 분산의 양의 제곱근입니다.',
+ kw:[{l:'분산: 편차의 제곱의 평균',a:['편차','제곱','평균']},{l:'표준편차: 분산의 양의 제곱근',a:['제곱근']}]},
+{id:'S20',cat:'확률과 통계',grade:'중3',q:'산포도가 크다는 것은 자료가 어떤 상태임을 의미하나요?',
+ a:'산포도가 크다는 것은 변량들이 평균으로부터 멀리 흩어져 있어 자료가 고르지 못하다는 것을 의미합니다.',
+ kw:[{l:'평균에서 멀리 흩어져 있음',a:['흩어져']}]},
+{id:'S21',cat:'확률과 통계',grade:'중3',q:'산점도란 무엇인가요?',
+ a:'두 변량 x, y로 이루어진 자료를 순서쌍 (x, y)로 좌표평면 위에 점으로 나타낸 그래프를 산점도라고 합니다.',
+ kw:[{l:'두 변량을 순서쌍으로 좌표평면에 나타냄',a:['순서쌍','좌표평면']}]},
+{id:'S22',cat:'확률과 통계',grade:'중3',q:'양의 상관관계와 음의 상관관계는 각각 무엇을 의미하나요?',
+ a:'한 변량이 증가할 때 다른 변량도 대체로 증가하는 경향이 있으면 양의 상관관계, 한 변량이 증가할 때 다른 변량은 대체로 감소하는 경향이 있으면 음의 상관관계라고 합니다.',
+ kw:[{l:'양의 상관관계: 함께 증가하는 경향',a:['함께 증가','양의']},{l:'음의 상관관계: 한쪽이 증가하면 다른 쪽이 감소',a:['감소','음의']}]},
+{id:'SA1',cat:'확률과 통계',grade:'중3',level:'advanced',q:'분산을 구할 때 편차를 그대로 더하지 않고 제곱하여 평균을 구하는 까닭을 설명하시오.',
+ a:'편차는 평균보다 큰 값은 양수, 작은 값은 음수가 되어 편차를 그대로 더하면 양수와 음수가 서로 상쇄되어 항상 0이 되어 버리므로 자료의 흩어진 정도를 나타낼 수 없습니다. 따라서 편차를 제곱하여 모두 양수로 만든 뒤 평균을 구하면 부호가 상쇄되지 않고 자료가 평균으로부터 흩어진 정도를 수치로 나타낼 수 있습니다.',
+ kw:[{l:'편차의 합은 항상 0이 되어 버림',a:['상쇄','0이 됨']},{l:'제곱하면 부호가 상쇄되지 않음',a:['제곱','부호']}]},
+{id:'SA2',cat:'확률과 통계',grade:'중2',level:'advanced',q:'주사위 한 개를 던져 나온 눈의 수가 홀수이거나 4의 배수일 확률을 구하는 과정을 설명하시오.',
+ a:'홀수가 나올 경우는 1, 3, 5의 3가지이고 4의 배수가 나올 경우는 4의 1가지인데, 두 사건은 동시에 일어나지 않으므로(홀수이면서 동시에 4의 배수인 경우가 없으므로) 두 확률을 더하여 3/6+1/6=4/6, 즉 2/3의 확률을 얻습니다.',
+ kw:[{l:'두 사건이 동시에 일어나지 않아 확률을 더함',a:['더함','동시에 일어나지 않']},{l:'2/3',a:['2/3','4/6']}]},
+{id:'SA3',cat:'확률과 통계',grade:'중3',level:'advanced',q:'두 반의 수학 시험 평균 점수가 같더라도 표준편차가 다르다면, 이것이 각 반의 성적 분포에 대해 무엇을 알려 주는지 설명하시오.',
+ a:'평균이 같더라도 표준편차가 큰 반은 학생들의 점수가 평균에서 멀리 흩어져 있어 성적이 고르지 못하고 잘하는 학생과 못하는 학생의 편차가 큰 반면, 표준편차가 작은 반은 학생들의 점수가 평균 가까이에 모여 있어 성적이 비교적 고르다는 것을 알 수 있습니다.',
+ kw:[{l:'표준편차가 크면 점수가 고르지 못함',a:['고르지 못함','흩어져']},{l:'표준편차가 작으면 점수가 고름',a:['고름','모여']}]},
+{id:'SA4',cat:'확률과 통계',grade:'중2',level:'advanced',q:'서로 다른 두 개의 주사위를 동시에 던질 때, 두 눈의 수의 합이 홀수일 확률을 구하는 과정을 설명하시오.',
+ a:'두 눈의 수의 합이 홀수가 되려면 한 주사위는 홀수, 다른 주사위는 짝수가 나와야 하는데, 이러한 경우의 수는 (홀수, 짝수)와 (짝수, 홀수) 순서를 고려해 3×3+3×3=18가지이고, 전체 경우의 수는 6×6=36가지이므로 확률은 18/36, 즉 1/2입니다.',
+ kw:[{l:'한쪽은 홀수, 다른 쪽은 짝수여야 함',a:['홀수','짝수']},{l:'확률은 1/2',a:['1/2','18/36']}]},
+{id:'SA5',cat:'확률과 통계',grade:'중3',level:'advanced',q:'산점도에서 상관관계가 거의 없다고 판단할 수 있는 경우는 점들이 어떤 모양으로 분포할 때인지 설명하시오.',
+ a:'점들이 어떤 일정한 방향성 없이 좌표평면 전체에 고르게 흩어져 있어서, x가 증가할 때 y가 대체로 증가하는 경향도 감소하는 경향도 뚜렷하게 나타나지 않을 때 상관관계가 거의 없다고 판단할 수 있습니다.',
+ kw:[{l:'일정한 방향성 없이 흩어져 있음',a:['방향성 없','흩어져']}]},
+{id:'SA6',cat:'확률과 통계',grade:'중2',level:'advanced',q:'서로 다른 두 개의 동전을 동시에 던질 때 적어도 하나는 앞면이 나올 확률을, 여사건을 이용해 구하는 과정을 설명하시오.',
+ a:'적어도 하나가 앞면일 사건의 여사건은 두 개 모두 뒷면이 나오는 사건이며, 이 확률은 1/2×1/2=1/4입니다. 따라서 적어도 하나가 앞면이 나올 확률은 전체 확률 1에서 이 여사건의 확률을 뺀 1-1/4=3/4입니다.',
+ kw:[{l:'여사건(모두 뒷면)의 확률을 구함',a:['여사건','모두 뒷면']},{l:'1에서 뺌(3/4)',a:['3/4','1에서']}]},
+];
+
+const BASIC_QUESTIONS = QUESTIONS.filter(q=>q.level!=='advanced');
+const ADV_POOL = QUESTIONS.filter(q=>q.level==='advanced');
+const CATS = ['수와 연산','문자와 식','함수','기하','확률과 통계'];
+const CAT_ICON = {'수와 연산':'🔢','문자와 식':'🧮','함수':'📈','기하':'📐','확률과 통계':'🎲'};
+const QMAP = {}; QUESTIONS.forEach(q=>QMAP[q.id]=q);
+/* ===================== 최상위문제(꼬리 질문 포함) =====================
+   기존 QUESTIONS와는 완전히 별도의 목록이라 다른 모드(부분학습/응용/랜덤/오답 등)의
+   풀(pool)에는 전혀 섞이지 않음. 본문제(main) 바로 다음에 꼬리질문(follow)이 오는
+   "쌍" 단위로 관리해서, 셔플을 켜도 쌍 안의 순서(본문제→꼬리질문)는 항상 유지됨. */
+const TOP_PAIRS = [
+  { main:{id:'TN1',cat:'수와 연산',grade:'중3',q:'루트2가 자연수가 아닌 이유를 증명하시오.',
+      a:'1의 제곱은 1이고 2의 제곱은 4인데 2는 1과 4 사이에 있으므로, 루트2는 1보다 크고 2보다 작은 값입니다. 그런데 자연수는 1, 2, 3, …과 같이 딱 떨어지는 값인데 1과 2 사이에는 자연수가 존재하지 않으므로 루트2는 자연수가 될 수 없습니다.',
+      kw:[{l:'1²=1, 2²=4 사이에 2가 있음',a:['1²','2²','사이']},{l:'1과 2 사이에는 자연수가 없음',a:['자연수가 없','사이에 없']}]},
+    follow:{id:'TN1F',cat:'수와 연산',grade:'중3',q:'같은 방식으로 루트2가 유리수도 아니라는 사실까지 증명하려면 어떤 논리가 추가로 필요한지 설명하시오.',
+      a:'자연수가 아니라는 것을 보인 앞의 논리만으로는 부족하고, 루트2가 유리수라고 가정한 뒤 서로소인 두 자연수의 비로 나타내어 모순을 이끌어 내는 귀류법이 추가로 필요합니다.',
+      kw:[{l:'유리수라고 가정하는 귀류법이 필요',a:['귀류법','가정']}]} },
+  { main:{id:'TN2',cat:'수와 연산',grade:'중1',q:'두 자연수의 최대공약수와 최소공배수를 곱하면 두 자연수의 곱과 같아지는 까닭을 설명하시오.',
+      a:'두 자연수 A, B를 각각 최대공약수 G와 서로소인 두 수 a, b를 이용해 A=Ga, B=Gb로 나타낼 수 있는데, 이때 최소공배수는 Gab가 되므로, 최대공약수와 최소공배수의 곱은 G×Gab=Ga×Gb=A×B가 되어 두 자연수의 곱과 같아집니다.',
+      kw:[{l:'A=Ga, B=Gb로 나타냄(G는 최대공약수)',a:['최대공약수','Ga','Gb']},{l:'최대공약수×최소공배수=A×B',a:['A×B','곱']}]},
+    follow:{id:'TN2F',cat:'수와 연산',grade:'중1',q:'이 성질을 이용하면 두 자연수 A, B의 곱과 최대공약수만 알고 있을 때 최소공배수를 어떻게 구할 수 있는지 설명하시오.',
+      a:'최대공약수와 최소공배수의 곱이 두 수의 곱과 같다는 성질을 이용해, 두 수의 곱을 최대공약수로 나누면 최소공배수를 바로 구할 수 있습니다.',
+      kw:[{l:'두 수의 곱을 최대공약수로 나눔',a:['곱을','나눔']}]} },
+  { main:{id:'TN3',cat:'수와 연산',grade:'중2',q:'모든 유한소수는 왜 순환소수라고 볼 수 있는지, 혹은 왜 그렇지 않은지 설명하시오.',
+      a:'유한소수는 소수점 아래에 0이 아닌 숫자가 유한 개이지만, 그 뒤로 0이 한없이 반복된다고 생각하면 순환마디가 0인 순환소수로도 볼 수 있습니다. 다만 교과서에서는 보통 유한소수와 순환소수를 구분하여 다룹니다.',
+      kw:[{l:'0이 한없이 반복되는 것으로 볼 수 있음',a:['0이 반복']},{l:'보통은 유한소수와 순환소수를 구분함',a:['구분']}]},
+    follow:{id:'TN3F',cat:'수와 연산',grade:'중2',q:'0.1처럼 유한소수인 수를 분수로 나타낼 때, 분모를 소인수분해하면 어떤 특징이 나타나는지 설명하시오.',
+      a:'0.1은 1/10이고 10을 소인수분해하면 2×5이므로, 유한소수로 나타나는 분수는 기약분수로 나타냈을 때 분모의 소인수가 2 또는 5뿐이라는 특징을 가집니다.',
+      kw:[{l:'분모의 소인수가 2와 5뿐',a:['2','5']}]} },
+  { main:{id:'TN4',cat:'수와 연산',grade:'중3',q:'제곱근을 이용해 한 변의 길이를 구할 수 있는 정사각형의 넓이가 항상 정수가 아니어도 되는 까닭을 설명하시오.',
+      a:'정사각형의 넓이가 어떤 양수 a이기만 하면 한 변의 길이는 항상 a의 양의 제곱근으로 정해질 수 있으므로, 넓이가 정수가 아닌 소수나 분수여도 그 제곱근을 한 변의 길이로 가지는 정사각형을 생각할 수 있습니다.',
+      kw:[{l:'넓이가 양수이기만 하면 제곱근이 존재',a:['양수','제곱근']}]},
+    follow:{id:'TN4F',cat:'수와 연산',grade:'중3',q:'넓이가 2인 정사각형의 한 변의 길이를 자와 컴퍼스로 작도할 수 있다면, 이것이 루트2가 실제로 존재하는 하나의 길이임을 보여 주는 것과 어떤 관련이 있는지 설명하시오.',
+      a:'자와 컴퍼스로 그 길이를 실제로 작도할 수 있다는 것은 루트2가 단지 추상적인 계산 결과가 아니라 실제 도형에서 구체적으로 존재하는 길이라는 것을 보여 주므로, 루트2가 실수 중 하나로서 수직선 위의 한 점에 대응된다는 사실을 뒷받침합니다.',
+      kw:[{l:'실제로 존재하는 길이임을 보여 줌',a:['실제로 존재']},{l:'수직선 위의 한 점에 대응',a:['수직선']}]} },
+  { main:{id:'TN5',cat:'수와 연산',grade:'중1',q:'분수를 소수로 나타낼 때 나머지가 유한 번 안에 0이 되지 않으면 반드시 순환소수가 되는 까닭을 설명하시오.',
+      a:'나눗셈을 계속할 때 나올 수 있는 나머지는 나누는 수보다 작은 자연수와 0으로 그 종류가 한정되어 있으므로, 나눗셈을 충분히 여러 번 반복하면 반드시 이전에 나왔던 나머지가 다시 나타나게 되고, 그 순간부터 몫의 숫자 배열이 똑같이 되풀이되어 순환소수가 됩니다.',
+      kw:[{l:'나머지의 종류가 한정되어 있음',a:['나머지','한정']},{l:'같은 나머지가 다시 나와 되풀이됨',a:['되풀이','반복']}]},
+    follow:{id:'TN5F',cat:'수와 연산',grade:'중1',q:'분모가 7인 기약분수를 소수로 나타내면 순환마디의 길이가 최대 몇 자리가 될 수 있는지, 그 까닭과 함께 추론하시오.',
+      a:'나머지로 나올 수 있는 수는 0을 제외하면 1부터 6까지 6가지이므로, 순환마디의 길이는 최대 6자리가 될 수 있습니다.',
+      kw:[{l:'나머지가 1~6까지 6가지',a:['6가지','1부터 6']},{l:'순환마디의 길이는 최대 6자리',a:['6자리']}]} },
+  { main:{id:'TA1',cat:'문자와 식',grade:'중3',q:'이차방정식의 근의 공식에서 판별식 b제곱-4ac가 음수이면 실근이 없는 까닭을 실수의 제곱의 성질과 관련지어 설명하시오.',
+      a:'실수는 제곱하면 항상 0 이상의 값이 되므로 어떤 실수를 제곱해도 음수가 될 수 없는데, 판별식이 음수이면 근의 공식에 들어가는 근호 안의 값이 음수가 되어 그 제곱근에 해당하는 실수가 존재하지 않으므로 실근이 없습니다.',
+      kw:[{l:'실수의 제곱은 항상 0 이상',a:['제곱','0 이상']},{l:'근호 안이 음수면 실수인 제곱근이 없음',a:['근호 안','음수']}]},
+    follow:{id:'TA1F',cat:'문자와 식',grade:'중3',q:'판별식이 0일 때 이차방정식이 중근을 가진다는 것은 이차함수의 그래프와 x축의 위치 관계로 어떻게 설명할 수 있는지 설명하시오.',
+      a:'판별식이 0이면 이차방정식의 두 근이 서로 같아지는데, 이는 이차함수의 그래프가 x축과 한 점에서만 접하듯이 만난다는 것을 의미하므로, 그래프의 꼭짓점이 정확히 x축 위에 놓이는 경우에 해당합니다.',
+      kw:[{l:'그래프가 x축과 한 점에서만 만남(접함)',a:['한 점','접']},{l:'꼭짓점이 x축 위에 있음',a:['꼭짓점']}]} },
+  { main:{id:'TA2',cat:'문자와 식',grade:'중2',q:'연립방정식을 풀 때 가감법과 대입법으로 각각 풀어도 항상 같은 해를 얻는 까닭을 설명하시오.',
+      a:'가감법과 대입법은 모두 등식의 성질을 이용해 두 방정식을 만족하는 x, y의 값을 찾아가는 서로 다른 계산 경로일 뿐이며, 어느 방법으로 풀어도 원래의 두 일차방정식을 동시에 만족하는 값을 구하는 것이 목표이므로 최종적으로 같은 해에 도달하게 됩니다.',
+      kw:[{l:'둘 다 등식의 성질을 이용한 서로 다른 계산 경로',a:['등식의 성질','경로']},{l:'같은 두 방정식을 만족하는 해를 구함',a:['같은 해']}]},
+    follow:{id:'TA2F',cat:'문자와 식',grade:'중2',q:'연립방정식의 두 일차방정식이 나타내는 두 직선이 평행하지도, 일치하지도 않을 때, 해가 항상 한 쌍으로 정해지는 까닭을 그래프와 관련지어 설명하시오.',
+      a:'평행하지도 일치하지도 않는 두 직선은 서로 다른 방향으로 뻗어 있어 반드시 한 점에서만 만나게 되므로, 그 교점의 좌표가 두 방정식을 동시에 만족하는 단 하나의 해가 됩니다.',
+      kw:[{l:'서로 다른 방향이라 한 점에서만 만남',a:['한 점']},{l:'교점이 단 하나의 해가 됨',a:['교점','하나의 해']}]} },
+  { main:{id:'TA3',cat:'문자와 식',grade:'중3',q:'(a+b)의 제곱과 a의 제곱+b의 제곱이 일반적으로 같지 않은 까닭을 전개 과정을 통해 설명하시오.',
+      a:'(a+b)의 제곱을 실제로 전개하면 a의 제곱+2ab+b의 제곱이 되는데, 여기에는 a의 제곱+b의 제곱에는 없는 2ab라는 항이 추가로 생기므로, a와 b가 모두 0이 아닌 이상 두 식은 일반적으로 같지 않습니다.',
+      kw:[{l:'(a+b)²=a²+2ab+b²',a:['2ab']},{l:'2ab라는 항이 추가로 생김',a:['추가','2ab']}]},
+    follow:{id:'TA3F',cat:'문자와 식',grade:'중3',q:'어떤 경우에 (a+b)의 제곱이 a의 제곱+b의 제곱과 같아질 수 있는지 설명하시오.',
+      a:'두 식의 차이는 2ab라는 항에서 비롯되므로, a 또는 b 중 하나가 0이 되어 2ab의 값이 0이 되면 두 식은 서로 같아질 수 있습니다.',
+      kw:[{l:'2ab=0이 되는 경우(a 또는 b가 0)',a:['2ab=0','a 또는 b가 0']}]} },
+  { main:{id:'TA4',cat:'문자와 식',grade:'중1',q:'등식의 성질만을 이용해서 일차방정식 3x+2=x+8을 풀이하는 과정을 순서대로 설명하시오.',
+      a:'양변에서 x를 빼면 2x+2=8이 되고, 양변에서 2를 빼면 2x=6이 되며, 마지막으로 양변을 2로 나누면 x=3을 얻습니다. 이처럼 이항은 결국 등식의 성질을 반복해서 적용한 결과입니다.',
+      kw:[{l:'양변에서 같은 것을 빼고 나눔',a:['양변에서 빼','나눔']},{l:'이항은 등식의 성질을 반복 적용한 것',a:['이항','등식의 성질']}]},
+    follow:{id:'TA4F',cat:'문자와 식',grade:'중1',q:'이항할 때 항의 부호가 바뀌는 까닭을 등식의 성질과 관련지어 설명하시오.',
+      a:'어떤 항을 다른 변으로 옮기는 것은 실제로는 양변에 그 항의 부호를 반대로 한 값을 더하거나 빼는 등식의 성질을 적용하는 것이므로, 결과적으로 그 항이 반대편으로 넘어가면서 부호가 바뀌게 됩니다.',
+      kw:[{l:'양변에 반대 부호를 더하거나 빼는 것과 같음',a:['반대 부호','더하거나 빼']}]} },
+  { main:{id:'TA5',cat:'문자와 식',grade:'중3',q:'인수분해가 다항식의 곱셈(전개)과 서로 역의 관계에 있다는 것을 예를 들어 설명하시오.',
+      a:'예를 들어 x제곱+5x+6을 인수분해하면 (x+2)(x+3)이 되는데, 반대로 (x+2)(x+3)을 전개하면 다시 x제곱+5x+6이 되므로, 인수분해와 전개는 하나의 다항식을 곱의 꼴로 바꾸는 것과 곱의 꼴을 하나의 다항식으로 바꾸는 것으로 서로 정반대의 과정입니다.',
+      kw:[{l:'인수분해와 전개는 서로 정반대의 과정',a:['정반대','역']},{l:'예시로 서로 되돌아감을 보임',a:['x+2','x+3']}]},
+    follow:{id:'TA5F',cat:'문자와 식',grade:'중3',q:'어떤 이차식을 인수분해한 결과가 맞는지 확인하고 싶을 때 어떤 방법을 쓸 수 있는지 설명하시오.',
+      a:'인수분해한 결과를 다시 전개해 보아 처음의 이차식과 같아지는지 확인하면, 인수분해가 올바르게 되었는지 검산할 수 있습니다.',
+      kw:[{l:'인수분해한 결과를 다시 전개해 확인',a:['전개','확인']}]} },
+  { main:{id:'TF1',cat:'함수',grade:'중2',q:'일차함수 y=ax+b의 그래프에서 a의 값이 그래프의 기울기와 같다는 것을 x의 증가량과 y의 증가량의 비율로 확인하는 과정을 설명하시오.',
+      a:'x의 값이 x1에서 x2로 변할 때 y의 값은 각각 a×x1+b와 a×x2+b가 되므로, y의 증가량은 a×(x2-x1)이 되고, 이를 x의 증가량인 (x2-x1)으로 나누면 항상 a라는 값을 얻게 되어 기울기가 a임을 확인할 수 있습니다.',
+      kw:[{l:'y의 증가량이 a×(x의 증가량)이 됨',a:['a×','증가량']},{l:'나누면 항상 a가 됨',a:['항상 a']}]},
+    follow:{id:'TF1F',cat:'함수',grade:'중2',q:'기울기가 일정하다는 성질을 이용하면 일차함수의 그래프가 왜 반드시 직선이 되는지 설명할 수 있습니다. 그 까닭을 설명하시오.',
+      a:'그래프 위의 어느 두 점을 선택해도 x의 증가량에 대한 y의 증가량의 비율이 항상 같은 값 a로 일정하다는 것은, 그래프가 방향을 바꾸지 않고 일정한 기울기로 곧게 뻗어 나간다는 것을 의미하므로 일차함수의 그래프는 반드시 직선이 됩니다.',
+      kw:[{l:'기울기가 항상 일정함',a:['일정']},{l:'방향이 바뀌지 않고 곧게 뻗음(직선)',a:['곧게','직선']}]} },
+  { main:{id:'TF2',cat:'함수',grade:'중3',q:'이차함수의 그래프가 좌우 대칭인 곡선이 되는 까닭을 식을 이용해 설명하시오.',
+      a:'이차함수 y=ax제곱에서 x 대신 -x를 대입해도 (-x)의 제곱은 x의 제곱과 같으므로 y의 값이 똑같이 나오는데, 이는 축(y축)을 기준으로 좌우 대칭인 위치에 있는 두 x값이 항상 같은 y값을 가진다는 것을 의미하므로 그래프가 좌우 대칭이 됩니다.',
+      kw:[{l:'(-x)²=x²이므로 y값이 같음',a:['(-x)²','같음']},{l:'축을 기준으로 좌우 대칭',a:['좌우 대칭']}]},
+    follow:{id:'TF2F',cat:'함수',grade:'중3',q:'이차함수 y=a(x-p)의 제곱+q의 그래프가 좌우 대칭이 되는 축은 y축이 아니라 무엇인지, 그 까닭과 함께 설명하시오.',
+      a:'이 그래프는 y=ax제곱의 그래프를 x축의 방향으로 p만큼 평행이동한 것이므로, 대칭축도 함께 p만큼 이동하여 직선 x=p가 대칭축이 됩니다.',
+      kw:[{l:'x=p가 대칭축',a:['x=p']},{l:'그래프가 p만큼 평행이동했기 때문',a:['평행이동']}]} },
+  { main:{id:'TF3',cat:'함수',grade:'중2',q:'일차함수의 그래프와 일차방정식의 그래프가 사실상 같은 것으로 다루어지는 까닭을 설명하시오.',
+      a:'미지수가 2개인 일차방정식 ax+by+c=0을 y에 대해 정리하면 일차함수 y=-(a/b)x-(c/b)의 꼴이 되므로, 두 식은 표현 방식만 다를 뿐 나타내는 x와 y 사이의 관계는 완전히 같아서 그래프도 정확히 일치합니다.',
+      kw:[{l:'y에 대해 정리하면 일차함수 꼴이 됨',a:['y에 대해 정리']},{l:'같은 관계를 나타내 그래프가 일치',a:['그래프가 일치']}]},
+    follow:{id:'TF3F',cat:'함수',grade:'중2',q:'일차방정식 x=3처럼 y가 포함되지 않은 방정식은 일차함수 y=ax+b의 꼴로 나타낼 수 없습니다. 그런데도 이 방정식의 그래프를 그릴 수 있는 까닭을 설명하시오.',
+      a:'x=3은 y의 값에 관계없이 x좌표가 항상 3인 모든 점을 만족하는 방정식이므로, 함수는 아니지만 좌표평면 위에서 점 (3, 0)을 지나고 y축에 평행한 직선으로 나타낼 수 있습니다.',
+      kw:[{l:'x좌표가 항상 3인 점들의 모임',a:['항상 3']},{l:'y축에 평행한 직선',a:['y축에 평행']}]} },
+  { main:{id:'TF4',cat:'함수',grade:'중1',q:'반비례 관계 y=a/x(a≠0)에서 x의 값이 2배, 3배가 될 때 y의 값이 어떻게 변하는지 식을 이용해 설명하시오.',
+      a:'y=a/x에서 x가 2배가 되면 y=a/(2x)이므로 원래 y의 값의 1/2배가 되고, x가 3배가 되면 y는 원래 값의 1/3배가 됩니다. 이처럼 반비례 관계에서는 x가 커지는 배수만큼 y는 그 역수배로 작아집니다.',
+      kw:[{l:'x가 2배면 y는 1/2배',a:['1/2']},{l:'x가 커지는 배수의 역수배로 y가 작아짐',a:['역수배']}]},
+    follow:{id:'TF4F',cat:'함수',grade:'중1',q:'정비례 관계 y=ax(a≠0)에서는 x의 값이 2배가 될 때 y의 값은 어떻게 변하는지, 반비례와 비교하여 설명하시오.',
+      a:'정비례 관계에서는 x가 2배가 되면 y=a×(2x)이므로 y의 값도 그대로 2배가 되어, x가 커지는 배수만큼 y도 똑같이 커지는 반비례와는 반대되는 변화 양상을 보입니다.',
+      kw:[{l:'x가 2배면 y도 2배',a:['y도 2배']},{l:'반비례와 반대되는 변화',a:['반대']}]} },
+  { main:{id:'TG1',cat:'기하',grade:'중2',q:'삼각형의 내심이 하나만 존재하는 이유를 증명하시오.',
+      a:'삼각형의 세 내각 중 두 내각의 이등분선은 서로 평행하지 않으므로 반드시 한 점에서 만납니다. 각의 이등분선 위의 점은 그 각을 이루는 두 변으로부터 같은 거리에 있다는 성질에 의해, 이 교점은 삼각형을 이루는 세 변 모두로부터 같은 거리에 있게 됩니다. 따라서 나머지 한 내각의 이등분선도 이 점을 반드시 지나야 하므로 세 내각의 이등분선은 한 점에서만 만나고, 그 점(내심)은 유일합니다.',
+      kw:[{l:'두 내각의 이등분선이 만나는 점이 세 변에서 같은 거리',a:['이등분선','같은 거리']},{l:'나머지 이등분선도 그 점을 지나 유일함',a:['유일']}]},
+    follow:{id:'TG1F',cat:'기하',grade:'중2',q:'삼각형의 외심이 하나만 존재하는 이유도 비슷한 방식으로 증명할 수 있습니다. 외심의 경우 어떤 성질을 이용해야 하는지 설명하시오.',
+      a:'외심의 경우에는 두 변의 수직이등분선이 만나는 점이 그 두 변의 양 끝 꼭짓점으로부터 각각 같은 거리에 있다는 성질을 이용해야 하며, 이를 통해 그 교점이 삼각형의 세 꼭짓점 모두로부터 같은 거리에 있음을 보여 외심의 유일성을 증명할 수 있습니다.',
+      kw:[{l:'수직이등분선 위의 점은 양 끝점에서 같은 거리',a:['수직이등분선','같은 거리']}]} },
+  { main:{id:'TG2',cat:'기하',grade:'중2',q:'삼각형의 무게중심이 하나만 존재하는 이유를 증명하시오.',
+      a:'삼각형의 두 중선은 서로 평행하지 않으므로 반드시 한 점에서 만나는데, 닮음을 이용해 살펴보면 이 교점은 항상 각 중선을 꼭짓점으로부터 2:1로 나누는 지점이 됩니다. 이 2:1이라는 비율은 어느 두 중선을 골라 구하더라도 항상 같으므로, 나머지 한 중선도 반드시 이 점을 지나게 되어 세 중선은 한 점에서만 만나고 그 점(무게중심)은 유일합니다.',
+      kw:[{l:'두 중선의 교점이 항상 2:1 지점',a:['2:1']},{l:'세 중선이 한 점에서만 만나 유일함',a:['한 점','유일']}]},
+    follow:{id:'TG2F',cat:'기하',grade:'중2',q:'정삼각형에서는 무게중심과 외심, 내심이 모두 일치합니다. 그 까닭을 설명하시오.',
+      a:'정삼각형은 세 변의 길이와 세 각의 크기가 모두 같으므로, 각 꼭짓점에서 대변에 내린 수선이 그 대변을 수직이등분함과 동시에 그 꼭짓점의 각도 이등분하고, 나아가 무게중심을 결정하는 중선의 역할까지 함께 하게 됩니다. 따라서 외심, 내심, 무게중심을 각각 결정하는 세 종류의 선이 정삼각형에서는 완전히 같은 선이 되어 세 점이 모두 일치합니다.',
+      kw:[{l:'수선이 수직이등분선이자 각의 이등분선이자 중선이 됨',a:['수직이등분선','각의 이등분선','중선']},{l:'세 점(외심,내심,무게중심)이 모두 일치',a:['일치']}]} },
+  { main:{id:'TG3',cat:'기하',grade:'중2',q:'피타고라스 정리를 정사각형의 넓이를 이용해 증명하시오.',
+      a:'직각을 낀 두 변이 a, b이고 빗변이 c인 직각삼각형 4개를 이용해, 한 변의 길이가 a+b인 큰 정사각형 안에 한 변의 길이가 c인 정사각형이 놓이도록 배치합니다. 큰 정사각형의 넓이는 (a+b)의 제곱이면서 동시에 네 직각삼각형의 넓이의 합(2ab)과 가운데 작은 정사각형의 넓이(c의 제곱)의 합과도 같으므로, (a+b)의 제곱=2ab+c의 제곱이 되고, 좌변을 전개해 정리하면 a의 제곱+b의 제곱=c의 제곱을 얻습니다.',
+      kw:[{l:'큰 정사각형의 넓이를 두 가지 방식으로 계산',a:['큰 정사각형','넓이']},{l:'(a+b)²=2ab+c²을 정리해 a²+b²=c² 도출',a:['2ab','c²']}]},
+    follow:{id:'TG3F',cat:'기하',grade:'중2',q:'피타고라스 정리의 역, 즉 세 변의 길이가 a²+b²=c²을 만족하면 그 삼각형이 직각삼각형이 된다는 것은 왜 참인지 설명하시오.',
+      a:'세 변의 길이가 a, b, c이고 a²+b²=c²을 만족하는 삼각형과, 직각을 낀 두 변이 a, b인 직각삼각형을 비교하면, 두 삼각형 모두 세 변의 길이가 각각 a, b, c로 같으므로 SSS 합동에 의해 두 삼각형은 합동입니다. 따라서 원래 삼각형의 a, b 사이의 각도 직각이어야 하므로 이 삼각형은 직각삼각형이 됩니다.',
+      kw:[{l:'직각삼각형과 세 변의 길이가 같아 SSS 합동',a:['SSS','합동']},{l:'대응하는 각도 직각이 됨',a:['직각']}]} },
+  { main:{id:'TG4',cat:'기하',grade:'중2',q:'평행사변형의 두 대각선이 서로 다른 것을 이등분한다는 성질을 삼각형의 합동을 이용해 증명하시오.',
+      a:'평행사변형 ABCD에서 두 대각선의 교점을 O라고 하면, 삼각형 OAB와 삼각형 OCD에서 AB와 CD의 길이가 같고, AB와 CD가 평행하므로 엇각인 각 OAB와 각 OCD, 각 OBA와 각 ODC의 크기가 각각 같습니다. 따라서 ASA 합동에 의해 두 삼각형은 합동이므로 대응변인 OA와 OC, OB와 OD의 길이가 각각 같아져 두 대각선은 서로를 이등분합니다.',
+      kw:[{l:'삼각형 OAB와 OCD가 ASA 합동',a:['ASA','합동']},{l:'대응변 OA=OC, OB=OD',a:['OA','OC']}]},
+    follow:{id:'TG4F',cat:'기하',grade:'중2',q:'반대로 어떤 사각형의 두 대각선이 서로 다른 것을 이등분한다는 사실만 알고 있을 때, 이 사각형이 평행사변형이 됨을 어떻게 보일 수 있는지 설명하시오.',
+      a:'두 대각선의 교점을 O라 하면 OA=OC, OB=OD이고 맞꼭지각인 각 AOB와 각 COD의 크기가 같으므로, 삼각형 OAB와 삼각형 OCD는 SAS 합동입니다. 이로부터 엇각인 각들의 크기가 같아져 AB와 CD가 평행함을 알 수 있고, 같은 방법으로 AD와 BC도 평행함을 보이면 두 쌍의 대변이 각각 평행하므로 이 사각형은 평행사변형이 됩니다.',
+      kw:[{l:'맞꼭지각을 이용해 SAS 합동',a:['맞꼭지각','SAS']},{l:'엇각이 같아져 두 쌍의 대변이 평행(평행사변형)',a:['평행','평행사변형']}]} },
+  { main:{id:'TG5',cat:'기하',grade:'중2',q:'삼각형의 두 변의 중점을 연결한 선분이 나머지 한 변과 평행하고 길이가 그 절반이 된다는 성질(중점연결정리)을 닮음을 이용해 증명하시오.',
+      a:'삼각형 ABC에서 AB, AC의 중점을 각각 M, N이라고 하면, 삼각형 AMN과 삼각형 ABC에서 AM:AB=AN:AC=1:2이고 각 A는 공통이므로 SAS 닮음입니다. 닮음비가 1:2이므로 대응변인 MN과 BC의 길이의 비도 1:2가 되어 MN의 길이는 BC의 절반이고, 대응각이 같으므로 MN과 BC는 평행합니다.',
+      kw:[{l:'삼각형 AMN과 ABC가 SAS 닮음(닮음비 1:2)',a:['SAS 닮음','1:2']},{l:'MN=BC의 절반, MN∥BC',a:['절반','평행']}]},
+    follow:{id:'TG5F',cat:'기하',grade:'중2',q:'중점연결정리를 이용하면 사각형의 네 변의 중점을 연결하여 만든 사각형이 항상 평행사변형이 되는 이유를 설명할 수 있습니다. 그 까닭을 설명하시오.',
+      a:'사각형의 한 대각선을 그으면 사각형이 두 삼각형으로 나뉘는데, 각 삼각형에서 중점연결정리를 적용하면 네 변의 중점을 이은 선분 중 마주 보는 두 변이 각각 그 대각선과 평행하고 길이도 대각선의 절반으로 같아지므로, 한 쌍의 대변이 평행하고 길이가 같아 평행사변형이 됩니다.',
+      kw:[{l:'대각선을 기준으로 중점연결정리를 두 번 적용',a:['대각선','중점연결정리']},{l:'한 쌍의 대변이 평행하고 길이가 같음',a:['평행하고 길이가 같']}]} },
+  { main:{id:'TG6',cat:'기하',grade:'중3',q:'한 호에 대한 원주각의 크기가 그 호에 대한 중심각의 크기의 절반이 되는 까닭을, 원의 중심이 원주각의 내부에 있는 경우를 예로 들어 증명하시오.',
+      a:'원 위의 점 P와 원의 중심 O, 호의 양 끝 점 A, B에 대해 선분 PO를 연장하여 지름을 그으면 삼각형 OPA와 삼각형 OPB는 각각 이등변삼각형이 되므로, 이등변삼각형의 두 밑각이 같다는 성질과 삼각형의 외각은 이웃하지 않는 두 내각의 합과 같다는 성질을 이용하면, 중심각 AOB의 크기가 원주각 APB의 크기의 2배가 됨을 보일 수 있습니다.',
+      kw:[{l:'PO를 연장한 지름을 이용해 이등변삼각형을 만듦',a:['이등변삼각형','지름']},{l:'외각의 성질로 중심각이 원주각의 2배임을 보임',a:['외각','2배']}]},
+    follow:{id:'TG6F',cat:'기하',grade:'중3',q:'반원에 대한 원주각의 크기가 항상 90°인 까닭을 원주각과 중심각의 관계를 이용해 설명하시오.',
+      a:'반원에 대한 중심각은 일직선을 이루는 평각이므로 그 크기가 180°인데, 원주각의 크기는 중심각의 절반이므로 반원에 대한 원주각의 크기는 항상 180°의 절반인 90°가 됩니다.',
+      kw:[{l:'반원에 대한 중심각은 180°(평각)',a:['180','평각']},{l:'원주각은 그 절반인 90°',a:['90']}]} },
+  { main:{id:'TG7',cat:'기하',grade:'중3',q:'직각삼각형의 세 내각 중 한 예각의 크기가 같으면, 그 크기에 대응하는 삼각비의 값(사인, 코사인, 탄젠트)이 삼각형의 크기와 관계없이 항상 같은 까닭을 설명하시오.',
+      a:'한 예각의 크기가 같은 두 직각삼각형은 나머지 한 각도 90°로 같으므로 AA 닮음에 의해 서로 닮은 도형이 됩니다. 닮은 도형에서는 대응변의 길이의 비가 일정하게 유지되므로, 삼각형의 크기가 달라도 빗변에 대한 높이의 비, 빗변에 대한 밑변의 비와 같은 변의 길이의 비는 항상 일정하게 유지되어 삼각비의 값이 같아집니다.',
+      kw:[{l:'AA 닮음이 되어 닮은 도형',a:['AA','닮음']},{l:'대응변의 길이의 비가 항상 일정',a:['비가 일정']}]},
+    follow:{id:'TG7F',cat:'기하',grade:'중3',q:'이러한 성질 덕분에 각도기 없이도 건물이나 나무의 높이를 구할 수 있다고 합니다. 그 원리를 간단히 설명하시오.',
+      a:'건물 아래로부터 일정한 거리만큼 떨어진 지점에서 건물 꼭대기를 올려다본 각의 크기를 측정하면, 그 각에 해당하는 탄젠트 값과 거리를 이용해 (건물의 높이)=(거리)×(탄젠트 값)이라는 계산으로 건물의 높이를 구할 수 있습니다.',
+      kw:[{l:'올려다본 각의 탄젠트 값을 이용',a:['탄젠트']},{l:'거리×탄젠트 값으로 높이 계산',a:['거리','높이']}]} },
+  { main:{id:'TG8',cat:'기하',grade:'중1',q:'다각형의 내각의 크기의 합을 구하는 공식이 (n-2)×180°인 까닭을 대각선을 이용해 설명하시오.',
+      a:'n각형의 한 꼭짓점에서 그을 수 있는 대각선으로 다각형을 나누면 (n-2)개의 삼각형으로 나뉘는데, 삼각형 하나의 내각의 합은 180°이므로 이 삼각형들의 내각의 합을 모두 더하면 다각형 전체의 내각의 합인 (n-2)×180°를 얻게 됩니다.',
+      kw:[{l:'한 꼭짓점에서 대각선을 그어 (n-2)개의 삼각형으로 나눔',a:['n-2','삼각형으로 나눔']},{l:'삼각형 내각의 합(180°)을 모두 더함',a:['180°','더함']}]},
+    follow:{id:'TG8F',cat:'기하',grade:'중1',q:'다각형의 외각의 크기의 합이 변의 개수와 관계없이 항상 360°인 까닭을 내각과 외각의 관계를 이용해 설명하시오.',
+      a:'n각형의 한 내각과 그에 대응하는 외각의 합은 180°이므로 n개의 꼭짓점에서 내각과 외각의 합을 모두 더하면 180°×n이 되는데, 여기서 내각의 합인 (n-2)×180°를 빼면 외각의 합은 항상 180°×n-(n-2)×180°=360°가 되어 변의 개수와 관계없이 일정합니다.',
+      kw:[{l:'내각+외각=180°를 n개 더함',a:['180°×n']},{l:'내각의 합을 빼면 항상 360°',a:['360']}]} },
+  { main:{id:'TG9',cat:'기하',grade:'중2',q:'닮은 두 입체도형의 부피의 비가 닮음비의 세제곱이 되는 까닭을, 닮음비가 넓이의 비에 미치는 영향과 관련지어 설명하시오.',
+      a:'닮음비가 m:n인 두 입체도형은 대응하는 모든 길이의 비가 m:n이므로, 밑면의 넓이와 같은 이차원적인 양은 닮음비의 제곱인 m²:n²의 비를 가집니다. 부피는 이 넓이에 다시 높이(길이)를 곱한 양이므로, 넓이의 비(m²:n²)에 다시 길이의 비(m:n)를 곱하여 부피의 비는 m³:n³이 됩니다.',
+      kw:[{l:'넓이는 닮음비의 제곱',a:['제곱','넓이']},{l:'부피는 넓이×높이라 닮음비의 세제곱',a:['세제곱','부피']}]},
+    follow:{id:'TG9F',cat:'기하',grade:'중2',q:'실제 크기의 절반(닮음비 1:2)으로 만든 모형 자동차는 실제 자동차보다 부피(재료의 양)가 몇 배 더 적게 필요한지 설명하시오.',
+      a:'닮음비가 1:2인 두 입체도형의 부피의 비는 1의 세제곱 대 2의 세제곱, 즉 1:8이므로, 모형 자동차는 실제 자동차보다 부피가 8배 더 적게 필요합니다.',
+      kw:[{l:'부피의 비는 1³:2³=1:8',a:['1:8','세제곱']}]} },
+  { main:{id:'TG10',cat:'기하',grade:'중1',q:'삼각형의 세 변의 길이가 주어졌을 때 삼각형이 하나로 결정된다는 사실(SSS)을 컴퍼스를 이용한 작도 과정을 통해 설명하시오.',
+      a:'먼저 한 변의 길이만큼 선분을 그은 뒤, 그 선분의 양 끝점을 각각 중심으로 하여 나머지 두 변의 길이를 반지름으로 하는 원을 그리면, 두 원이 만나는 교점이 세 번째 꼭짓점의 위치를 정확히 하나로 결정하므로, 세 변의 길이만 주어지면 삼각형의 모양과 크기가 하나로 정해집니다.',
+      kw:[{l:'두 원을 그려 교점을 찾음',a:['원','교점']},{l:'세 번째 꼭짓점이 하나로 정해짐',a:['하나로','정해']}]},
+    follow:{id:'TG10F',cat:'기하',grade:'중1',q:'세 각의 크기만 주어졌을 때는 삼각형이 하나로 결정되지 않는 까닭을 설명하시오.',
+      a:'세 각의 크기가 같은 삼각형은 크기가 다르더라도 모양은 같은 닮은 삼각형이 무수히 많이 존재할 수 있으므로, 각의 크기만으로는 삼각형의 실제 크기(변의 길이)까지는 결정할 수 없어 삼각형이 하나로 정해지지 않습니다.',
+      kw:[{l:'닮은 삼각형이 무수히 많음',a:['닮은 삼각형','무수히']},{l:'변의 길이(크기)가 결정되지 않음',a:['크기가 결정되지 않']}]} },
+  { main:{id:'TS1',cat:'확률과 통계',grade:'중2',q:'동전 한 개를 던지는 시행을 여러 번 반복할 때, 앞면이 나오는 횟수의 비율이 점점 1/2에 가까워진다고 알려져 있습니다. 이것이 확률의 정의와 어떤 관련이 있는지 설명하시오.',
+      a:'확률은 같은 시행을 여러 번 반복할 때 어떤 사건이 일어나는 상대도수가 가까워지는 일정한 값으로 정의되므로, 동전 던지기를 반복할수록 앞면이 나오는 비율이 1/2에 가까워지는 현상은 동전의 앞면이 나올 확률이 1/2이라는 것을 실제 실험을 통해 보여 주는 예라고 할 수 있습니다.',
+      kw:[{l:'반복 시행에서 상대도수가 가까워지는 값이 확률',a:['상대도수','가까워']},{l:'앞면이 나올 확률이 1/2임을 보여 줌',a:['1/2']}]},
+    follow:{id:'TS1F',cat:'확률과 통계',grade:'중2',q:'동전을 10번 던졌는데 우연히 앞면이 7번 나왔다고 해서 이 동전의 앞면이 나올 확률이 1/2이 아니라 0.7이라고 단정할 수 없는 까닭을 설명하시오.',
+      a:'확률은 시행 횟수가 충분히 많아질 때 상대도수가 가까워지는 값으로 정의되는데, 10번이라는 적은 횟수의 시행에서는 우연에 의해 결과가 한쪽으로 치우칠 수 있으므로, 이 결과만으로 실제 확률이 0.7이라고 단정하기는 어렵습니다.',
+      kw:[{l:'시행 횟수가 적으면 우연에 의해 치우칠 수 있음',a:['우연','치우칠']},{l:'단정할 수 없음',a:['단정할 수 없']}]} },
+  { main:{id:'TS2',cat:'확률과 통계',grade:'중3',q:'어떤 자료에 매우 크거나 매우 작은 극단적인 값(이상치)이 하나 포함되어 있을 때, 평균과 중앙값 중 어느 대푯값이 영향을 덜 받는지 설명하시오.',
+      a:'평균은 모든 변량의 값을 더해서 구하므로 극단적으로 크거나 작은 값 하나가 있으면 전체 평균이 크게 영향을 받을 수 있지만, 중앙값은 자료를 크기순으로 나열했을 때 가운데 있는 값만을 이용하므로 극단적인 값의 크기 자체보다는 순서에만 영향을 받아 상대적으로 영향을 덜 받습니다.',
+      kw:[{l:'평균은 극단값에 크게 영향받음',a:['평균','영향']},{l:'중앙값은 순서만 이용해 영향을 덜 받음',a:['중앙값','영향을 덜']}]},
+    follow:{id:'TS2F',cat:'확률과 통계',grade:'중3',q:'한 회사에서 직원들의 평균 연봉을 발표할 때, 극단적으로 높은 임원 연봉 때문에 일반 직원들이 느끼는 실제 연봉 수준과 발표된 평균이 크게 차이 날 수 있습니다. 이런 상황에서 중앙값을 함께 살펴보는 것이 유용한 까닭을 설명하시오.',
+      a:'평균은 소수의 매우 높은 임원 연봉에 의해 크게 끌어올려질 수 있어 일반 직원들의 실제 연봉 수준을 왜곡해서 보여줄 수 있지만, 중앙값은 순서상 가운데 있는 직원의 연봉을 보여주므로 극단적인 값의 영향을 덜 받아 일반적인 직원의 연봉 수준을 더 현실적으로 파악하는 데 도움이 됩니다.',
+      kw:[{l:'평균이 극단값에 의해 왜곡될 수 있음',a:['왜곡','평균']},{l:'중앙값이 더 현실적인 수준을 보여줌',a:['현실적','중앙값']}]} },
+  { main:{id:'TS3',cat:'확률과 통계',grade:'중2',q:'여사건의 확률(어떤 사건이 일어나지 않을 확률)을 이용해 확률을 구하는 것이 유용한 경우는 어떤 상황인지, "적어도"라는 표현과 관련지어 설명하시오.',
+      a:'"적어도 하나는 ~일 확률"을 직접 구하려면 하나인 경우, 둘인 경우 등 여러 경우를 따로 더해야 해서 복잡해지는 경우가 많은데, 반대로 그 사건이 하나도 일어나지 않는 여사건의 확률은 한 가지 경우만 계산하면 되므로 훨씬 간단할 때가 많아, 전체 확률 1에서 여사건의 확률을 빼는 방법이 유용합니다.',
+      kw:[{l:'"적어도"의 확률은 직접 구하면 복잡함',a:['적어도','복잡']},{l:'여사건은 한 가지 경우만 계산하면 되어 간단',a:['여사건','간단']}]},
+    follow:{id:'TS3F',cat:'확률과 통계',grade:'중2',q:'서로 다른 세 개의 동전을 던질 때 적어도 하나는 앞면이 나올 확률을 여사건을 이용해 구하는 과정을 설명하시오.',
+      a:'적어도 하나가 앞면인 사건의 여사건은 세 개 모두 뒷면이 나오는 사건이며, 이 확률은 1/2×1/2×1/2=1/8입니다. 따라서 적어도 하나가 앞면이 나올 확률은 1-1/8=7/8입니다.',
+      kw:[{l:'모두 뒷면일 확률 1/8을 구함',a:['1/8']},{l:'1-1/8=7/8',a:['7/8']}]} },
+  { main:{id:'TS4',cat:'확률과 통계',grade:'중3',q:'키와 몸무게처럼 서로 관련이 있어 보이는 두 변량 사이의 관계를, 원인과 결과로 단정하지 않고 "상관관계"라는 표현을 쓰는 까닭을 설명하시오.',
+      a:'상관관계는 두 변량이 함께 증가하거나 감소하는 경향이 있다는 것을 보여줄 뿐, 한 변량이 다른 변량의 직접적인 원인이라는 것까지 증명하지는 못합니다. 두 변량 모두에 영향을 주는 다른 숨은 요인이 있을 수도 있으므로, 산점도에서 경향성이 보이더라도 이를 곧바로 인과 관계로 단정하지 않고 상관관계라고 표현합니다.',
+      kw:[{l:'경향성이 있다고 원인·결과까지 증명하지 못함',a:['원인','결과']},{l:'다른 숨은 요인이 있을 수 있음',a:['숨은 요인']}]},
+    follow:{id:'TS4F',cat:'확률과 통계',grade:'중3',q:'아이스크림 판매량과 물놀이 사고 건수가 함께 증가하는 양의 상관관계를 보인다고 해서, 아이스크림 판매가 물놀이 사고의 원인이라고 말할 수 없는 까닭을 설명하시오.',
+      a:'두 변량은 실제로는 서로 직접적인 원인과 결과 관계가 아니라, 무더운 날씨라는 공통의 숨은 요인 때문에 함께 증가하는 것일 가능성이 높으므로, 산점도에서 양의 상관관계가 나타난다고 해서 한 변량이 다른 변량의 원인이라고 단정할 수 없습니다.',
+      kw:[{l:'더운 날씨라는 공통의 숨은 요인',a:['날씨','숨은 요인']},{l:'원인이라고 단정할 수 없음',a:['단정할 수 없']}]} },
+];
+
+TOP_PAIRS.forEach(p=>{ QMAP[p.main.id]=p.main; QMAP[p.follow.id]=p.follow; }); // 오답노트/이어풀기 등에서도 id로 찾을 수 있게 등록
+const APP_KEY='mp_v1';
+function genSessionId(){ return Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+const APP_ID='interview_gms_v2'; // 구글 시트에서 이 앱의 기록을 구분하는 고유 ID
+const TEACHER_PW='0000';
+function getTeacherPassword(){
+  try{ return localStorage.getItem('teacher_pw_'+APP_KEY) || TEACHER_PW; }catch(e){ return TEACHER_PW; }
+}
+function setTeacherPassword(pw){
+  try{ localStorage.setItem('teacher_pw_'+APP_KEY, pw); }catch(e){}
+}
+const DEFAULT_STUDENT_PW='1234';
+const WRONG_THRESHOLD=70; // 이 점수 미만이면 오답노트에 등록
+const SHEET_WEBHOOK_URL='https://script.google.com/macros/s/AKfycbywWo5ZWVjTmJ-jkyJPDbXO9wIo5GJ_ribXAeizxdk2twIcd8yy0rSWduXM_n7Ohgat/exec';
+
+/* ===================== 로그인 설정 =====================
+   Code.gs는 건드리지 않고 비밀번호를 로컬에서만 관리해요.
+   강사용 대시보드에서 비밀번호를 바꾸면 localStorage에 저장돼서
+   같은 기기에서는 유지되고, 학생들은 선생님이 알려준 번호를 입력해요. */
+let loginConfigCache = null;
+async function getLoginConfig(){
+  if(loginConfigCache) return loginConfigCache;
+  let password = DEFAULT_STUDENT_PW, loginEnabled = true;
+  try{
+    const cp = localStorage.getItem('login_pw_'+APP_KEY); if(cp) password = cp;
+    const ce = localStorage.getItem('login_en_'+APP_KEY); if(ce) loginEnabled = (ce==='Y');
+  }catch(e){}
+  loginConfigCache = {password, loginEnabled};
+  return loginConfigCache;
+}
+function saveLoginConfig(password, loginEnabled){
+  loginConfigCache = {password, loginEnabled};
+  try{
+    localStorage.setItem('login_pw_'+APP_KEY, password);
+    localStorage.setItem('login_en_'+APP_KEY, loginEnabled?'Y':'N');
+  }catch(e){}
+}
+
+/* ===================== 서버 이어풀기 스냅샷 ===================== */
+let serverResumeCache = {normal: null, wrong: null};
+function resumeGroup(mode){ return mode==='wrong'||mode==='cumwrong' ? 'wrong' : 'normal'; }
+function resumeKey(name, mode){ return 'resume_'+APP_KEY+'_'+safeName(name)+'_'+resumeGroup(mode); }
+function safeName(n){ return (n||'').replace(/[^a-zA-Z0-9가-힣]/g,'_').slice(0,40); }
+function pickNewerSnapshot(a, b){
+  if(a && b) return (b.ts||0) > (a.ts||0) ? b : a;
+  return a || b || null;
+}
+
+// 스킬 방식: 로그인 후 기존 Code.gs(?name=이름)로 시트에서 이 학생 전체 기록 가져와서
+// "진행중" 세션의 이어풀기 스냅샷과 오답 목록을 미리 캐싱
+async function fetchServerResumeSnapshots(name){
+  const empty = {normal: null, wrong: null};
+  if(!SHEET_WEBHOOK_URL || !name) return empty;
+  try{
+    const rows = await fetchStudentFromSheet(name);
+    if(!rows || !rows.length) return empty;
+    // 일반 모드와 오답 모드 이어풀기 스냅샷 분리
+    const normalRows = rows.filter(r=>!(r.modeLabel||'').includes('오답'));
+    const wrongRows = rows.filter(r=>(r.modeLabel||'').includes('오답'));
+    const normalSnap = buildServerResumeFromRows(normalRows) || buildApproxResumeFromRows(normalRows);
+    const wrongSnap = buildServerResumeFromRows(wrongRows) || buildApproxResumeFromRows(wrongRows);
+    return {normal: normalSnap, wrong: wrongSnap};
+  }catch(e){ return empty; }
+}
+async function fetchStudentSessions(name){
+  // 기존 Code.gs: ?name=이름 → 배열 반환
+  if(!SHEET_WEBHOOK_URL || !name) return {ok:false, sessions:[]};
+  try{
+    const rows = await fetchStudentFromSheet(name);
+    return {ok:true, sessions: rows};
+  }catch(e){ return {ok:false, sessions:[]}; }
+}
+function isMobileDevice(){
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+}
+async function submitToSheet(payload){
+  try{
+    await fetch(SHEET_WEBHOOK_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify(payload)
+    });
+    return true;
+  }catch(e){
+    console.error('시트 전송 실패', e);
+    return false;
+  }
+}
+async function deleteStudentFromSheet(name){
+  try{
+    await fetch(SHEET_WEBHOOK_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'deleteByName', name})
+    });
+    return true;
+  }catch(e){
+    console.error('삭제 요청 실패', e);
+    return false;
+  }
+}
+async function deleteSessionFromSheet(name, dateISO){
+  try{
+    await fetch(SHEET_WEBHOOK_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({action:'deleteByNameAndDate', name, date: dateISO})
+    });
+    return true;
+  }catch(e){
+    console.error('삭제 요청 실패', e);
+    return false;
+  }
+}
+
+/* ===================== 로컬 저장소 (학생별) ===================== */
+function studentKey(name){ return APP_KEY+'_student_'+encodeURIComponent((name||'').trim()); }
+function getStudent(name){
+  try{
+    const raw=localStorage.getItem(studentKey(name));
+    if(raw){
+      const d=JSON.parse(raw);
+      if(!d.wrong)d.wrong={};
+      if(!d.examLogs)d.examLogs=[];
+      if(!d.everWrong){
+        // 기존 데이터 마이그레이션: 누적 오답 기록이 없던 학생은 현재 오답을 초기값으로 사용
+        d.everWrong = Object.assign({}, d.wrong);
+      }
+      return d;
+    }
+  }catch(e){}
+  return {wrong:{}, everWrong:{}, examLogs:[]};
+}
+function setStudent(name, data){
+  try{ localStorage.setItem(studentKey(name), JSON.stringify(data)); return true; }catch(e){ return false; }
+}
+function getAllStudents(){
+  const out=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k && k.indexOf(APP_KEY+'_student_')===0){
+      try{
+        const name=decodeURIComponent(k.slice((APP_KEY+'_student_').length));
+        const data=JSON.parse(localStorage.getItem(k));
+        out.push({name, data});
+      }catch(e){}
+    }
+  }
+  return out;
+}
+function wrongCount(name){ if(!name||!name.trim())return 0; const s=getStudent(name); return Object.keys(s.wrong||{}).length; }
+function everWrongCount(name){ if(!name||!name.trim())return 0; const s=getStudent(name); return Object.keys(s.everWrong||{}).length; }
+function lastUsedName(){ try{ return localStorage.getItem(APP_KEY+'_lastname')||''; }catch(e){ return ''; } }
+function saveLastUsedName(n){ try{ localStorage.setItem(APP_KEY+'_lastname', n); }catch(e){} }
+
+/* ===================== 유틸 ===================== */
+function shuffleArr(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function norm(s){ return (s||'').replace(/\s+/g,'').toLowerCase(); }
+
+// 유사 발음/음성인식 오류 교정 테이블
+const SOUND_FIXES = [
+  [/멘틀|멘트|메틀|맨트|맨틀/g,'맨틀'],
+  [/외핵|외 핵|외헥/g,'외핵'],[/내핵|내 핵|내헥/g,'내핵'],
+  [/지각|지 각/g,'지각'],[/지진파|지진 파/g,'지진파'],
+  [/광합성|광압성|광함성|광압 성/g,'광합성'],[/엽록체|엽록 체/g,'엽록체'],
+  [/증산|증 산/g,'증산'],[/기공|기 공/g,'기공'],
+  [/화강암|화강 암/g,'화강암'],[/현무암|현무 암/g,'현무암'],
+  [/변성암|변성 암/g,'변성암'],[/퇴적암|퇴적 암/g,'퇴적암'],
+  [/보일법칙|보일 법칙/g,'보일 법칙'],[/샤를법칙|샤를 법칙/g,'샤를 법칙'],
+  [/이산화탄소|이산화 탄소/g,'이산화 탄소'],
+  [/포화수증기량|보아수증기량|포화 수증기량|포아수증기량|포하수증기량/g,'포화 수증기량'],
+  [/수증기량|수증기 량/g,'수증기량'],
+  [/세포분열|세포 분열/g,'세포 분열'],[/체세포|체 세포/g,'체세포'],
+  [/헤모글로빈|헤모 글로빈/g,'헤모글로빈'],
+  [/콩팥|콩 팥/g,'콩팥'],[/세뇨관|세뇨 관/g,'세뇨관'],
+  [/달팽이관|달팽이 관/g,'달팽이관'],
+  [/염색체|염색 체/g,'염색체'],[/염색분체|염색 분체/g,'염색 분체'],
+  [/광합성|광합 성/g,'광합성'],[/광합성/g,'광합성'],
+  [/암석권|암석 권/g,'암석권'],[/연약권|연약 권/g,'연약권'],
+  [/판구조론|판 구조론/g,'판구조론'],
+  [/대류권|대류 권/g,'대류권'],[/성층권|성층 권/g,'성층권'],[/오존층|오존 층/g,'오존층'],
+];
+
+// 두 문자열 간 편집거리(레벤슈타인 거리) 계산 - 음성인식 오인식 허용 매칭에 사용
+function editDistance(a, b){
+  const m=a.length, n=b.length;
+  if(m===0) return n; if(n===0) return m;
+  const dp=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++) dp[0][j]=j;
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+// 키워드가 텍스트 안에 "충분히 비슷하게" 포함되어 있는지 확인
+// 음절 수의 30% 이내 오차(삽입/삭제/대체)이면 인정
+function fuzzyIncludes(text, keyword){
+  if(!keyword || keyword.length===0) return false;
+  if(text.includes(keyword)) return true;
+  if(keyword.length < 2) return text.includes(keyword);
+  const maxDist = Math.max(1, Math.floor(keyword.length * 0.3));
+  // 키워드 길이 윈도우로 슬라이딩하며 편집거리 검사
+  for(let i=0;i<=text.length-keyword.length+maxDist;i++){
+    const window = text.slice(Math.max(0,i), Math.min(text.length, i+keyword.length+maxDist));
+    if(editDistance(window, keyword) <= maxDist) return true;
+  }
+  return false;
+}
+function fixSoundErrors(text){
+  let t = text || '';
+  SOUND_FIXES.forEach(([pat, rep])=>{ t = t.replace(pat, rep); });
+  return t;
+}
+
+// 조사/어미 제거 후 어간만 남기는 가벼운 정규화
+function normDeep(s){
+  return (s||'')
+    .replace(/[^\uAC00-\uD7A3a-zA-Z0-9]/g,' ') // 특수문자→공백
+    .replace(/\s+/g,'')
+    .toLowerCase();
+}
+
+function scoreAnswer(q, text){
+  if(!text || text.trim().length < 2){
+    return {matched:[], missed:q.kw, score:0, aiGraded:false};
+  }
+  // 음성인식 오류 교정 후 정규화
+  const fixed = fixSoundErrors(text);
+  const n = normDeep(fixed);
+  const nOrig = norm(text); // 원본도 함께 체크
+
+  const matched=[], missed=[];
+  q.kw.forEach(k=>{
+    const hit = k.a.some(alt=>{
+      const na = normDeep(fixSoundErrors(alt));
+      const na2 = norm(alt);
+      // 1. 완전 포함
+      if(n.includes(na) || nOrig.includes(na2)) return true;
+      // 2. 퍼지 매칭: 편집거리 기반으로 비슷하면 인정 (음성인식 오인식 대응)
+      if(na.length >= 2 && fuzzyIncludes(n, na)) return true;
+      // 3. 부분 매칭: alt 글자의 80% 이상 순서대로 포함되면 인정
+      if(na.length >= 2){
+        let pos=0, matched2=0;
+        for(let ch of na){ const idx=n.indexOf(ch,pos); if(idx>=0){matched2++;pos=idx+1;} }
+        if(matched2/na.length >= 0.8) return true;
+      }
+      return false;
+    });
+    if(hit) matched.push(k); else missed.push(k);
+  });
+
+  const total = q.kw.length || 1;
+  const ratio = matched.length / total;
+
+  // 기본 점수 50점 + 키워드 비율로 50점 추가 (답변이 있는 경우)
+  // 키워드 1개만 맞아도 의미 있는 점수, 전체 맞으면 100점 가능
+  let score;
+  const hasAnswer = text.trim().length >= 4;
+  if(!hasAnswer){
+    score = 0;
+  } else if(total === 0){
+    score = 70; // 키워드 없는 문항은 답변 있으면 기본
+  } else {
+    // 기본 50 + 키워드 비율 * 50
+    score = Math.round(50 + ratio * 50);
+    // 키워드 전부 맞으면 100점
+    if(ratio >= 1) score = 100;
+    // 키워드 절반 이상이면 최소 75점 보장
+    if(ratio >= 0.5 && score < 75) score = 75;
+    // 키워드 1개 이상 맞으면 최소 60점 보장
+    if(matched.length >= 1 && score < 60) score = 60;
+  }
+  score = Math.max(0, Math.min(100, score));
+  return {matched, missed, score, aiGraded:false};
+}
+/* 최종 점수를 한 번 더 후하게 보정. 80점 정도 받은 답변은 100점에 가깝게,
+   낮은 점수는 상대적으로 덜 보정되어 변별력은 유지되도록 함. */
+function boostScore(raw){
+  const boosted = Math.round(raw * 1.25);
+  return Math.max(0, Math.min(100, boosted));
+}
+/* AI(Claude)로 의미 기반 채점을 시도. 실패하면 null을 반환해 키워드 채점으로 대체함.
+   음성인식 결과는 표현이 모범답안과 달라도 의미가 같으면 인정해야 하므로,
+   단순 문자열 포함 여부가 아니라 모델이 각 핵심 개념의 '의미상 포함 여부'를 판단하게 함.
+   중학생 구술면접 상황이므로 채점은 관대하게: 핵심 수학 개념이 맞으면 부수적인 세부 표현
+   (예: 위치, 정확한 수치, 부연 설명 등)을 빠뜨려도 감점하지 않음. */
+async function aiGradeAnswer(q, text){
+  if(!text || norm(text).length < 4) return null;
+  const labels = q.kw.map(k=>k.l);
+  const sys = `너는 중학교 수학 구술면접을 채점하는 친절하고 관대한 채점관이야. 학생의 음성인식 답변(오타나 띄어쓰기 오류가 있을 수 있음)을 모범답안과 비교해서 채점해.
+
+채점 원칙 (중요, 반드시 지킬 것):
+1. 표현이 달라도 의미가 같거나 같은 내용을 자기 말로 풀어서 설명했으면 해당 핵심 개념을 "포함됨"으로 인정해. 단어가 똑같이 나왔는지가 아니라 수학적으로 핵심 의미가 맞는지로 판단해.
+2. 중학생 수준의 구술 답변임을 감안해서 관대하게 채점해. 핵심 개념 라벨이 "OO는 XX이다"처럼 여러 요소를 담고 있어도, 학생이 그 개념의 핵심 아이디어만 정확히 말했다면 부수적인 수식어, 위치 표현(예: "지하 깊은 곳", "표면 부근" 같은 세부 조건), 정확한 수치나 예시를 굳이 언급하지 않아도 그 개념은 포함된 것으로 인정해.
+3. 학생 답변에 수학적으로 명백히 틀린 내용이 없다면, 사소한 설명 누락만으로 감점하지 마. 오직 핵심 개념 자체를 언급하지 않았거나, 수학적으로 틀리게 설명한 경우에만 그 개념을 "포함되지 않음"으로 처리해.
+4. 오타, 띄어쓰기 오류, 음성인식 과정에서 생긴 비슷한 발음의 단어 오변환(예: "광합성"이 "광압성"으로 잘못 인식된 경우 등)은 절대 감점 사유로 삼지 마. 문맥상 학생이 어떤 단어나 개념을 말하려 한 것인지 명확히 유추할 수 있다면, 정확한 표기가 아니어도 원래 의도한 단어를 말한 것으로 인정하고 채점해.
+5. 점수는 후하게 매겨. 핵심 개념을 대부분(예: 전체의 80% 이상) 의미상 정확히 짚었다면 90~100점을 줘. 몇 가지 핵심 개념만 빠졌다면 70~89점, 절반 정도만 맞았다면 45~69점, 핵심을 거의 말하지 못했거나 답변이 없으면 그 이하로 줘. 완벽하게 토씨 하나까지 똑같아야만 100점을 주는 방식이 아니라, 수학적으로 충분히 이해하고 설명했다고 판단되면 100점도 흔쾌히 줘.
+
+반드시 아래 JSON 형식으로만 답해. 다른 텍스트나 코드블록 표시(백틱) 없이 순수 JSON만 출력해.
+{"matched":["핵심개념 라벨 중 학생이 의미상 포함한 것들"],"missed":["포함하지 않은 것들"],"score":0~100 사이 정수,"feedback":"학생을 격려하는 한두 문장의 한국어 피드백"}
+matched와 missed의 문자열은 반드시 주어진 핵심개념 라벨 목록의 것을 그대로 사용해야 하고, 모든 라벨이 둘 중 하나에 정확히 한 번씩만 들어가야 해.`;
+  const userMsg = `[질문]\n${q.q}\n\n[모범답안]\n${q.a}\n\n[핵심개념 라벨 목록]\n${JSON.stringify(labels)}\n\n[학생 답변]\n${text}`;
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        system: sys,
+        messages:[{role:'user', content:userMsg}]
+      })
+    });
+    if(!res.ok) return null;
+    const data = await res.json();
+    const outText = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
+    const clean = outText.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    if(!parsed || typeof parsed.score!=='number') return null;
+    const matchedLabels = Array.isArray(parsed.matched)? parsed.matched : [];
+    const missedLabelsRaw = Array.isArray(parsed.missed)? parsed.missed : [];
+    const matched = q.kw.filter(k=>matchedLabels.includes(k.l));
+    const missed = q.kw.filter(k=>!matchedLabels.includes(k.l));
+    let score = Math.round(parsed.score);
+    if(score<0) score=0; if(score>100) score=100;
+    return {matched, missed, score, feedback: typeof parsed.feedback==='string'? parsed.feedback : null, aiGraded:true};
+  }catch(e){
+    return null;
+  }
+}
+async function generateFollowUp(q, studentAnswer, score, trackType){
+  const sysBasic = `너는 중학교 수학 구술면접관이야. 학생이 방금 아래 질문에 어느 정도 맞게 답했지만(약 50~99점), 빠지거나 부족한 핵심 개념이 있어. 그 부족한 부분을 스스로 채울 수 있도록 유도하는 짧은 꼬리질문을 한 개만 만들어. 정답을 알려주지 말고, 학생이 생각해서 채울 수 있게 힌트가 담긴 질문으로 만들어. 가능하면 일상생활 속 예시나 구체적인 상황을 곁들여서 질문해. 반드시 질문 문장 하나만 출력하고, 다른 설명이나 따옴표는 붙이지 마.`;
+  const sysAdvanced = `너는 영재고·과학고 수학 입시 면접관이야. 학생이 방금 아래 응용 질문에 어느 정도 맞게 답했지만(약 50~99점) 더 깊이 파고들 여지가 있어. "다른 방법으로 증명하면?", "조건이 반대로 바뀌면?", "더 일반적인 경우로 확장하면?" 같은 스타일로 한 단계 더 깊게 파고드는 심화 꼬리질문을 한 개만 만들어. 가능하면 구체적인 수치나 새로운 상황을 곁들여서 질문해. 반드시 질문 문장 하나만 출력하고, 다른 설명이나 따옴표는 붙이지 마.`;
+  const sys = trackType==='advanced-probe'? sysAdvanced : sysBasic;
+  const userMsg = `[원래 질문]\n${q.q}\n\n[모범답안]\n${q.a}\n\n[학생 답변]\n${studentAnswer}\n\n[학생 점수]\n${score}점`;
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:300,
+        system: sys,
+        messages:[{role:'user', content:userMsg}]
+      })
+    });
+    if(!res.ok) return null;
+    const data = await res.json();
+    const outText = (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').trim();
+    return outText.replace(/^["']|["']$/g,'') || null;
+  }catch(e){ return null; }
+}
+async function generateFollowUpComment(followUpQ, followUpAnswer){
+  const sys = `너는 중학교 수학 구술면접관이야. 방금 던진 꼬리질문에 학생이 답했어. 짧고 격려하는 한두 문장으로 코멘트해줘 (정답 여부를 단정짓기보다는, 잘한 점을 짚어주고 부족하면 살짝 보완해주는 톤으로). 다른 설명 없이 코멘트 문장만 출력해.`;
+  const userMsg = `[꼬리질문]\n${followUpQ}\n\n[학생 답변]\n${followUpAnswer}`;
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:200, system: sys, messages:[{role:'user', content:userMsg}] })
+    });
+    if(!res.ok) return '';
+    const data = await res.json();
+    return (data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('').trim();
+  }catch(e){ return ''; }
+}
+function tierOf(score){
+  if(score>=90) return {cls:'tier-perfect', label:'완벽해요! 핵심 개념을 정확히 설명했어요.'};
+  if(score>=70) return {cls:'tier-good', label:'우수해요! 핵심은 잘 짚었어요. 몇 가지만 보완해봐요.'};
+  if(score>=45) return {cls:'tier-mid', label:'조금 더 다듬어볼까요? 절반 정도의 핵심 개념이 빠졌어요.'};
+  return {cls:'tier-low', label:'개념을 다시 학습해보는 게 좋겠어요. 모범답안을 참고해서 다시 연습해봐요.'};
+}
+function ringStyle(score){
+  const color = score>=90?'#c9a227':score>=70?'#2f7d5b':score>=45?'#e0862b':'#b3432b';
+  return `background:conic-gradient(${color} ${score*3.6}deg, #e9e4d5 0deg); `;
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtDT(ts){ const d=new Date(ts); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); }
+function fmtDate(ts){ const d=new Date(ts); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+
+/* ===================== 모달 ===================== */
+function showAlert(msg){
+  return new Promise(resolve=>{
+    const ov=document.getElementById('modalOverlay');
+    document.getElementById('modalMsg').textContent=msg;
+    document.getElementById('modalBtns').innerHTML=`<button class="btn btn-primary" id="modalOkBtn">확인</button>`;
+    ov.classList.remove('hidden');
+    document.getElementById('modalOkBtn').onclick=()=>{ov.classList.add('hidden');resolve(true);};
+  });
+}
+function showConfirm(msg){
+  return new Promise(resolve=>{
+    const ov=document.getElementById('modalOverlay');
+    document.getElementById('modalMsg').textContent=msg;
+    document.getElementById('modalBtns').innerHTML=`<button class="btn btn-ghost" id="modalCancelBtn">취소</button><button class="btn btn-primary" id="modalOkBtn">확인</button>`;
+    ov.classList.remove('hidden');
+    document.getElementById('modalOkBtn').onclick=()=>{ov.classList.add('hidden');resolve(true);};
+    document.getElementById('modalCancelBtn').onclick=()=>{ov.classList.add('hidden');resolve(false);};
+  });
+}
+
+/* ===================== 상태 ===================== */
+function newSession(){
+  return {
+    name: lastUsedName(),
+    mode:'category', cats:['수와 연산','문자와 식','함수','기하','확률과 통계'], grades:['중1','중2','중3'], count:999, shuffle:false,
+    queue:[], idx:0, records:[], answerText:'', feedback:null,
+    micTestMsg:''
+  };
+}
+let state = newSession();
+let screen='login'; // 앱 시작은 항상 로그인 화면부터
+let tDetailName=null;
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null, isRecording = false, recFinalBase='', lastBurstFinal='', recFatalError=false;
+let micWanted = false, recRestartTimer = null, kbHintTimer = null;
+
+/* ===================== 마이크 진단 ===================== */
+async function testMic(){
+  const el=document.getElementById('micTestResult');
+  if(el) el.textContent='테스트 중...';
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    if(el) el.textContent='❌ 이 브라우저/화면에서는 마이크 접근 기능을 사용할 수 없어요.';
+    return;
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    stream.getTracks().forEach(t=>t.stop());
+    if(el) el.textContent='✅ 마이크 권한이 정상적으로 허용되어 있어요! 문제 화면에서 음성 인식을 사용할 수 있어요.';
+  }catch(e){
+    let msg='❌ 마이크를 사용할 수 없어요 ('+e.name+').';
+    if(e.name==='NotAllowedError'||e.name==='PermissionDeniedError') msg+='\n브라우저 주소창의 자물쇠(또는 정보) 아이콘 → 사이트 설정에서 마이크를 "허용"으로 바꾼 뒤 새로고침해주세요.';
+    else if(e.name==='NotFoundError') msg+='\n연결된 마이크 장치를 찾을 수 없어요.';
+    else msg+='\n이 화면이 대화창 안 "미리보기(샌드박스)"일 가능성이 커요. 이 아티팩트를 게시/공유한 뒤 그 링크를 새 브라우저 탭에서 열거나, HTML 파일을 다운로드해 직접 열어서 다시 시도해주세요.';
+    if(el){ el.textContent=msg; }
+  }
+}
+
+/* ===================== 음성 인식 ===================== */
+function setupRecognition(){
+  if(!SR) return;
+  recognition = new SR();
+  recognition.lang='ko-KR';
+  // continuous=false: 한 번 누르면 말이 끝날 때(또는 침묵)까지 쭉 듣고 자동으로 멈춤.
+  // (continuous=true는 모바일에서 내부적으로 재시작되며 텍스트가 중복 누적되는 문제가 있었고,
+  //  자동 재시작 방식은 재시작 자체가 실패해 아예 인식이 안 되는 문제가 있어 가장 단순하고 안정적인 방식으로 되돌림)
+  recognition.continuous=false;
+  recognition.interimResults=true;
+  recognition.onresult=(e)=>{
+    let sessionFinal='';
+    let interim='';
+    for(let i=0;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal) sessionFinal += t;
+      else interim += t;
+    }
+    lastBurstFinal = sessionFinal;
+    state.answerText = (recFinalBase + sessionFinal + interim).trim();
+    updateAnswerBoxLive();
+  };
+  recognition.onerror=(e)=>{
+    let msg='음성 인식 중 오류가 발생했어요.';
+    let fatal=false;
+    if(e.error==='not-allowed'||e.error==='service-not-allowed'){
+      msg='마이크 권한이 필요해요.\n① 브라우저 주소창의 자물쇠 아이콘에서 마이크 허용 여부를 확인하세요.\n② 그래도 안 되면 이 화면이 대화창 안 미리보기일 수 있어요 — 아티팩트를 게시/공유한 링크를 새 탭에서 열거나 HTML을 다운로드해 직접 열어보세요.';
+      fatal=true;
+    } else if(e.error==='no-speech'){
+      msg='음성이 감지되지 않았어요. 계속 듣고 있어요.';
+    } else if(e.error==='network'){
+      msg='네트워크 오류로 음성 인식에 실패했어요. 인터넷 연결을 확인해주세요.';
+      fatal=true;
+    } else if(e.error==='aborted'){
+      return; // 사용자가 직접 멈춰서 발생하는 정상적인 중단
+    }
+    if(fatal) micWanted=false;
+    const st=document.getElementById('recStatus'); if(st){st.textContent=msg; st.classList.remove('on'); st.classList.add('err');}
+  };
+  recognition.onend=()=>{
+    if(lastBurstFinal){
+      recFinalBase = (recFinalBase + lastBurstFinal + ' ').replace(/\s+/g,' ');
+      state.answerText = recFinalBase.trim();
+      updateAnswerBoxLive();
+    }
+    lastBurstFinal='';
+    if(micWanted){
+      // 사용자가 아직 마이크를 끄지 않았으면, 짧은 텀을 두고 자동으로 다시 듣기 시작
+      // (재시작을 너무 빨리 하면 브라우저가 오류를 내는 경우가 있어 약간의 지연을 둠)
+      isRecording=true;
+      renderQuizControls();
+      if(recRestartTimer) clearTimeout(recRestartTimer);
+      recRestartTimer = setTimeout(()=>{
+        if(!micWanted) return;
+        try{ recognition.start(); }
+        catch(err){ isRecording=false; micWanted=false; renderQuizControls(); }
+      }, 350);
+    } else {
+      isRecording=false;
+      renderQuizControls();
+    }
+  };
+}
+function toggleRecording(){
+  if(!SR) return;
+  if(!recognition) setupRecognition();
+  if(isRecording || micWanted){
+    micWanted=false;
+    if(recRestartTimer){ clearTimeout(recRestartTimer); recRestartTimer=null; }
+    try{ recognition.stop(); }catch(e){}
+    isRecording=false;
+  } else {
+    stopAnswerTimer();
+    recFinalBase = state.answerText ? state.answerText+' ' : '';
+    lastBurstFinal='';
+    micWanted=true;
+    try{ recognition.start(); isRecording=true; }catch(e){ micWanted=false; }
+  }
+  renderQuizControls();
+}
+function updateAnswerBoxLive(){
+  const box=document.getElementById('answerBox');
+  if(box) box.value = state.answerText;
+  const cc=document.getElementById('charCount');
+  if(cc) cc.textContent = state.answerText.length+'자';
+}
+function renderQuizControls(){
+  const micBtn=document.getElementById('micBtn');
+  const status=document.getElementById('recStatus');
+  const wave=document.getElementById('waveform');
+  if(!micBtn) return;
+  status.classList.remove('err');
+  if(isRecording){
+    micBtn.classList.add('recording'); micBtn.textContent='⏹️';
+    status.textContent='듣고 있어요... 다 말했으면 정지 버튼을 눌러주세요.';
+    status.classList.add('on');
+    wave.classList.remove('hidden');
+  } else {
+    micBtn.classList.remove('recording'); micBtn.textContent='🎙️';
+    status.textContent = SR? '마이크 버튼을 눌러 답변을 시작하세요' : '';
+    status.classList.remove('on');
+    wave.classList.add('hidden');
+  }
+}
+
+/* ===================== 답변 시작 제한시간 (60초) ===================== */
+const ANSWER_START_LIMIT = 60;
+let answerTimerId = null;
+let answerTimeLeft = ANSWER_START_LIMIT;
+let answerTimerStopped = true;
+function startAnswerTimer(){
+  if(answerTimerId){ clearInterval(answerTimerId); answerTimerId=null; }
+  answerTimeLeft = ANSWER_START_LIMIT;
+  answerTimerStopped = false;
+  updateAnswerTimerDisplay();
+  answerTimerId = setInterval(()=>{
+    if(answerTimerStopped){ clearInterval(answerTimerId); answerTimerId=null; return; }
+    answerTimeLeft -= 1;
+    updateAnswerTimerDisplay();
+    if(answerTimeLeft<=0){
+      clearInterval(answerTimerId); answerTimerId=null; answerTimerStopped=true;
+      onAnswerTimeout();
+    }
+  },1000);
+}
+function stopAnswerTimer(){
+  answerTimerStopped = true;
+  if(answerTimerId){ clearInterval(answerTimerId); answerTimerId=null; }
+  const el=document.getElementById('answerTimer');
+  if(el) el.classList.add('hidden');
+}
+function updateAnswerTimerDisplay(){
+  const el=document.getElementById('answerTimer');
+  if(!el) return;
+  el.textContent = `⏱ 답변 시작까지 ${answerTimeLeft}초`;
+  el.classList.toggle('urgent', answerTimeLeft<=10);
+}
+function onAnswerTimeout(){
+  if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+  state._timedOut = true;
+  submitAnswer();
+}
+
+/* ===================== 질문 음성(TTS) + 답변 준비 카운트다운 ===================== */
+let lastTTSQuestionId = null;
+let prepTimerId = null;
+let ttsVoicesCache = null;
+function pickKoreanVoice(){
+  if(!window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  if(!voices || !voices.length) return null;
+  ttsVoicesCache = voices;
+  const koVoices = voices.filter(v=>v.lang && v.lang.toLowerCase().startsWith('ko'));
+  if(!koVoices.length) return null;
+  // 남성으로 추정되는 이름 패턴 우선 탐색 (플랫폼마다 표기가 달라 폭넓게 매칭)
+  const maleNamePattern = /male|man|injoon|인준|민수|minsu|준호|junho|철수|형준|승우|성진/i;
+  const femaleNamePattern = /female|woman|heami|해ami|유나|yuna|sunhi|선희|지민|jimin/i;
+  let pick = koVoices.find(v=>maleNamePattern.test(v.name));
+  if(!pick) pick = koVoices.find(v=>!femaleNamePattern.test(v.name) && koVoices.length>1) || null;
+  return pick || koVoices[0];
+}
+function isIOSDevice(){
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+function speakQuestion(text){
+  const ttsTargetId = lastTTSQuestionId; // 이 발화가 어떤 문제를 위한 것인지 기억해둠
+  if(!window.speechSynthesis){ startPrepCountdown(); return; } // TTS 미지원이면 바로 카운트다운으로
+  try{
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'ko-KR';
+    // 아이폰(iOS) 음성 엔진은 피치를 조금만 낮춰도 소리가 심하게 왜곡되는 경우가 많아
+    // 아예 기본 피치(자연스러운 목소리)를 그대로 사용
+    if(isIOSDevice()){
+      utter.pitch = 1.0;
+      utter.rate = 0.95;
+    } else {
+      utter.pitch = 0.68; // 낮은 피치로 딱딱하고 무게감 있는 남성 아나운서 톤
+      utter.rate = 0.92;
+    }
+    utter.volume = 1;
+    const voice = pickKoreanVoice();
+    if(voice) utter.voice = voice;
+    utter.onstart = ()=>{ const el=document.getElementById('qtext'); if(el) el.classList.add('reading'); };
+    const finish = ()=>{
+      const el=document.getElementById('qtext'); if(el) el.classList.remove('reading');
+      // 이 음성 재생이 끝나기 전에 이미 다음 문제로 넘어갔거나 면접이 끝났다면
+      // (=lastTTSQuestionId가 바뀌었거나 더 이상 quiz 화면이 아니라면) 뒤늦게 도착한
+      // 이 종료 이벤트로 불필요한 새 카운트다운(비프음)을 시작하지 않음
+      if(lastTTSQuestionId !== ttsTargetId || screen !== 'quiz') return;
+      startPrepCountdown();
+    };
+    utter.onend = finish;
+    utter.onerror = finish;
+    window.speechSynthesis.speak(utter);
+  }catch(e){ startPrepCountdown(); }
+}
+function playTone(freq, duration, vol){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type='sine'; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(vol, ctx.currentTime+0.015);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+duration);
+    osc.start(); osc.stop(ctx.currentTime+duration+0.05);
+  }catch(e){}
+}
+function playTick(){ playTone(1100, 0.09, 0.14); } // 카운트다운 매 초마다 나는 짧은 비프음
+function playBeep(){ playTone(880, 0.35, 0.28); } // 카운트다운 종료(0초) 시 울리는 신호음
+function startPrepCountdown(){
+  if(prepTimerId){ clearInterval(prepTimerId); prepTimerId=null; }
+  state._prepActive = true;
+  state._prepTimeLeft = 10;
+  render();
+  prepTimerId = setInterval(()=>{
+    state._prepTimeLeft -= 1;
+    const el = document.getElementById('prepCountdownNum');
+    if(el) el.textContent = state._prepTimeLeft+'초';
+    if(state._prepTimeLeft<=0){
+      clearInterval(prepTimerId); prepTimerId=null;
+      finishPrepCountdown(true);
+    } else {
+      playTick();
+    }
+  },1000);
+}
+function finishPrepCountdown(autoStart){
+  state._prepActive = false;
+  if(prepTimerId){ clearInterval(prepTimerId); prepTimerId=null; }
+  render();
+  if(autoStart){
+    playBeep();
+    if(SR && !isRecording){ try{ toggleRecording(); }catch(e){} }
+  }
+}
+function cancelQuestionAudio(){
+  if(window.speechSynthesis) try{ window.speechSynthesis.cancel(); }catch(e){}
+  if(prepTimerId){ clearInterval(prepTimerId); prepTimerId=null; }
+  state._prepActive = false;
+}
+
+
+function render(){
+  const app=document.getElementById('app');
+  if(screen==='login') app.innerHTML=renderLogin();
+  else if(screen==='setup') app.innerHTML=renderSetup();
+  else if(screen==='quiz') app.innerHTML=renderQuiz();
+  else if(screen==='feedback') app.innerHTML=renderFeedback();
+  else if(screen==='result') app.innerHTML=renderResult();
+  else if(screen==='mystats') app.innerHTML=renderMyStats();
+  else if(screen==='tlogin') app.innerHTML=renderTLogin();
+  else if(screen==='tdash') app.innerHTML=renderTDash();
+  else if(screen==='tdetail') app.innerHTML=renderTDetail();
+  bindEvents();
+}
+
+function renderLogin(){
+  const loginEnabled = !loginConfigCache || loginConfigCache.loginEnabled !== false;
+  return `
+  <div class="card">
+    <h2 class="card-title" style="text-align:center;">🎙️ 중등 수학 구술면접 마스터</h2>
+    <p class="card-sub" style="text-align:center;">GMS학원 이은정 강사 · 자사·특목·과고반 대비</p>
+    <label class="field-label" style="margin-top:18px;">🙋 이름(아이디)을 입력해줘</label>
+    <input type="text" id="loginNameInput" placeholder="이름을 입력하세요" value="${escapeHtml(state.name)}" autocomplete="off">
+    ${loginEnabled ? `
+    <label class="field-label" style="margin-top:14px;">🔑 비밀번호를 입력해줘</label>
+    <input type="text" inputmode="numeric" id="loginPwInput" placeholder="비밀번호 입력" autocomplete="off">
+    <p class="small-note" style="margin-top:-6px;">선생님이 알려주신 비밀번호를 입력해 주세요.</p>` : ''}
+    <button class="btn btn-primary" id="loginBtn" style="margin-top:18px;">입장하기</button>
+  </div>
+  `;
+}
+async function attemptLogin(){
+  const nameEl = document.getElementById('loginNameInput');
+  const pwEl = document.getElementById('loginPwInput');
+  const nm = (nameEl ? nameEl.value : '').trim();
+  if(!nm){ await showAlert('이름을 입력해 주세요!'); return; }
+  const cfg = await getLoginConfig();
+  if(cfg.loginEnabled !== false){
+    const pw = (pwEl ? pwEl.value : '').trim();
+    if(!pw){ await showAlert('비밀번호를 입력해 주세요!'); return; }
+    if(pw !== cfg.password){ await showAlert('비밀번호가 틀렸어요. 선생님께 다시 확인해 주세요!'); return; }
+  }
+  state.name = nm;
+  saveLastUsedName(nm);
+  showLoadingModal('이전 기록을 확인하고 있어요...');
+  serverResumeCache = await fetchServerResumeSnapshots(nm);
+  hideLoadingModal();
+  screen = 'setup';
+  render();
+}
+
+function renderSetup(){
+  const name = state.name;
+  const activePool = state.mode==='advanced' ? ADV_POOL : (state.mode==='random' ? QUESTIONS : BASIC_QUESTIONS);
+  const chips = CATS.map(c=>`
+    <div class="chip ${state.cats.includes(c)?'active':''}" data-cat="${c}">
+      <b>${CAT_ICON[c]} ${c}</b><small>${activePool.filter(q=>q.cat===c).length}문항</small>
+    </div>`).join('');
+  const GRADES = ['중1','중2','중3'];
+  const gradeChips = GRADES.map(g=>`
+    <div class="chip ${state.grades.includes(g)?'active':''}" data-grade="${g}">
+      <b>${g}</b><small>${activePool.filter(q=>q.grade===g).length}문항</small>
+    </div>`).join('');
+  const counts = state.mode==='random' ? [10,20,30,50,100,150,200,250,300] : [5,10,15,999];
+  const countChips = counts.map(n=>`<div class="opt-chip ${state.count===n?'active':''}" data-count="${n}">${n===999?'전체':n+'문제'}</div>`).join('');
+  const wc = wrongCount(name);
+  const ewc = everWrongCount(name);
+  // 스킬 방식: 로컬 스냅샷과 서버 스냅샷 중 더 최신 것을 선택
+  const localNormal = getStudent(name).inProgress || null;
+  const localWrong = getStudent(name).inProgressWrong || null;
+  const snapNormal = pickNewerSnapshot(
+    (localNormal && localNormal.queueIds && localNormal.queueIds.length && (localNormal.records||[]).length < localNormal.queueIds.length) ? localNormal : null,
+    serverResumeCache && serverResumeCache.normal
+  );
+  const snapWrong = pickNewerSnapshot(
+    (localWrong && localWrong.queueIds && localWrong.queueIds.length && (localWrong.records||[]).length < localWrong.queueIds.length) ? localWrong : null,
+    serverResumeCache && serverResumeCache.wrong
+  );
+  function resumeBoxHtml(snap, group){
+    if(!snap) return '';
+    if(snap.approx){
+      if(!snap.cats || !snap.cats.length) return '';
+      return `
+      <div class="card" style="border:2px solid var(--gold);margin-bottom:12px;">
+        <h2 class="card-title" style="font-size:15px;">🔄 이전에 풀던 것과 비슷하게 이어갈 수 있어요${group==='wrong'?' (오답모드)':''}</h2>
+        <p class="card-sub">예전 기록이라 정확히 이어지진 않지만, 이미 푼 문제는 빼고 같은 카테고리로 새로 이어가요 · ${snap.modeLabel||''} · ${snap.savedAt||''}</p>
+        <div class="row2">
+          <button class="btn btn-ghost discardResumeBtn" data-group="${group}">새로 시작</button>
+          <button class="btn btn-gold resumeBtn" data-group="${group}">🔄 비슷하게 이어가기</button>
+        </div>
+      </div>`;
+    }
+    if(!snap.queueIds || !snap.queueIds.length) return '';
+    const done = (snap.records||[]).length;
+    const total = snap.queueIds.length;
+    const isServer = !snap.savedAt || (serverResumeCache && (group==='normal' ? serverResumeCache.normal===snap : serverResumeCache.wrong===snap));
+    const sourceNote = isServer ? ' (다른 기기에서 풀던 기록)' : '';
+    return `
+    <div class="card" style="border:2px solid var(--gold);margin-bottom:12px;">
+      <h2 class="card-title" style="font-size:15px;">⏸️ 이어서 풀 수 있는 ${group==='wrong'?'오답모드 ':''}면접이 있어요${sourceNote}</h2>
+      <p class="card-sub">${done} / ${total}문항까지 풀었어요 · ${snap.modeLabel||''} · ${snap.savedAt||''}</p>
+      <div class="row2">
+        <button class="btn btn-ghost discardResumeBtn" data-group="${group}">새로 시작</button>
+        <button class="btn btn-gold resumeBtn" data-group="${group}">▶ 이어풀기</button>
+      </div>
+    </div>`;
+  }
+  const supportNote = SR? '' : `<div class="warnbox">⚠️ 이 브라우저는 음성 인식(Web Speech API)을 지원하지 않아요. 데스크톱 Chrome 브라우저를 권장하며, 지원되지 않으면 답변을 직접 입력해서 채점할 수 있어요.</div>`;
+  return `
+  ${supportNote}
+  <div class="card">
+    <p class="card-sub" style="margin:0 0 4px;">👋 <b>${escapeHtml(name)}</b>님, 반가워요!</p>
+    <span class="giveup" id="logoutBtn" style="font-size:13px;">🚪 다른 사람으로 로그인</span>
+  </div>
+
+  ${resumeBoxHtml(snapNormal, 'normal')}
+  ${resumeBoxHtml(snapWrong, 'wrong')}
+
+  <div class="card" style="border:2px solid #b8860b;">
+    <h2 class="card-title">🏆 최상위문제 (꼬리 질문 포함)</h2>
+    <p class="card-sub">개념의 정의와 성질을 묻는 문제 뒤에, 그 개념을 증명하거나 한 단계 더 깊이 파고드는 "꼬리 질문"이 항상 붙어서 나와요. (중학교 교육과정 범위 내에서만 출제됩니다.)</p>
+    <div class="mode-card ${state.mode==='top'?'active':''}" data-mode="top">
+      <div class="mt">🏆 최상위문제 시작하기</div>
+      <div class="md">총 ${TOP_PAIRS.length}쌍(${TOP_PAIRS.length*2}문항) · 본문제 바로 다음에 꼬리질문이 이어서 나와요.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title">면접 모드 선택</h2>
+    <div class="mode-card ${state.mode==='category'?'active':''}" data-mode="category">
+      <div class="mt">🗂️ 부분 학습</div>
+      <div class="md">원하는 영역과 문항 수를 직접 골라서 연습해요.</div>
+    </div>
+    <div class="mode-card ${state.mode==='advanced'?'active':''}" data-mode="advanced">
+      <div class="mt">🎯 응용 모드 (상)</div>
+      <div class="md">여러 개념을 종합해서 추론하는 심화 문항 ${ADV_POOL.length}개로 연습해요.</div>
+    </div>
+    <div class="mode-card ${state.mode==='all'?'active':''}" data-mode="all">
+      <div class="mt">🧩 전체 모드</div>
+      <div class="md">기본 ${BASIC_QUESTIONS.length}문항을 모두 풀어봐요.</div>
+    </div>
+    <div class="mode-card ${state.mode==='random'?'active':''}" data-mode="random">
+      <div class="mt">🎲 랜덤 모드</div>
+      <div class="md">기본+응용 ${QUESTIONS.length}문항 전체에서 원하는 개수만큼 무작위로 뽑아 풀어요.</div>
+    </div>
+    <div class="mode-card ${state.mode==='wrong'?'active':''}" data-mode="wrong">
+      <div class="mt">🔁 오답 모드</div>
+      <div class="md">${name.trim()? (wc>0? `이 기기 오답 ${wc}문항 + 다른 기기 오답도 시작할 때 자동으로 가져와요.` : '이 기기엔 오답이 없어요. 다른 기기 기록은 시작할 때 자동으로 확인해요.') : '이름을 입력하면 오답 기록을 확인해요.'}</div>
+    </div>
+    <div class="mode-card ${state.mode==='cumwrong'?'active':''}" data-mode="cumwrong">
+      <div class="mt">📚 누적 오답 모드</div>
+      <div class="md">${name.trim()? (ewc>0? `이 기기 누적 오답 ${ewc}문항 + 다른 기기 기록도 시작할 때 자동으로 가져와요.` : '이 기기엔 누적 오답이 없어요. 다른 기기 기록은 시작할 때 자동으로 확인해요.') : '이름을 입력하면 누적 오답 기록을 확인해요.'}</div>
+    </div>
+
+    ${state.mode==='category'||state.mode==='advanced'||state.mode==='random'? `
+    ${state.mode==='advanced'? '<div class="infobox" style="margin:10px 0;">⭐ 응용 문항은 한 가지 개념만으로는 답할 수 없고, 여러 개념을 연결해서 상황을 추론해야 해요.</div>' : ''}
+    <label class="field-label">🎓 학년 (복수 선택 가능)</label>
+    <div class="chip-grid">${gradeChips}</div>
+    <label class="field-label">📚 질문 범위 (복수 선택 가능)</label>
+    <div class="chip-grid">${chips}</div>
+    <label class="field-label">🔢 문항 수</label>
+    <div class="opt-row">${countChips}</div>
+    ` : ''}
+    <div class="toggle-row"><input type="checkbox" id="shuffleChk" ${state.shuffle?'checked':''}><label for="shuffleChk">문제 순서 무작위로 섞기</label></div>
+    <div style="margin-top:18px;">
+      <button class="btn btn-primary" id="startBtn">🎓 면접 시작하기</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title" style="font-size:15.5px;">🎤 답변, 이렇게 말로 입력하세요</h2>
+    <div class="infobox" style="margin-top:2px;">📱 문제 화면의 답변 입력칸을 <b>탭</b>하면 휴대폰 키보드가 올라와요. 그 키보드 위쪽에 있는 <b>🎤 마이크 아이콘</b>을 누르고 말하면 텍스트로 바로 입력돼요.
+이 방법은 브라우저 기능이 아니라 휴대폰 자체 음성입력 기능이라 항상 안정적으로 작동해요. 모바일에서는 이 방법을 기본으로 사용해주세요.</div>
+    <p class="card-sub" style="margin:14px 0 8px;">화면에 있는 🎙️ 버튼(브라우저 자체 음성인식)은 PC의 Chrome에서는 잘 되지만, 휴대폰에서는 기기·브라우저에 따라 안 될 수 있어요. 궁금하면 아래로 상태를 확인해보세요.</p>
+    <button class="btn btn-outline" id="micTestBtn">🎙️ 버튼 권한 테스트 (참고용)</button>
+    <p class="small-note" id="micTestResult"></p>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title" style="font-size:15.5px;">📈 내 기록 · 오답노트</h2>
+    <button class="btn btn-outline" id="myStatsBtn">내 기록 보기</button>
+  </div>
+  <div class="card">
+    <h2 class="card-title" style="font-size:15.5px;">👩‍🏫 강사용</h2>
+    <button class="btn btn-ghost" id="teacherBtn">강사용 결과 확인</button>
+  </div>
+  <div class="footer-copy">GMS학원 이은정 강사 · 중등수학 개념정리 기반 구술면접 훈련</div>
+  `;
+}
+
+function renderQuiz(){
+  const q = state.queue[state.idx];
+  const total = state.queue.length;
+  const pct = Math.round((state.idx)/total*100);
+  const micSupported = !!SR;
+  const prepHtml = state._prepActive ? `
+  <div class="card" style="text-align:center;border:2px solid var(--gold);">
+    <div style="font-size:13.5px;color:var(--sub);">🎙️ 답변을 준비할 시간이에요</div>
+    <div class="prep-num" id="prepCountdownNum">${state._prepTimeLeft}초</div>
+    <div class="row2">
+      <button class="btn btn-primary" id="prepReadyBtn">🎤 준비 완료! 바로 말하기</button>
+      <button class="btn btn-outline" id="prepExtendBtn">⏱️ 생각시간 +5초</button>
+    </div>
+  </div>` : '';
+  return `
+  <div class="progressbar"><div class="progressbar-inner" style="width:${pct}%"></div></div>
+  <div class="meta-row"><span class="cat-tag">${CAT_ICON[q.cat]} ${q.cat}</span><span>${state.idx+1} / ${total} 문항</span><span class="name-tag">${escapeHtml(state.name)}</span></div>
+  <div class="answer-timer" id="answerTimer">⏱ 답변 시작까지 ${ANSWER_START_LIMIT}초</div>
+  <div class="qcard">
+    <div class="qtext" id="qtext">${q.q}</div>
+    <button class="btn btn-outline" id="replayTTSBtn" style="margin-top:10px;">🔊 문제 다시 듣기</button>
+  </div>
+  ${prepHtml}
+  <div class="infobox" style="margin-bottom:14px;">🎤 답변 칸에 자동으로 커서가 가 있어요. 키보드가 뜨면 위쪽의 <b>마이크 아이콘</b>을 눌러 말하면 텍스트로 입력돼요. (키보드가 안 보이면 답변 칸을 한 번 탭해주세요)</div>
+  <div class="answer-label"><span>내 답변</span><span class="char-count" id="charCount">${state.answerText.length}자</span></div>
+  ${isMobileDevice()? `
+  <button class="btn btn-primary" id="keyboardMicBtn" style="margin-bottom:4px;">키보드 마이크 버튼 누르기(구글음성입력)</button>
+  <p class="small-note kb-mic-hint" id="kbMicHint" style="display:none;margin:0 0 10px;text-align:center;">구글음성인식이 더 잘 입력됩니다</p>
+  ` : ''}
+  <textarea class="answer-box" id="answerBox" placeholder="답변 칸을 탭한 뒤 키보드의 마이크 아이콘으로 말하거나, 직접 입력하세요...">${state.answerText}</textarea>
+  ${micSupported? `
+  <div class="rec-zone" style="margin-top:14px;">
+    <p class="small-note" style="margin-top:0;margin-bottom:10px;">또는 앱 자체 음성인식을 시도해볼 수 있어요 (키보드 마이크보다 정확도가 낮을 수 있어요)</p>
+    <button class="mic-btn" id="micBtn">🎙️</button>
+    <div class="rec-status" id="recStatus">마이크 버튼을 눌러 시도해보기</div>
+    <div class="waveform hidden" id="waveform"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  ` : ``}
+  <div class="row2" style="margin-top:16px;">
+    <button class="btn btn-ghost" id="clearBtn">지우기</button>
+    <button class="btn btn-primary" id="submitBtn">답변 제출하고 채점받기</button>
+  </div>
+  <span class="giveup" id="skipBtn">이 문제 건너뛰기</span>
+  <span class="giveup" id="pauseBtn">잠시 멈추고 나중에 이어풀기</span>
+  ${state.records.length>0? `<div style="margin-top:10px;"><button class="btn btn-outline" id="finishEarlyBtn">✅ 여기까지 풀고 점수낼래요 (${state.records.length}문항)</button></div>` : ''}
+  `;
+}
+
+function renderFeedback(){
+  const fb = state.feedback;
+  const q = state.queue[state.idx];
+  const tier = tierOf(fb.score);
+  const kwOk = fb.matched.map(k=>`<span class="kw-chip ok">✅ ${k.l}</span>`).join('');
+  const kwMiss = fb.missed.map(k=>`<span class="kw-chip miss">➕ ${k.l}</span>`).join('');
+  const isLast = state.idx === state.queue.length-1;
+  const followUpHtml = fb.followUpQuestion ? `
+    <div class="card" style="border:2px solid var(--gold);margin-top:14px;">
+      <h3 class="card-title" style="font-size:15px;">🔁 꼬리질문</h3>
+      <div class="qtext" style="font-size:15.5px;">${escapeHtml(fb.followUpQuestion)}</div>
+      ${state._followUpAnswered? `
+        <div class="ans-box mine" style="margin-top:10px;"><b>내 답변</b>${escapeHtml(state._followUpAnswerText)||'(답변 없음)'}</div>
+        ${state._followUpComment? `<div class="infobox">🤖 ${escapeHtml(state._followUpComment)}</div>` : ''}
+      ` : `
+        <textarea class="answer-box" id="followUpBox" placeholder="꼬리질문에 답해보세요 (건너뛰어도 괜찮아요)" style="margin-top:10px;">${state._followUpAnswerText||''}</textarea>
+        <button class="btn btn-primary" id="followUpSubmitBtn" style="margin-top:10px;">꼬리질문 답변 제출</button>
+      `}
+    </div>
+  ` : '';
+  return `
+  <div class="card">
+    ${fb.timedOut? `<div class="warnbox">⏱ 60초 안에 답변을 시작하지 않아 자동으로 제출됐어요.</div>` : ''}
+    <div class="score-wrap">
+      <div class="score-ring" style="${ringStyle(fb.score)}">
+        <div style="background:#fff;width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <div class="score-num" style="color:${fb.score>=90?'#b8902f':fb.score>=70?'#2f7d5b':fb.score>=45?'#e0862b':'#b3432b'}">${fb.score}</div>
+          <div class="score-max">/ 100점</div>
+        </div>
+      </div>
+    </div>
+    <div class="tier-label ${tier.cls}">${tier.label}</div>
+    ${fb.passMsg? `<div class="infobox" style="text-align:center;font-weight:700;">${escapeHtml(fb.passMsg)}</div>` : ''}
+    ${fb.feedback? `<div class="infobox">🤖 <b>AI 채점 코멘트</b><br>${escapeHtml(fb.feedback)}</div>` : ''}
+    ${fb.aiGraded===false? `<p class="small-note">📝 키워드 기반 채점으로 처리됐어요. 핵심 개념 위주로 채점했어요.</p>` : ''}
+    <div class="kw-section">
+      ${kwOk? `<div class="kw-title">✅ 답변에 포함된 핵심 개념</div><div class="kw-grid">${kwOk}</div>`:''}
+      ${kwMiss? `<div class="kw-title">➕ 놓친 핵심 개념</div><div class="kw-grid">${kwMiss}</div>`:''}
+    </div>
+    <div class="ans-box mine"><b>내 답변</b>${escapeHtml(state.answerText)||'(답변 없음)'}</div>
+    <div class="ans-box model"><b>모범 답안</b>${q.a}</div>
+  </div>
+  ${followUpHtml}
+  <div class="card">
+    <button class="btn btn-primary" id="nextBtn" style="margin-top:6px;">${isLast? '결과 보기' : '다음 질문'}</button>
+    <button class="btn btn-outline" id="retryAnswerBtn" style="margin-top:10px;">이 문제 다시 답하기</button>
+    ${!isLast? `<div style="margin-top:10px;"><span class="giveup" id="finishEarlyBtn2">✅ 여기까지 풀고 점수낼래요 (${state.records.length}문항)</span></div>` : ''}
+  </div>
+  `;
+}
+
+function renderResult(){
+  const total = state.records.length;
+  const avg = total? Math.round(state.records.reduce((s,r)=>s+r.score,0)/total) : 0;
+  const items = state.records.map(r=>{
+    const color = r.score>=90?'#b8902f':r.score>=70?'#2f7d5b':r.score>=45?'#e0862b':'#b3432b';
+    return `<div class="result-item"><div class="ri-q">${CAT_ICON[r.cat]} ${r.q}</div><div class="ri-score" style="color:${color}">${r.score}점</div></div>`;
+  }).join('');
+  const deviceBtn = isMobileDevice()
+    ? `<button class="btn btn-gold" id="mobileSubmitBtn" style="margin-top:12px;">📤 선생님께 오답 제출하기</button>`
+    : `<button class="btn btn-gold" id="printBtn" style="margin-top:12px;">🖨️ A4로 바로 인쇄</button>`;
+  return `
+  <div class="card">
+    <h2 class="card-title" style="text-align:center;">${escapeHtml(state.name)}님의 면접 결과</h2>
+    <div class="avg-big">${avg}<span style="font-size:20px;color:var(--sub);">점</span></div>
+    <div class="avg-sub">${total}문항 평균 점수 · ${state.mode==='wrong'?'오답 모드':state.mode==='cumwrong'?'누적 오답 모드':state.mode==='all'?'전체 모드':state.mode==='advanced'?'응용 모드(상)':state.mode==='random'?'랜덤 모드':state.mode==='top'?'최상위문제':'부분 학습'}</div>
+    <div class="result-list">${items}</div>
+    <div class="row2" style="margin-top:16px;">
+      <button class="btn btn-outline" id="wrongNoteBtn">오답노트 보기</button>
+      <button class="btn btn-primary" id="retryBtn">다시 도전하기</button>
+    </div>
+    <div class="row2" style="margin-top:12px;">
+      <button class="btn btn-outline" id="resultPrintBtn">🖨️ 인쇄하기 (전체 누적)</button>
+      <button class="btn btn-gold" id="resultPdfBtn">💾 PDF로 저장 (전체 누적)</button>
+    </div>
+    ${deviceBtn}
+    <div class="small-note" id="sheetSendStatus" style="margin-top:8px;text-align:center;">📤 선생님께 결과 전송 중...</div>
+    <button class="btn btn-ghost" id="backHomeBtn" style="margin-top:10px;">처음으로</button>
+  </div>
+  `;
+}
+
+function renderMyStats(){
+  const name=state.name;
+  if(!name.trim()){
+    return `<div class="card"><h2 class="card-title">내 기록</h2><p class="small-note">먼저 이름을 입력해주세요.</p>
+    <input type="text" id="nameInput2" placeholder="이름을 입력하세요" style="margin-top:8px;">
+    <button class="btn btn-primary" id="loadStatsBtn" style="margin-top:12px;">기록 불러오기</button>
+    <button class="btn btn-ghost" id="backSetupBtn" style="margin-top:10px;">돌아가기</button>
+    </div>`;
+  }
+  const s = getStudent(name);
+  const logs = s.examLogs.slice().reverse();
+  const wrongList = Object.keys(s.wrong).map(id=>({id, ...s.wrong[id]})).filter(w=>QMAP[w.id]);
+  const histHtml = logs.length? logs.map(l=>`
+    <div class="hist-item">
+      <div class="hist-top"><span>${l.date}</span><span>${l.avg}점</span></div>
+      <div class="hist-sub">${l.count}문항 · ${l.modeLabel||''} · ${(l.cats||[]).join(', ')}</div>
+    </div>`).join('') : `<p class="small-note">아직 면접 기록이 없어요.</p>`;
+  const wrongHtml = wrongList.length? wrongList.map(w=>{
+    const q=QMAP[w.id];
+    return `<div class="wrongitem">
+      <div class="wq">${CAT_ICON[q.cat]} ${q.q}</div>
+      <div class="wmeta">최근 점수 ${w.lastScore}점 · ${w.date||''}</div>
+      <div class="wa"><b>내 답변:</b> ${escapeHtml(w.lastAnswer)||'(답변 없음)'}</div>
+      <div class="wc"><b>모범 답안:</b> ${q.a}</div>
+    </div>`;
+  }).join('') : `<p class="small-note">오답노트가 비어 있어요. 훌륭해요!</p>`;
+  return `
+  <div class="card">
+    <h2 class="card-title">${escapeHtml(name)}님의 면접 기록</h2>
+    <div class="tabbar">
+      <div class="tabbtn active" data-tab="hist">면접 기록</div>
+      <div class="tabbtn" data-tab="wrong">오답노트 (${wrongList.length})</div>
+    </div>
+    <div id="tabHist">${histHtml}</div>
+    <div id="tabWrong" class="hidden">
+      ${wrongHtml}
+      ${wrongList.length? `<div class="row2" style="margin-top:12px;">
+        <button class="btn btn-outline" id="printBtn2">🖨️ 인쇄하기</button>
+        <button class="btn btn-gold" id="pdfBtn">💾 PDF로 저장</button>
+      </div>`:''}
+    </div>
+    <button class="btn btn-ghost" id="backSetupBtn" style="margin-top:16px;">돌아가기</button>
+  </div>
+  `;
+}
+
+function renderTLogin(){
+  return `
+  <div class="card">
+    <h2 class="card-title">👩‍🏫 강사용 로그인</h2>
+    <p class="card-sub">비밀번호를 입력해주세요.</p>
+    <input type="password" id="pwInput" placeholder="비밀번호">
+    <div class="row2" style="margin-top:14px;">
+      <button class="btn btn-ghost" id="pwCancel">취소</button>
+      <button class="btn btn-primary" id="pwSubmit">확인</button>
+    </div>
+  </div>
+  `;
+}
+
+function renderTDash(){
+  const curPw = (()=>{ try{ return localStorage.getItem('login_pw_ip_v2')||'1234'; }catch(e){ return '1234'; } })();
+  const loginEnabled = (()=>{ try{ return localStorage.getItem('login_en_ip_v2')!=='N'; }catch(e){ return true; } })();
+  const curTeacherPw = getTeacherPassword();
+  return `
+  <div class="card">
+    <h2 class="card-title">👩‍🏫 강사용 대시보드</h2>
+    <p class="card-sub">학생이 <b>어떤 기기(폰·PC)로 풀었든</b> 구글 시트에 기록된 전체 학생이 아래에 자동으로 떠요. 이름을 누르면 오답노트를 확인·인쇄할 수 있어요.</p>
+    <div id="sheetSummary"></div>
+    <div id="sheetAllList"><p class="small-note">🔍 구글 시트에서 학생 목록을 불러오는 중...</p></div>
+  </div>
+  <div class="card">
+    <h2 class="card-title" style="font-size:15px;">🔑 학생 로그인 비밀번호 설정</h2>
+    <p class="card-sub">학생들이 앱에 입장할 때 쓰는 비밀번호예요. 이 기기(강사 PC)에만 저장돼요.</p>
+    <div class="toggle-row" style="margin-bottom:10px;">
+      <input type="checkbox" id="loginEnabledChk" ${loginEnabled?'checked':''}>
+      <label for="loginEnabledChk">비밀번호 입력 기능 사용</label>
+    </div>
+    <div class="row2" style="margin-bottom:6px;">
+      <input type="text" id="newPwInput" placeholder="새 비밀번호 (숫자 4자리)" value="${curPw}" style="flex:1;">
+      <button class="btn btn-primary" id="savePwBtn" style="flex:none;width:auto;white-space:nowrap;padding-left:20px;padding-right:20px;">저장</button>
+    </div>
+    <p class="small-note">저장 후 학생들에게 새 비밀번호를 알려주세요.</p>
+  </div>
+  <div class="card">
+    <h2 class="card-title" style="font-size:15px;">🔒 강사용 비밀번호 설정</h2>
+    <p class="card-sub">강사용 대시보드에 들어올 때 쓰는 비밀번호예요 (기본값 0000). 이 기기에만 저장돼요.</p>
+    <div class="row2" style="margin-bottom:6px;">
+      <input type="text" id="newTeacherPwInput" placeholder="새 비밀번호" value="${curTeacherPw}" style="flex:1;">
+      <button class="btn btn-primary" id="saveTeacherPwBtn" style="flex:none;width:auto;white-space:nowrap;padding-left:20px;padding-right:20px;">저장</button>
+    </div>
+    <p class="small-note">변경 후에는 이 비밀번호를 잊지 않게 따로 적어두세요.</p>
+  </div>
+  <div class="card">
+    <h2 class="card-title" style="font-size:15px;">🔍 이름으로 직접 검색</h2>
+    <p class="card-sub">위 목록에 안 보이거나 이름 철자가 다를 때 직접 검색해보세요.</p>
+    <input type="text" id="sheetSearchName" placeholder="학생 이름 검색 (구글 시트)" style="margin-bottom:8px;">
+    <button class="btn btn-primary" id="sheetSearchBtn">🔍 구글 시트에서 검색</button>
+    <div id="sheetSearchResult" style="margin-top:12px;"></div>
+  </div>
+  <div class="card">
+    <h2 class="card-title" style="font-size:15px;">📘 전체 문제 + 모범답안 PDF</h2>
+    <p class="card-sub">전체 ${QUESTIONS.length}문항과 모범답안을 PDF로 다운받을 수 있어요.</p>
+    <div class="row2">
+      <button class="btn btn-outline" id="allQPrintBtn">🖨️ 인쇄하기</button>
+      <button class="btn btn-gold" id="allQPdfBtn">💾 PDF 다운로드</button>
+    </div>
+    <div id="allQStatus" style="margin-top:8px;"></div>
+  </div>
+  <button class="btn btn-ghost" id="backSetupBtn" style="margin-top:16px;">돌아가기</button>
+  `;
+}
+
+function renderTDetail(){
+  const name=tDetailName;
+  const s = getStudent(name);
+  const logs = s.examLogs.slice().reverse();
+  const wrongList = Object.keys(s.wrong).map(id=>({id, ...s.wrong[id]})).filter(w=>QMAP[w.id]);
+  const catAvg = {};
+  CATS.forEach(c=>{
+    const relevant = logs.filter(l=>(l.cats||[]).includes(c));
+    catAvg[c] = null;
+  });
+  const histHtml = logs.length? logs.map(l=>`
+    <div class="hist-item" style="cursor:default;">
+      <div class="hist-top"><span>${l.date}</span><span>${l.avg}점</span></div>
+      <div class="hist-sub">${l.count}문항 · ${l.modeLabel||''} · ${(l.cats||[]).join(', ')}</div>
+    </div>`).join('') : `<p class="small-note">면접 기록이 없어요.</p>`;
+  const wrongHtml = wrongList.length? wrongList.map(w=>{
+    const q=QMAP[w.id];
+    return `<div class="wrongitem">
+      <div class="wq">${CAT_ICON[q.cat]} ${q.q}</div>
+      <div class="wmeta">최근 점수 ${w.lastScore}점 · ${w.date||''}</div>
+      <div class="wa"><b>학생 답변:</b> ${escapeHtml(w.lastAnswer)||'(답변 없음)'}</div>
+      <div class="wc"><b>모범 답안:</b> ${q.a}</div>
+    </div>`;
+  }).join('') : `<p class="small-note">오답노트가 비어 있어요.</p>`;
+  return `
+  <div class="card">
+    <h2 class="card-title">${escapeHtml(name)} 학생 상세</h2>
+    <div class="tabbar">
+      <div class="tabbtn active" data-tab="hist">면접 기록</div>
+      <div class="tabbtn" data-tab="wrong">오답노트 (${wrongList.length})</div>
+    </div>
+    <div id="tabHist">${histHtml}</div>
+    <div id="tabWrong" class="hidden">
+      ${wrongHtml}
+      ${wrongList.length? `<div class="row2" style="margin-top:12px;">
+        <button class="btn btn-outline" id="printBtn2">🖨️ 인쇄하기</button>
+        <button class="btn btn-gold" id="pdfBtn">💾 PDF로 저장</button>
+      </div>`:''}
+    </div>
+    <button class="btn btn-ghost" id="backTdashBtn" style="margin-top:16px;">목록으로</button>
+  </div>
+  `;
+}
+
+/* ===================== PDF 오답노트 (소화/순환 퀴즈앱과 동일하게 검증된 방식) ===================== */
+/* 모바일 대응(중요): pdf.save()의 자동(프로그램) 다운로드는 삼성 인터넷 등 일부
+   모바일 브라우저에서 조용히 실패하는 경우가 있어요. 그래서 PDF가 준비되면
+   학생/강사가 '직접 손가락으로 누르는' 진짜 링크 버튼을 보여주는 방식으로 처리해요.
+   또한 캡처 대상은 화면 밖(-9999px)에 고정 너비(760px)로 별도로 만들어,
+   모바일 좁은 화면 너비 때문에 글자가 과하게 커지는 문제를 피해요. */
+let lastPdfBlobUrl=null;
+let lastPdfFilename=null;
+function showLoadingModal(msg){
+  const ov=document.getElementById('modalOverlay');
+  document.getElementById('modalMsg').innerHTML=msg;
+  document.getElementById('modalBtns').innerHTML='';
+  ov.classList.remove('hidden');
+}
+function hideLoadingModal(){
+  document.getElementById('modalOverlay').classList.add('hidden');
+}
+function printWrongNote(name, wrongList){
+  if(!wrongList.length){ showAlert('오답노트가 비어 있어요.'); return; }
+  const itemsHtml = wrongList.map((w,i)=>{
+    const q=QMAP[w.id];
+    if(!q) return '';
+    return `<div class="print-item">
+      <div style="font-size:12.5px;font-weight:700;margin-bottom:4px;line-height:1.45;color:#1b2a4a;">${i+1}. [${q.cat}] ${q.q}</div>
+      <div style="font-size:11px;color:#b3432b;">내 답변: ${escapeHtml(w.lastAnswer)||'(답변 없음)'} (${w.lastScore}점)</div>
+      <div style="font-size:11px;color:#2f7d5b;font-weight:700;margin-top:3px;">모범 답안: ${q.a}</div>
+    </div>`;
+  }).join('');
+  const area = document.getElementById('printArea');
+  area.innerHTML = `
+    <h1 style="font-size:18px;color:#1b2a4a;margin:0 0 4px;">${escapeHtml(name)}님의 오답노트</h1>
+    <p style="font-size:11px;color:#6b7280;margin:0 0 14px;">중등 수학 구술면접 마스터 · GMS학원 이은정 강사 · ${new Date().toLocaleDateString('ko-KR')}</p>
+    ${itemsHtml}
+  `;
+  area.classList.remove('hidden');
+  const prevTitle = document.title;
+  document.title = `${name}님의 오답노트`; // 인쇄 대화상자에서 "PDF로 저장" 시 이 이름이 파일명으로 제안됨
+  // 모바일 브라우저는 클릭 이벤트 직후 동기적으로 호출해야 인쇄가 정상적으로 열림 (지연 호출 시 막히는 경우가 있음)
+  window.print();
+  document.title = prevTitle;
+  area.classList.add('hidden');
+  area.innerHTML='';
+}
+async function downloadWrongNotePDF(name, wrongList){
+  if(!wrongList.length){ await showAlert('오답노트가 비어 있어요.'); return; }
+  if(!window.html2canvas || !(window.jspdf && window.jspdf.jsPDF)){
+    await showAlert('PDF 기능을 불러오는 중이에요. 인터넷 연결을 확인한 뒤 잠시 후 다시 시도해주세요.');
+    return;
+  }
+  showLoadingModal('📄 PDF를 만들고 있어요...');
+  const helper = document.createElement('div');
+  helper.style.cssText = 'position:fixed;left:-9999px;top:0;width:700px;background:#ffffff;box-sizing:border-box;font-family:"Noto Sans KR",sans-serif;';
+  document.body.appendChild(helper);
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const usableWidth = pageWidth - margin*2;
+    let y = margin;
+
+    // 제목 블록을 이미지로 렌더링해 추가
+    helper.innerHTML = `<h1 style="font-size:18px;color:#1b2a4a;margin:0 0 4px;">${escapeHtml(name)}님의 오답노트</h1><p style="font-size:11px;color:#6b7280;margin:0;">중등 수학 구술면접 마스터 · GMS학원 이은정 강사 · ${new Date().toLocaleDateString('ko-KR')}</p>`;
+    let canvas = await html2canvas(helper, {scale:2, backgroundColor:'#ffffff', windowWidth:700});
+    let imgH = canvas.height*usableWidth/canvas.width;
+    pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',margin,y,usableWidth,imgH);
+    y += imgH + 6;
+
+    // 문항을 하나씩 이미지로 렌더링해서, 페이지 남은 공간에 안 맞으면 통째로 다음 페이지로 넘김
+    // (하나의 큰 이미지를 기계적으로 잘랐던 예전 방식과 달리 문항 중간이 잘리지 않음)
+    for(let i=0;i<wrongList.length;i++){
+      const w = wrongList[i];
+      const q = QMAP[w.id];
+      if(!q) continue;
+      helper.innerHTML = `
+        <div style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#1b2a4a;">${i+1}. [${q.cat}] ${q.q}</div>
+          <div style="font-size:11px;color:#b3432b;">내 답변: ${escapeHtml(w.lastAnswer)||'(답변 없음)'} (${w.lastScore}점)</div>
+          <div style="font-size:11px;color:#2f7d5b;font-weight:700;margin-top:3px;">모범 답안: ${q.a}</div>
+        </div>`;
+      canvas = await html2canvas(helper, {scale:2, backgroundColor:'#ffffff', windowWidth:700});
+      imgH = canvas.height*usableWidth/canvas.width;
+      if(y + imgH > pageHeight - margin){
+        pdf.addPage();
+        y = margin;
+      }
+      pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',margin,y,usableWidth,imgH);
+      y += imgH + 4;
+    }
+    hideLoadingModal();
+    lastPdfFilename = `${name||'학생'}님의 오답노트.pdf`;
+    lastPdfBlobUrl = URL.createObjectURL(new File([pdf.output('blob')], lastPdfFilename, {type:'application/pdf'})); // File로 감싸야 '열어서 보기'에서 인쇄할 때도 파일명이 정확히 뜸
+    showPdfReadyModal(`📄 ${escapeHtml(name||'학생')}님의 오답노트 PDF가 준비됐어요!<br>아래 버튼을 <b>직접 눌러서</b> 저장하거나 열어 주세요.`);
+  }catch(e){
+    hideLoadingModal();
+    await showAlert('PDF를 만드는 중 문제가 발생했어요. 인터넷 연결을 확인하고 다시 시도해주세요.');
+  } finally {
+    if(helper.parentNode) helper.parentNode.removeChild(helper);
+  }
+}
+function getLocalWrongList(name){
+  const s=getStudent(name);
+  return Object.keys(s.wrong).map(id=>({id, ...s.wrong[id]})).filter(w=>QMAP[w.id]);
+}
+function printLocalWrongNote(name){
+  printWrongNote(name, getLocalWrongList(name));
+}
+async function downloadLocalWrongNotePDF(name){
+  await downloadWrongNotePDF(name, getLocalWrongList(name));
+}
+async function fetchStudentFromSheet(name){
+  // 기존 Code.gs: ?name=이름 → 그 학생 기록 배열 반환
+  const url = SHEET_WEBHOOK_URL + '?name=' + encodeURIComponent(name.trim());
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('네트워크 오류');
+  const data = await res.json();
+  if(Array.isArray(data)) return data;
+  return [];
+}
+function buildWrongListFromSheetRows(rows){
+  // 스킬 방식: 시간순(오래된→최신)으로 재생하면서
+  // 틀리면 추가, 나중에 맞히면 제거 → "현재 시점 오답"만 남김
+  const sorted = rows.slice().sort((a,b)=>{
+    const ta = a.date ? new Date(a.date).getTime() : 0;
+    const tb = b.date ? new Date(b.date).getTime() : 0;
+    return ta - tb; // 오래된 것 먼저
+  });
+  const wrongMap = {};
+  sorted.forEach(row=>{
+    let records = [];
+    try{ records = JSON.parse(row.records || '[]'); }catch(e){ records=[]; }
+    records.forEach(r=>{
+      if(!QMAP[r.id]) return;
+      if(r.score < WRONG_THRESHOLD){
+        wrongMap[r.id] = {id:r.id, lastAnswer:r.answer, lastScore:r.score};
+      } else {
+        // 나중에 맞혔으면 오답에서 제거 (스킬의 answers[qid]===true 처리와 동일)
+        delete wrongMap[r.id];
+      }
+    });
+  });
+  return Object.values(wrongMap);
+}
+function buildWrongListForRowDate(rows, dateISO){
+  // 제출 건별 기록의 특정 한 줄(세션)만 콕 집어서 그 세션의 오답만 모음
+  const row = rows.find(r=>r.date===dateISO);
+  if(!row) return [];
+  let records = [];
+  try{ records = JSON.parse(row.records || '[]'); }catch(e){ records=[]; }
+  return records.filter(r=>r.score < WRONG_THRESHOLD && QMAP[r.id]).map(r=>({id:r.id, lastAnswer:r.answer, lastScore:r.score}));
+}
+function buildWrongListForDate(rows, dateKey){
+  // 특정 날짜에 "완료된" 세션들에서만 오답을 모음 (그 날 제출한 것 기준)
+  const map = {};
+  rows.forEach(row=>{
+    const dt = parseSheetDateTime(row.date);
+    if(!dt || dt.toLocaleDateString('ko-KR')!==dateKey) return;
+    if((row.modeLabel||'').includes('진행중')) return; // 완료된 저장만
+    let records = [];
+    try{ records = JSON.parse(row.records || '[]'); }catch(e){ records=[]; }
+    records.forEach(r=>{
+      if(r.score < WRONG_THRESHOLD && QMAP[r.id]){
+        map[r.id] = {id:r.id, lastAnswer:r.answer, lastScore:r.score};
+      }
+    });
+  });
+  return Object.values(map);
+}
+function buildEverWrongListFromSheetRows(rows){
+  // 누적 오답: 한 번이라도 틀렸으면 나중에 맞혀도 목록에서 빼지 않음
+  const map = {};
+  rows.forEach(row=>{
+    let records = [];
+    try{ records = JSON.parse(row.records || '[]'); }catch(e){ records=[]; }
+    records.forEach(r=>{
+      if(r.score < WRONG_THRESHOLD && QMAP[r.id]){
+        map[r.id] = {id:r.id, lastAnswer:r.answer, lastScore:r.score};
+      }
+    });
+  });
+  return Object.values(map);
+}
+
+// 스킬 방식: 시트에서 가져온 rows 중 "진행중"인 가장 최근 세션의 이어풀기 스냅샷 반환
+function buildServerResumeFromRows(rows){
+  // "진행중" 라벨을 신뢰하지 않고 판단함 — 라벨이 "완료"로 바뀐 채로도 실제로는
+  // queueIds(원래 풀기로 한 문제 목록)보다 records(실제 답한 것)가 적어서 아직
+  // 안 끝난 세션이 있었던 버그가 있었기 때문에, 라벨 대신 이 개수 비교로 이어풀기
+  // 가능 여부를 판단함.
+  const candidates = rows.filter(r=>{
+    if(!r.queueIds || !r.queueIds.length) return false;
+    let records = [];
+    try{ records = JSON.parse(r.records || '[]'); }catch(e){ records=[]; }
+    return records.length < r.queueIds.length;
+  });
+  if(!candidates.length) return null;
+  // 가장 최근 것
+  const sorted = candidates.slice().sort((a,b)=>{
+    const ta = a.date ? new Date(a.date).getTime() : 0;
+    const tb = b.date ? new Date(b.date).getTime() : 0;
+    return tb - ta; // 최신 먼저
+  });
+  const latest = sorted[0];
+  let records = [];
+  try{ records = JSON.parse(latest.records || '[]'); }catch(e){ records=[]; }
+  return {
+    queueIds: latest.queueIds,
+    records,
+    modeLabel: (latest.modeLabel||'').replace(' (진행중)',''),
+    savedAt: latest.date || '',
+    ts: latest.date ? new Date(latest.date).getTime() : 0,
+    sessionId: latest.sessionId || ''
+  };
+}
+function buildApproxResumeFromRows(rows){
+  // queueIds가 없는 옛날 기록(정확한 이어풀기가 불가능한 경우)이라도, records만 있으면
+  // "어떤 카테고리를 풀고 있었는지 + 이미 푼 문제 id"는 알 수 있음 -> 이걸로
+  // "비슷하게 이어가기"용 근사 스냅샷을 만듦. 정확한 이어풀기가 가능한 세션이 있으면 그게
+  // 우선이므로, 이 함수는 buildServerResumeFromRows가 null을 반환했을 때만 호출됨.
+  const candidates = rows.filter(r=>{
+    if(r.queueIds && r.queueIds.length) return false;
+    if(!(r.modeLabel||'').includes('진행중')) return false;
+    let records = [];
+    try{ records = JSON.parse(r.records || '[]'); }catch(e){ records=[]; }
+    return records.length > 0;
+  });
+  if(!candidates.length) return null;
+  const sorted = candidates.slice().sort((a,b)=>{
+    const ta = a.date ? new Date(a.date).getTime() : 0;
+    const tb = b.date ? new Date(b.date).getTime() : 0;
+    return tb - ta;
+  });
+  const latest = sorted[0];
+  let records = [];
+  try{ records = JSON.parse(latest.records || '[]'); }catch(e){ records=[]; }
+  const answeredIds = records.map(r=>r.id).filter(Boolean);
+  const cats = [...new Set(records.map(r=>r.cat).filter(Boolean))];
+  if(!cats.length) return null;
+  return {
+    approx: true,
+    answeredIds,
+    cats,
+    modeLabel: (latest.modeLabel||'').replace(' (진행중)',''),
+    savedAt: latest.date || '',
+    ts: latest.date ? new Date(latest.date).getTime() : 0
+  };
+}
+let sheetStudentsCache = null;
+function parseSheetDateTime(v){
+  // Code.gs가 날짜를 ISO 문자열, 타임스탬프(ms), 또는 구글시트 기본 표시형식
+  // ("2026. 9. 4 오후 8:42:01") 중 무엇으로 주더라도 안전하게 Date로 변환
+  if(v==null || v==='') return null;
+  if(v instanceof Date) return isNaN(v.getTime())?null:v;
+  if(typeof v==='number'){ const d=new Date(v); return isNaN(d.getTime())?null:d; }
+  const s=String(v).trim();
+  let d=new Date(s);
+  if(!isNaN(d.getTime())) return d;
+  const m=s.match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})\D*(오전|오후)?\D*(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  if(m){
+    let [,y,mo,da,ap,h,mi,se]=m;
+    y=+y; mo=+mo-1; da=+da; h=+h; mi=+mi; se=se?+se:0;
+    if(ap==='오후' && h<12) h+=12;
+    if(ap==='오전' && h===12) h=0;
+    d=new Date(y,mo,da,h,mi,se);
+    if(!isNaN(d.getTime())) return d;
+  }
+  return null;
+}
+/* ===================== 강사 대시보드: 체크포인트(진도 확인) ===================== */
+const TDASH_CHECKPOINT_KEY = 'tdash_checkpoint_'+APP_KEY;
+function getTDashCheckpoint(){
+  try{
+    const raw = localStorage.getItem(TDASH_CHECKPOINT_KEY);
+    if(!raw) return null;
+    const cp = JSON.parse(raw);
+    if(!cp || !cp.data) return null;
+    return cp;
+  }catch(e){ return null; }
+}
+function saveTDashCheckpoint(list){
+  const data = {};
+  (list||[]).forEach(s=>{ data[s.name] = s.totalQuestions; });
+  const cp = { savedAt: new Date().toISOString(), data };
+  try{ localStorage.setItem(TDASH_CHECKPOINT_KEY, JSON.stringify(cp)); }catch(e){}
+  return cp;
+}
+function fmtCheckpointTime(iso){
+  const d = iso ? new Date(iso) : null;
+  if(!d || isNaN(d.getTime())) return '';
+  return d.toLocaleString('ko-KR', {month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit'});
+}
+function renderTDashSummary(list){
+  const el = document.getElementById('sheetSummary');
+  if(!el) return;
+  const cp = getTDashCheckpoint();
+  if(!list.length){ el.innerHTML=''; return; }
+  const withCounts = list.filter(s=>s.sessions>0);
+  let topAvgHtml = '';
+  if(withCounts.length){
+    const topAvg = withCounts.reduce((a,b)=> b.avg>a.avg ? b : a);
+    topAvgHtml = `<div class="infobox">🏆 평균 점수 최고 · <b>${escapeHtml(topAvg.name)}</b> (${topAvg.avg}점, 총 ${topAvg.sessions}회)</div>`;
+  }
+  let topTotalHtml = '';
+  if(withCounts.length){
+    const topTotal = withCounts.reduce((a,b)=> b.totalQuestions>a.totalQuestions ? b : a);
+    topTotalHtml = `<div class="infobox">📚 총 문제수 최다 · <b>${escapeHtml(topTotal.name)}</b> (${topTotal.totalQuestions}문제, 총 ${topTotal.sessions}회)</div>`;
+  }
+  let topDeltaHtml = '';
+  if(!cp){
+    topDeltaHtml = `<div class="infobox">📌 아래 '체크포인트 저장'을 누르면, 그 이후 학생별로 몇 문제를 더 풀었는지 확인할 수 있어요.</div>`;
+  } else {
+    const withDelta = list.map(s=>({...s, delta: s.totalQuestions - (cp.data[s.name]||0)})).filter(s=>s.delta>0);
+    if(withDelta.length){
+      const topDelta = withDelta.reduce((a,b)=> b.delta>a.delta ? b : a);
+      topDeltaHtml = `<div class="infobox">🔥 체크포인트(${fmtCheckpointTime(cp.savedAt)}) 이후 최다 제출 · <b>${escapeHtml(topDelta.name)}</b> (+${topDelta.delta}문제)</div>`;
+    } else {
+      topDeltaHtml = `<div class="infobox">🔥 체크포인트(${fmtCheckpointTime(cp.savedAt)}) 이후 아직 새로 제출한 학생이 없어요.</div>`;
+    }
+  }
+  el.innerHTML = topAvgHtml + topTotalHtml + topDeltaHtml;
+}
+async function fetchAllStudentsFromSheet(){
+  // 실제 Code.gs 응답: 이름별로 이미 집계된 배열 + 오늘자 통계
+  // [{name, sessions, avg, lastDate(ISO), todayCount, todayQuestionCount, todayAvg, totalQuestions}, ...]
+  const res = await fetch(SHEET_WEBHOOK_URL);
+  if(!res.ok) throw new Error('네트워크 오류');
+  const data = await res.json();
+  if(!Array.isArray(data)) throw new Error('응답 형식 오류');
+  return data
+    .map(r=>({
+      name: (r.name||'').trim(),
+      sessions: Number(r.sessions||0),
+      avg: Math.round(Number(r.avg||0)),
+      lastDate: parseSheetDateTime(r.lastDate),
+      todayCount: Number(r.todayCount||0),
+      todayQuestionCount: Number(r.todayQuestionCount||0),
+      todayAvg: (r.todayAvg==null || r.todayAvg==='') ? null : Math.round(Number(r.todayAvg)),
+      todayInProgressQuestions: Number(r.todayInProgressQuestions||0),
+      totalQuestions: Number(r.totalQuestions||0)
+    }))
+    .filter(s=>s.name)
+    .sort((a,b)=> b.totalQuestions - a.totalQuestions); // 총 문제수(많이 푼 순) 기준
+}
+function renderSheetAllList(list){
+  const el = document.getElementById('sheetAllList');
+  if(!el) return;
+  renderTDashSummary(list);
+  if(!list.length){
+    el.innerHTML = `<p class="small-note">아직 제출된 학생 기록이 없어요.</p>`;
+    return;
+  }
+  const cp = getTDashCheckpoint();
+  const rows = list.map(s=>{
+    const delta = cp ? (s.totalQuestions - (cp.data[s.name]||0)) : null;
+    const deltaHtml = cp
+      ? (delta>0 ? `<span style="color:var(--navy);font-weight:800;">+${delta}문제</span>` : `<span style="color:var(--sub);">-</span>`)
+      : `<span style="color:var(--sub);">—</span>`;
+    const todayCompletedHtml = s.todayCount
+      ? `<span style="color:var(--navy);font-weight:800;">${s.todayQuestionCount}문제</span><br><span style="color:var(--sub);font-size:11px;">평균 ${s.todayAvg}점</span>`
+      : '';
+    const todayInProgressHtml = s.todayInProgressQuestions
+      ? `<br><span style="color:#b8860b;font-size:11px;">🟡${s.todayInProgressQuestions}문항 진행중</span>`
+      : '';
+    const todayHtml = (todayCompletedHtml || todayInProgressHtml)
+      ? (todayCompletedHtml || `<span style="color:var(--sub);">-</span>`) + todayInProgressHtml
+      : `<span style="color:var(--sub);">-</span>`;
+    return `
+    <tr class="clickable" data-sheetname="${escapeHtml(s.name)}">
+      <td style="text-align:left;">${escapeHtml(s.name)}</td>
+      <td>${s.sessions}</td>
+      <td>${s.totalQuestions}문제</td>
+      <td style="font-weight:700;">${s.sessions?s.avg+'점':'—'}</td>
+      <td>${todayHtml}</td>
+      <td>${deltaHtml}</td>
+      <td>${s.lastDate? s.lastDate.toLocaleDateString('ko-KR') : '-'}</td>
+    </tr>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="row2" style="margin-bottom:10px;">
+      <button class="btn btn-outline" id="tdashCheckpointBtn" style="flex:none;width:auto;white-space:nowrap;padding-left:16px;padding-right:16px;font-size:13px;">📌 지금 시점 체크포인트 저장</button>
+      <span class="small-note" id="tdashCheckpointInfo" style="margin:0;align-self:center;">${cp? `현재 체크포인트: ${fmtCheckpointTime(cp.savedAt)}` : '체크포인트가 아직 없어요'}</span>
+    </div>
+    <div class="scrollable-table sticky-name-table">
+    <table>
+      <thead><tr>
+        <th style="text-align:left;">이름</th>
+        <th>제출횟수</th>
+        <th>총 문제수</th>
+        <th>평균 점수</th>
+        <th>오늘</th>
+        <th>체크포인트 이후</th>
+        <th>최근 제출일</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    </div>
+  `;
+  el.querySelectorAll('tr.clickable').forEach(tr=>{
+    tr.onclick=()=>showSheetStudentDetail(tr.dataset.sheetname, document.getElementById('sheetSearchResult'));
+  });
+  const cpBtn = document.getElementById('tdashCheckpointBtn');
+  if(cpBtn) cpBtn.onclick=async()=>{
+    const ok = await showConfirm('지금 시점을 새 체크포인트로 저장할까요?\n다음부터는 이 시점 이후로 더 푼 문제 수가 표시돼요.');
+    if(!ok) return;
+    saveTDashCheckpoint(list);
+    renderSheetAllList(list);
+  };
+}
+function groupSessionsFromRows(rows){
+  // Code.gs와 완전히 동일한 로직: 이름+모드별로 나눠서, 문항수가 실제로 줄어들 때만
+  // 새 세션으로 봄 (라벨의 "진행중" 표시는 신뢰하지 않음 - 실제 데이터에 라벨이
+  // 붙은 채로도 계속 이어지는 세션이 있었기 때문). 대시보드 목록과 학생 상세보기가
+  // 항상 같은 숫자를 보여주도록, 두 화면 모두 이 함수 하나만 사용함.
+  const byMode = {};
+  rows.forEach(r=>{
+    const baseMode = (r.modeLabel||'').replace(' (진행중)','').trim();
+    if(!byMode[baseMode]) byMode[baseMode] = [];
+    byMode[baseMode].push(r);
+  });
+  const sessions = [];
+  Object.keys(byMode).forEach(mode=>{
+    const entries = byMode[mode].slice().sort((a,b)=>{
+      const ta = a.date ? new Date(a.date).getTime() : 0;
+      const tb = b.date ? new Date(b.date).getTime() : 0;
+      return ta - tb;
+    });
+    let prevTotalCount = -1, curGroup = null, curGroupDates = [];
+    for(let e=0; e<=entries.length; e++){
+      const row = e<entries.length ? entries[e] : null;
+      const tc = row ? Number(row.totalCount||0) : 0;
+      const isBoundary = (row===null) || (curGroup===null) || (tc < prevTotalCount);
+      if(isBoundary && curGroup!==null){
+        const dt = parseSheetDateTime(curGroup.date);
+        sessions.push({
+          date: curGroup.date, dt, ts: dt?dt.getTime():0,
+          totalCount: Number(curGroup.totalCount||0),
+          score: Number(curGroup.score||0),
+          modeLabel: curGroup.modeLabel||'',
+          isCompleted: (curGroup.modeLabel||'').indexOf('진행중')===-1,
+          rowDates: curGroupDates
+        });
+        curGroupDates = [];
+      }
+      if(row===null) break;
+      curGroup = row;
+      curGroupDates.push(row.date);
+      prevTotalCount = tc;
+    }
+  });
+  return sessions.sort((a,b)=>b.ts-a.ts);
+}
+function buildDailyStatsFromSheetRows(rows){
+  const sessions = groupSessionsFromRows(rows).filter(s=>s.isCompleted);
+  const byDate = {};
+  sessions.forEach(s=>{
+    const key = s.dt ? s.dt.toLocaleDateString('ko-KR') : '날짜 미상';
+    if(!byDate[key]) byDate[key] = {date:key, ts:s.ts, count:0, questionCount:0, weightedScoreSum:0};
+    byDate[key].count++;
+    byDate[key].questionCount += s.totalCount;
+    byDate[key].weightedScoreSum += s.score * s.totalCount; // 문항 수로 가중 평균 (세션별 평균을 그냥 평균내면 안 됨)
+  });
+  return Object.values(byDate)
+    .map(d=>({date:d.date, count:d.count, questionCount:d.questionCount, avg: d.questionCount ? Math.round(d.weightedScoreSum/d.questionCount) : 0}))
+    .sort((a,b)=> (byDate[b.date]?byDate[b.date].ts:0) - (byDate[a.date]?byDate[a.date].ts:0));
+}
+function buildSessionLogFromSheetRows(rows){
+  // 날짜별 집계가 아니라, 실제 세션 하나하나를 시간까지 그대로 보여주기 위한 목록.
+  // 완료된 세션뿐 아니라 "진행중"(아직 안 끝난) 세션도 함께 보여줘야, 대시보드 목록의
+  // "최근 제출일"에는 최신 날짜가 뜨는데 여기서는 아무 기록도 안 보이는 혼란이 없음.
+  return groupSessionsFromRows(rows)
+    .map(s=>({date:s.date, dt:s.dt, ts:s.ts, count:s.totalCount, score:s.score, modeLabel:s.modeLabel, rowDates:s.rowDates, isCompleted:s.isCompleted}));
+}
+async function showSheetStudentDetail(nm, resultEl){
+  if(!resultEl) return;
+  resultEl.innerHTML = `<p class="small-note">🔍 '${escapeHtml(nm)}' 기록을 불러오는 중...</p>`;
+  resultEl.scrollIntoView({behavior:'smooth', block:'center'});
+  try{
+    const rows = await fetchStudentFromSheet(nm);
+    if(!rows.length){
+      resultEl.innerHTML = `<p class="small-note">'${escapeHtml(nm)}' 이름으로 제출된 기록이 없어요.</p>`;
+      return;
+    }
+    const wrongList = buildWrongListFromSheetRows(rows);
+    const allSessions = groupSessionsFromRows(rows); // 대시보드 목록의 "제출횟수/평균 점수"와 똑같은 계산(완료 안 된 세션도 포함)
+    const totalQForAvg = allSessions.reduce((s,x)=>s+x.totalCount,0);
+    // 세션별 평균을 그냥 평균내면 안 되고, 문항 수로 가중 평균해야 정확함
+    // (예: 73문항 87점 세션과 1문항 0점 세션이 같은 비중이면 안 됨)
+    const avgAll = totalQForAvg ? Math.round(allSessions.reduce((s,x)=>s+x.score*x.totalCount,0)/totalQForAvg) : 0;
+    const daily = buildDailyStatsFromSheetRows(rows);
+    const dailyRows = daily.map(d=>`
+      <tr>
+        <td style="text-align:left;">${escapeHtml(d.date)}</td>
+        <td>${d.questionCount}문제</td>
+        <td style="font-weight:700;">${d.avg}점</td>
+        <td><button class="btn-icon-del dateWrongBtn" data-date="${escapeHtml(d.date)}" title="이 날짜 오답노트만 인쇄/PDF">🖨️</button></td>
+      </tr>
+    `).join('');
+    const sessionLog = buildSessionLogFromSheetRows(rows).slice(0, 30);
+    const sessionRows = sessionLog.map(s=>`
+      <tr style="${s.isCompleted?'':'background:#fff7e6;'}">
+        <td style="text-align:left;">${s.dt ? s.dt.toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '-'}</td>
+        <td>${s.count}문항</td>
+        <td style="font-weight:700;">${s.isCompleted ? s.score+'점' : '-'}</td>
+        <td style="color:var(--sub);font-size:12px;">${s.isCompleted ? escapeHtml(s.modeLabel) : '🟡 진행중(미완료)'}</td>
+        <td style="white-space:nowrap;">
+          <button class="btn-icon-del sessionWrongBtn" data-date="${escapeHtml(s.date||'')}" title="이 회차 오답노트만 인쇄/PDF">🖨️</button>
+          <button class="btn-icon-del sessionDeleteBtn" data-date="${escapeHtml(s.date||'')}" data-label="${escapeHtml(s.dt ? s.dt.toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '')} · ${s.count}문항 · ${s.isCompleted?s.score+'점':'진행중'}" title="이 세션만 삭제">🗑️</button>
+        </td>
+      </tr>
+    `).join('');
+    const everWrongList = buildEverWrongListFromSheetRows(rows);
+    resultEl.innerHTML = `
+      <div class="infobox">✅ <b>${escapeHtml(nm)}</b> · ${allSessions.length}개 세션 발견 · 전체 평균 ${avgAll}점 · 오답 ${wrongList.length}문항 (누적 오답 ${everWrongList.length}문항)</div>
+      ${daily.length ? `
+      <table style="margin-top:10px;">
+        <thead><tr><th style="text-align:left;">날짜</th><th>문제수</th><th>평균 점수</th><th>오답노트</th></tr></thead>
+        <tbody>${dailyRows}</tbody>
+      </table>` : ''}
+      ${sessionLog.length ? `
+      <p class="small-note" style="text-align:left;margin-top:14px;margin-bottom:4px;">📋 제출 건별 기록 (최근 ${sessionLog.length}건) · 🗑 눌러서 개별 삭제 가능</p>
+      <div class="scrollable-table">
+      <table>
+        <thead><tr><th style="text-align:left;">제출 시각</th><th>문항수</th><th>점수</th><th>모드</th><th></th></tr></thead>
+        <tbody>${sessionRows}</tbody>
+      </table>
+      </div>` : ''}
+      <p class="small-note" style="text-align:left;margin-top:14px;margin-bottom:4px;">📕 현재 오답노트 (지금까지 안 틀린 것으로 고쳐진 건 빠짐, ${wrongList.length}문항)</p>
+      <div class="row2" style="margin-top:2px;">
+        <button class="btn btn-outline" id="sheetPrintBtn">🖨️ 인쇄하기</button>
+        <button class="btn btn-gold" id="sheetPdfBtn">💾 PDF로 저장</button>
+      </div>
+      <p class="small-note" style="text-align:left;margin-top:14px;margin-bottom:4px;">📚 누적 오답노트 (한 번이라도 틀렸으면 나중에 맞혀도 계속 남음, ${everWrongList.length}문항)</p>
+      <div class="row2" style="margin-top:2px;">
+        <button class="btn btn-outline" id="sheetPrintEverBtn">🖨️ 인쇄하기</button>
+        <button class="btn btn-gold" id="sheetPdfEverBtn">💾 PDF로 저장</button>
+      </div>
+      <button class="btn btn-outline" id="sheetDeleteBtn" style="margin-top:8px;width:auto;color:#b3261e;border-color:#b3261e;padding-left:16px;padding-right:16px;font-size:13px;">🗑️ 이 학생 기록 전체 삭제</button>
+    `;
+    document.getElementById('sheetPrintBtn').onclick=()=>printWrongNote(nm, wrongList);
+    document.getElementById('sheetPdfBtn').onclick=()=>downloadWrongNotePDF(nm, wrongList);
+    document.getElementById('sheetPrintEverBtn').onclick=()=>printWrongNote(nm+'(누적)', everWrongList);
+    document.getElementById('sheetPdfEverBtn').onclick=()=>downloadWrongNotePDF(nm+'(누적)', everWrongList);
+    document.querySelectorAll('.dateWrongBtn').forEach(btn=>{
+      btn.onclick=async(ev)=>{
+        ev.stopPropagation();
+        const dateKey = btn.dataset.date;
+        const dateWrongList = buildWrongListForDate(rows, dateKey);
+        if(!dateWrongList.length){ await showAlert(`${dateKey}에는 오답이 없어요 (다 맞혔거나 그 날 기록이 없어요).`); return; }
+        await downloadWrongNotePDF(`${nm}(${dateKey})`, dateWrongList);
+      };
+    });
+    document.querySelectorAll('.sessionWrongBtn').forEach(btn=>{
+      btn.onclick=async(ev)=>{
+        ev.stopPropagation();
+        const dateISO = btn.dataset.date;
+        const rowWrongList = buildWrongListForRowDate(rows, dateISO);
+        const timeLabel = (()=>{ const dt=parseSheetDateTime(dateISO); return dt? dt.toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '이 회차'; })();
+        if(!rowWrongList.length){ await showAlert(`${timeLabel} 회차에는 오답이 없어요 (다 맞혔어요).`); return; }
+        await downloadWrongNotePDF(`${nm}(${timeLabel})`, rowWrongList);
+      };
+    });
+    document.querySelectorAll('.sessionDeleteBtn').forEach(btn=>{
+      btn.onclick=async(ev)=>{
+        ev.stopPropagation();
+        const dateVal = btn.dataset.date;
+        if(!dateVal){ await showAlert('이 세션은 삭제할 날짜 정보를 찾지 못했어요.'); return; }
+        const label = btn.dataset.label || '이 세션';
+        const ok = await showConfirm(`다음 세션 1건만 삭제할까요?\n\n${label}\n\n(다른 세션이나 이 학생의 나머지 기록은 그대로 남아요. 이 작업은 되돌릴 수 없어요.)`);
+        if(!ok) return;
+        btn.disabled = true;
+        await deleteSessionFromSheet(nm, dateVal);
+        showSheetStudentDetail(nm, resultEl);
+        const listEl2 = document.getElementById('sheetAllList');
+        if(listEl2){
+          try{ renderSheetAllList(await fetchAllStudentsFromSheet()); }catch(e){}
+        }
+      };
+    });
+    document.getElementById('sheetDeleteBtn').onclick=async()=>{
+      const ok1 = await showConfirm(`'${nm}' 학생의 구글 시트 기록 ${rows.length}건을 정말 삭제할까요?\n이 작업은 되돌릴 수 없어요.`);
+      if(!ok1) return;
+      const ok2 = await showConfirm(`정말로 확실한가요?\n삭제하면 '${nm}' 학생의 모든 제출 기록·오답 기록이 사라져요.`);
+      if(!ok2) return;
+      resultEl.innerHTML = `<p class="small-note">🗑️ 삭제 중...</p>`;
+      await deleteStudentFromSheet(nm);
+      resultEl.innerHTML = `<p class="small-note">✅ '${escapeHtml(nm)}' 학생의 기록을 삭제했어요.</p>`;
+      // 강사용 대시보드 목록도 새로고침
+      const listEl = document.getElementById('sheetAllList');
+      if(listEl){
+        try{
+          const freshList = await fetchAllStudentsFromSheet();
+          renderSheetAllList(freshList);
+        }catch(e){}
+      }
+    };
+  }catch(e){
+    resultEl.innerHTML = `<p class="small-note">⚠️ 검색에 실패했어요. 인터넷 연결을 확인해주세요.</p>`;
+  }
+}
+function showPdfReadyModal(msg){
+  const ov=document.getElementById('modalOverlay');
+  document.getElementById('modalMsg').innerHTML=msg||'📄 PDF가 준비됐어요!<br>아래 버튼을 <b>직접 눌러서</b> 저장하거나 열어 주세요.';
+  const btns=document.getElementById('modalBtns');
+  btns.style.flexDirection='column';
+  btns.innerHTML=`
+    <a href="${lastPdfBlobUrl}" download="${lastPdfFilename}" class="btn btn-primary" style="margin-bottom:8px;">⬇️ PDF 다운로드</a>
+    <a href="${lastPdfBlobUrl}" target="_blank" class="btn btn-outline" style="margin-bottom:8px;">📄 PDF 열어서 보기 · 인쇄</a>
+    <button class="btn btn-ghost" id="modalCloseBtn">닫기</button>
+  `;
+  ov.classList.remove('hidden');
+  document.getElementById('modalCloseBtn').onclick=()=>{ ov.classList.add('hidden'); btns.style.flexDirection=''; if(lastPdfBlobUrl){ URL.revokeObjectURL(lastPdfBlobUrl); lastPdfBlobUrl=null; } };
+}
+
+/* ===================== 이벤트 ===================== */
+function bindEvents(){
+  if(screen==='login'){
+    document.getElementById('loginBtn').onclick=()=>attemptLogin();
+    const loginNameInput=document.getElementById('loginNameInput');
+    if(loginNameInput) loginNameInput.onkeydown=(e)=>{ if(e.key==='Enter') attemptLogin(); };
+    const loginPwInput=document.getElementById('loginPwInput');
+    if(loginPwInput) loginPwInput.onkeydown=(e)=>{ if(e.key==='Enter') attemptLogin(); };
+  }
+  else if(screen==='setup'){
+    const nameEl=document.getElementById('nameInput'); // 로그인 후엔 없음(읽기 전용)
+    if(nameEl){
+      nameEl.oninput=(e)=>{ state.name=e.target.value; };
+      nameEl.onblur=()=>{ saveLastUsedName(state.name.trim()); render(); };
+    }
+    document.querySelectorAll('.chip').forEach(c=>{
+      c.onclick=()=>{
+        if(c.dataset.cat){
+          const cat=c.dataset.cat;
+          if(state.cats.includes(cat)){
+            if(state.cats.length>1) state.cats=state.cats.filter(x=>x!==cat);
+          } else state.cats.push(cat);
+        } else if(c.dataset.grade){
+          const g=c.dataset.grade;
+          if(state.grades.includes(g)){
+            if(state.grades.length>1) state.grades=state.grades.filter(x=>x!==g);
+          } else state.grades.push(g);
+        }
+        render();
+      };
+    });
+    document.querySelectorAll('.opt-chip').forEach(c=>{
+      c.onclick=()=>{ state.count=parseInt(c.dataset.count); render(); };
+    });
+    document.querySelectorAll('.mode-card').forEach(m=>{
+      m.onclick=()=>{
+        if(m.dataset.mode==='wrong' && !state.name.trim()){ return; }
+        if(m.dataset.mode==='cumwrong' && !state.name.trim()){ return; }
+        state.mode=m.dataset.mode; render();
+      };
+    });
+    document.getElementById('shuffleChk').onchange=(e)=>{ state.shuffle=e.target.checked; };
+    document.getElementById('startBtn').onclick=async()=>{
+      if(nameEl) state.name=nameEl.value.trim(); // 로그인 후에는 nameInput이 없으므로 기존 state.name(로그인 시 입력한 이름)을 그대로 사용
+      if(!state.name){ await showAlert('이름을 먼저 입력해주세요!'); return; }
+      saveLastUsedName(state.name);
+      const startBtn=document.getElementById('startBtn');
+      if(state.mode==='wrong'||state.mode==='cumwrong'){ startBtn.disabled=true; startBtn.textContent='🔍 다른 기기 기록도 확인하는 중...'; }
+      await startInterview();
+      if(startBtn){ startBtn.disabled=false; startBtn.textContent='🎓 면접 시작하기'; }
+    };
+    document.getElementById('micTestBtn').onclick=()=>testMic();
+    document.getElementById('myStatsBtn').onclick=()=>{ screen='mystats'; render(); };
+    document.getElementById('teacherBtn').onclick=()=>{ screen='tlogin'; render(); };
+    const logoutBtn=document.getElementById('logoutBtn');
+    if(logoutBtn) logoutBtn.onclick=()=>{ state=newSession(); serverResumeCache={normal:null,wrong:null}; screen='login'; render(); };
+    // 스킬 방식: 이어풀기 버튼들 (일반/오답 모드 별도)
+    document.querySelectorAll('.resumeBtn').forEach(btn=>{
+      btn.onclick=()=>{
+        const group = btn.dataset.group;
+        const snap = group==='wrong'
+          ? pickNewerSnapshot(getStudent(state.name).inProgressWrong||null, serverResumeCache&&serverResumeCache.wrong)
+          : pickNewerSnapshot(getStudent(state.name).inProgress||null, serverResumeCache&&serverResumeCache.normal);
+        if(snap && snap.approx) resumeApprox(snap); else resumeInterview(snap);
+      };
+    });
+    document.querySelectorAll('.discardResumeBtn').forEach(btn=>{
+      btn.onclick=async()=>{
+        const group = btn.dataset.group;
+        const ok=await showConfirm('이 이어풀기 기록을 지울까요? 새로 시작해야 해요.');
+        if(!ok) return;
+        const s=getStudent(state.name);
+        if(group==='wrong') delete s.inProgressWrong; else delete s.inProgress;
+        setStudent(state.name, s);
+        if(serverResumeCache) serverResumeCache[group==='wrong'?'wrong':'normal']=null;
+        render();
+      };
+    });
+  }
+  else if(screen==='quiz'){
+    const curQ = state.queue[state.idx];
+    if(lastTTSQuestionId !== curQ.id){
+      lastTTSQuestionId = curQ.id;
+      state._prepActive = false;
+      speakQuestion(curQ.q);
+    }
+    const replayBtn=document.getElementById('replayTTSBtn');
+    if(replayBtn) replayBtn.onclick=()=>speakQuestion(curQ.q);
+    startAnswerTimer();
+    const prepReadyBtn=document.getElementById('prepReadyBtn');
+    if(prepReadyBtn) prepReadyBtn.onclick=()=>finishPrepCountdown(true);
+    const prepExtendBtn=document.getElementById('prepExtendBtn');
+    if(prepExtendBtn) prepExtendBtn.onclick=()=>{ state._prepTimeLeft += 5; const el=document.getElementById('prepCountdownNum'); if(el) el.textContent=state._prepTimeLeft+'초'; };
+    const kbMicBtn=document.getElementById('keyboardMicBtn');
+    if(kbMicBtn) kbMicBtn.onclick=()=>{
+      const box2=document.getElementById('answerBox');
+      if(box2){ box2.focus(); const len=box2.value.length; try{ box2.setSelectionRange(len,len); }catch(e){} }
+      const hint=document.getElementById('kbMicHint');
+      if(hint){
+        hint.style.display='block';
+        if(kbHintTimer) clearTimeout(kbHintTimer);
+        kbHintTimer = setTimeout(()=>{ hint.style.display='none'; }, 4000);
+      }
+    };
+    if(SR){
+      const micBtn=document.getElementById('micBtn');
+      if(micBtn) micBtn.onclick=()=>toggleRecording();
+      renderQuizControls();
+    }
+    const box=document.getElementById('answerBox');
+    if(box){
+      box.oninput=(e)=>{
+        state.answerText=e.target.value;
+        const cc=document.getElementById('charCount'); if(cc) cc.textContent=e.target.value.length+'자';
+        if(e.target.value.trim().length>0){
+          stopAnswerTimer();
+          if(state._prepActive) finishPrepCountdown(false);
+        }
+      };
+      // 문제가 뜨자마자 답변칸에 포커스를 줘서 키보드가 바로 올라오게 함 (한 번의 탭을 줄여줌)
+      box.focus();
+      const len=box.value.length;
+      try{ box.setSelectionRange(len,len); }catch(e){}
+    }
+    document.getElementById('clearBtn').onclick=()=>{
+      if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+      state.answerText=''; recFinalBase=''; render();
+    };
+    document.getElementById('submitBtn').onclick=()=>{
+      if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+      cancelQuestionAudio();
+      stopAnswerTimer();
+      submitAnswer();
+    };
+    document.getElementById('skipBtn').onclick=()=>{
+      if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+      cancelQuestionAudio();
+      stopAnswerTimer();
+      state.answerText=''; submitAnswer();
+    };
+    document.getElementById('pauseBtn').onclick=async()=>{
+      const ok=await showConfirm('지금까지 답한 문제까지는 자동으로 저장돼 있어요.\n그만 풀고 처음 화면으로 돌아갈까요?');
+      if(!ok) return;
+      if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+      cancelQuestionAudio();
+      stopAnswerTimer();
+      lastTTSQuestionId = null;
+      screen='setup'; render();
+    };
+    const feBtn=document.getElementById('finishEarlyBtn');
+    if(feBtn) feBtn.onclick=()=>{
+      if(isRecording && recognition){ recognition.stop(); isRecording=false; }
+      cancelQuestionAudio();
+      stopAnswerTimer();
+      finishEarly();
+    };
+  }
+  else if(screen==='feedback'){
+    document.getElementById('nextBtn').onclick=()=>goNext();
+    document.getElementById('retryAnswerBtn').onclick=()=>{
+      state.answerText=''; recFinalBase=''; screen='quiz'; render();
+    };
+    const feBtn2=document.getElementById('finishEarlyBtn2');
+    if(feBtn2) feBtn2.onclick=()=>finishEarly();
+    const fuBox=document.getElementById('followUpBox');
+    if(fuBox) fuBox.oninput=(e)=>{ state._followUpAnswerText = e.target.value; };
+    const fuBtn=document.getElementById('followUpSubmitBtn');
+    if(fuBtn) fuBtn.onclick=async()=>{
+      fuBtn.disabled=true; fuBtn.textContent='🤖 확인하고 있어요...';
+      const ans = state._followUpAnswerText||'';
+      state._followUpComment = await generateFollowUpComment(state.feedback.followUpQuestion, ans) || '답변 감사해요!';
+      state._followUpAnswered = true;
+      // 최근 기록에 꼬리질문 내용도 함께 저장 (교사 확인용)
+      const lastRec = state.records[state.records.length-1];
+      if(lastRec) lastRec.followUp = { question: state.feedback.followUpQuestion, answer: ans, comment: state._followUpComment };
+      render();
+    };
+  }
+  else if(screen==='result'){
+    document.getElementById('backHomeBtn').onclick=()=>{ const nm=state.name; state=newSession(); state.name=nm; screen='setup'; render(); };
+    document.getElementById('wrongNoteBtn').onclick=()=>{ screen='mystats'; render(); };
+    document.getElementById('resultPrintBtn').onclick=()=>printLocalWrongNote(state.name);
+    document.getElementById('resultPdfBtn').onclick=()=>downloadLocalWrongNotePDF(state.name);
+    const mobileBtn=document.getElementById('mobileSubmitBtn');
+    if(mobileBtn) mobileBtn.onclick=async()=>{
+      mobileBtn.disabled=true; mobileBtn.textContent='📤 전송 중...';
+      const wrongIds = state.records.filter(r=>r.score<WRONG_THRESHOLD).map(r=>r.id);
+      const avg = Math.round(state.records.reduce((s,r)=>s+r.score,0)/state.records.length);
+      const ok = await submitToSheet({ name:state.name, modeLabel:state._modeLabel, score:avg, totalCount:state.records.length, wrongIds, records:state.records, sessionId: state.sessionId });
+      mobileBtn.disabled=false;
+      mobileBtn.textContent = ok? '✅ 선생님께 제출 완료!' : '⚠️ 전송 실패 (다시 눌러보세요)';
+    };
+    const printBtn=document.getElementById('printBtn');
+    if(printBtn) printBtn.onclick=()=>printResultA4();
+    document.getElementById('retryBtn').onclick=()=>{
+      const nm=state.name, cats=state.cats, grades=state.grades, count=state.count, shuffle=state.shuffle, mode=state.mode;
+      state=newSession(); state.name=nm; state.cats=cats; state.grades=grades; state.count=count; state.shuffle=shuffle; state.mode=mode;
+      screen='setup'; render();
+    };
+  }
+  else if(screen==='mystats'){
+    const back=document.getElementById('backSetupBtn'); if(back) back.onclick=()=>{ screen='setup'; render(); };
+    const loadBtn=document.getElementById('loadStatsBtn');
+    if(loadBtn){
+      loadBtn.onclick=()=>{
+        const v=document.getElementById('nameInput2').value.trim();
+        if(!v){ showAlert('이름을 입력해주세요.'); return; }
+        state.name=v; saveLastUsedName(v); render();
+      };
+    }
+    document.querySelectorAll('.tabbtn').forEach(t=>{
+      t.onclick=()=>{
+        document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        const tab=t.dataset.tab;
+        document.getElementById('tabHist').classList.toggle('hidden', tab!=='hist');
+        document.getElementById('tabWrong').classList.toggle('hidden', tab!=='wrong');
+      };
+    });
+    const pdfBtn=document.getElementById('pdfBtn');
+    if(pdfBtn) pdfBtn.onclick=()=>downloadLocalWrongNotePDF(state.name);
+    const printBtn2=document.getElementById('printBtn2');
+    if(printBtn2) printBtn2.onclick=()=>printLocalWrongNote(state.name);
+  }
+  else if(screen==='tlogin'){
+    document.getElementById('pwSubmit').onclick=async()=>{
+      const v=document.getElementById('pwInput').value;
+      if(v===getTeacherPassword()){ screen='tdash'; render(); }
+      else await showAlert('비밀번호가 틀렸어요.');
+    };
+    document.getElementById('pwCancel').onclick=()=>{ screen='setup'; render(); };
+  }
+  else if(screen==='tdash'){
+    document.getElementById('backSetupBtn').onclick=()=>{ screen='setup'; render(); };
+    const savePwBtn=document.getElementById('savePwBtn');
+    if(savePwBtn) savePwBtn.onclick=async()=>{
+      const pw=(document.getElementById('newPwInput').value||'').trim();
+      const enabled=document.getElementById('loginEnabledChk').checked;
+      if(!pw){ await showAlert('비밀번호를 입력해주세요.'); return; }
+      saveLoginConfig(pw, enabled);
+      loginConfigCache=null; // 캐시 초기화
+      await showAlert(`저장됐어요! 학생들에게 비밀번호 "${pw}"를 알려주세요.`);
+    };
+    const saveTeacherPwBtn=document.getElementById('saveTeacherPwBtn');
+    if(saveTeacherPwBtn) saveTeacherPwBtn.onclick=async()=>{
+      const pw=(document.getElementById('newTeacherPwInput').value||'').trim();
+      if(!pw){ await showAlert('비밀번호를 입력해주세요.'); return; }
+      setTeacherPassword(pw);
+      await showAlert('강사용 비밀번호가 변경됐어요.');
+    };
+    const allQPrintBtn=document.getElementById('allQPrintBtn');
+    if(allQPrintBtn) allQPrintBtn.onclick=()=>printAllQuestions();
+    const allQPdfBtn=document.getElementById('allQPdfBtn');
+    if(allQPdfBtn) allQPdfBtn.onclick=()=>downloadAllQuestionsPDF();
+    // 구글 시트 전체 학생 목록: 캐시가 있으면 바로 표시, 없으면 불러온 뒤 캐싱
+    if(sheetStudentsCache){
+      renderSheetAllList(sheetStudentsCache);
+    } else {
+      fetchAllStudentsFromSheet().then(list=>{
+        sheetStudentsCache = list;
+        renderSheetAllList(list);
+      }).catch(()=>{
+        const el=document.getElementById('sheetAllList');
+        if(el) el.innerHTML = `<p class="small-note">⚠️ 목록을 불러오지 못했어요. 인터넷 연결을 확인해주세요.</p>`;
+      });
+    }
+    document.getElementById('sheetSearchBtn').onclick=async()=>{
+      const nm = document.getElementById('sheetSearchName').value.trim();
+      const resultEl = document.getElementById('sheetSearchResult');
+      if(!nm){ resultEl.innerHTML = `<p class="small-note">이름을 입력해주세요.</p>`; return; }
+      await showSheetStudentDetail(nm, resultEl);
+    };
+  }
+  else if(screen==='tdetail'){
+    document.querySelectorAll('.tabbtn').forEach(t=>{
+      t.onclick=()=>{
+        document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        const tab=t.dataset.tab;
+        document.getElementById('tabHist').classList.toggle('hidden', tab!=='hist');
+        document.getElementById('tabWrong').classList.toggle('hidden', tab!=='wrong');
+      };
+    });
+    const pdfBtn=document.getElementById('pdfBtn');
+    if(pdfBtn) pdfBtn.onclick=()=>downloadLocalWrongNotePDF(tDetailName);
+    const printBtn2=document.getElementById('printBtn2');
+    if(printBtn2) printBtn2.onclick=()=>printLocalWrongNote(tDetailName);
+    document.getElementById('backTdashBtn').onclick=()=>{ screen='tdash'; render(); };
+  }
+}
+
+async function startInterview(){
+  let pool;
+  let modeLabel='부분 학습';
+  if(state.mode==='wrong'){
+    showLoadingModal('오답 기록을 불러오고 있어요...');
+    const {ok, sessions} = await fetchStudentSessions(state.name);
+    hideLoadingModal();
+    let wrongIds = new Set(Object.keys((getStudent(state.name).wrong)||{}));
+    if(ok && sessions && sessions.length > 0){
+      // 스킬 방식: 시간순으로 재생해서 "마지막 기록이 오답인 것만" 추출 (다기기 정확 처리)
+      const byTimeAsc = sessions.slice().sort((a,b)=>(a.ts||0)-(b.ts||0));
+      const wrongMap = {};
+      byTimeAsc.forEach(s=>{
+        // records 배열에서 점수 기반으로 추출
+        if(s.records){ try{
+          const recs = typeof s.records==='string' ? JSON.parse(s.records) : s.records;
+          recs.forEach(r=>{ if(r.score < WRONG_THRESHOLD && QMAP[r.id]) wrongMap[r.id]=r.id; else if(r.score >= WRONG_THRESHOLD) delete wrongMap[r.id]; });
+        }catch(e){} }
+        // wrongIds 배열에서도 추출
+        const wrongArr = s.wrongIds ? (typeof s.wrongIds==='string' ? s.wrongIds.split(',').map(x=>x.trim()) : s.wrongIds) : [];
+        wrongArr.forEach(id=>{ if(id && QMAP[id]) wrongMap[id]=id; });
+      });
+      wrongIds = new Set(Object.keys(wrongMap));
+    }
+    pool = QUESTIONS.filter(q=>wrongIds.has(q.id));
+    if(!pool.length){
+      await showAlert('풀 수 있는 오답 문제가 없어요.\n다른 기기에서도 아직 오답 기록이 없거나, 인터넷 연결을 확인해주세요.');
+      return;
+    }
+    modeLabel='오답 모드';
+  } else if(state.mode==='cumwrong'){
+    showLoadingModal('누적 오답 기록을 불러오고 있어요...');
+    const {ok, sessions} = await fetchStudentSessions(state.name);
+    hideLoadingModal();
+    let everWrongIds = new Set(Object.keys((getStudent(state.name).everWrong)||{}));
+    if(ok && sessions && sessions.length > 0){
+      // 누적: 한 번이라도 틀렸으면 계속 포함
+      sessions.forEach(s=>{
+        if(s.records){ try{
+          const recs = typeof s.records==='string' ? JSON.parse(s.records) : s.records;
+          recs.forEach(r=>{ if(r.score < WRONG_THRESHOLD && QMAP[r.id]) everWrongIds.add(r.id); });
+        }catch(e){} }
+        const wrongArr = s.wrongIds ? (typeof s.wrongIds==='string' ? s.wrongIds.split(',').map(x=>x.trim()) : s.wrongIds) : [];
+        wrongArr.forEach(id=>{ if(id && QMAP[id]) everWrongIds.add(id); });
+      });
+    }
+    pool = QUESTIONS.filter(q=>everWrongIds.has(q.id));
+    if(!pool.length){
+      await showAlert('누적 오답 문제가 없어요.\n아직 오답 기록이 없거나, 인터넷 연결을 확인해주세요.');
+      return;
+    }
+    modeLabel='누적 오답 모드';
+  } else if(state.mode==='all'){
+    pool = BASIC_QUESTIONS.slice();
+    modeLabel='전체 모드';
+  } else if(state.mode==='advanced'){
+    pool = ADV_POOL.filter(q=>state.cats.includes(q.cat) && state.grades.includes(q.grade));
+    modeLabel='응용 모드(상)';
+  } else if(state.mode==='random'){
+    pool = QUESTIONS.filter(q=>state.cats.includes(q.cat) && state.grades.includes(q.grade));
+    modeLabel='랜덤 모드';
+  } else if(state.mode==='top'){
+    // 최상위문제: 본문제+꼬리질문 "쌍" 단위로만 다루고, 쌍은 절대 떨어지지 않게 함
+    // (셔플을 켜도 쌍의 순서 안(본문제→꼬리질문)은 항상 유지되도록 여기서 쌍째로 섞음)
+    const pairsForPool = state.shuffle ? shuffleArr(TOP_PAIRS.slice()) : TOP_PAIRS.slice();
+    pool = pairsForPool.flatMap(p=>[p.main, p.follow]);
+    modeLabel='최상위문제';
+  } else {
+    pool = BASIC_QUESTIONS.filter(q=>state.cats.includes(q.cat) && state.grades.includes(q.grade));
+  }
+  if(state.shuffle && state.mode!=='top') pool = shuffleArr(pool); // top은 위에서 쌍 단위로 이미 섞었으므로 여기서 또 섞지 않음(개별 섞으면 쌍이 떨어짐)
+  if((state.mode==='category'||state.mode==='advanced'||state.mode==='random') && state.count!==999) pool = pool.slice(0, Math.min(state.count, pool.length));
+  if(!pool.length){ await showAlert('풀 수 있는 문제가 없어요.'); return; }
+  state.queue = pool;
+  state.idx = 0;
+  state.records = [];
+  state.answerText='';
+  state._modeLabel = modeLabel;
+  state.sessionId = genSessionId(); // 이 세션 전용 id - 서버에 저장할 때 매번 새 줄이 아니라 이 id의 줄 하나만 계속 갱신
+  recFinalBase='';
+  screen='quiz';
+  render();
+}
+
+async function submitAnswer(){
+  const q = state.queue[state.idx];
+  const rawText = state.answerText;
+
+  // AI 채점 중 로딩 상태 표시
+  const submitBtn=document.getElementById('submitBtn');
+  const clearBtn=document.getElementById('clearBtn');
+  const skipBtn=document.getElementById('skipBtn');
+  if(submitBtn){ submitBtn.disabled=true; submitBtn.textContent='🤖 AI가 의미를 파악해서 채점하고 있어요...'; }
+  if(clearBtn) clearBtn.disabled=true;
+  if(skipBtn) skipBtn.style.pointerEvents='none';
+
+  let fb = await aiGradeAnswer(q, rawText);
+  if(!fb){
+    fb = scoreAnswer(q, rawText);
+    // 키워드 채점은 이미 기본 50점이 깔려 있어서 boostScore 미적용
+  } else {
+    fb.score = boostScore(fb.score); // AI 채점 결과만 boostScore 적용
+  }
+  if(state._timedOut){ fb.timedOut=true; state._timedOut=false; }
+
+  // 점수 구간별 트랙 분기 (꼬리질문)
+  const isAdvancedQ = q.level==='advanced';
+  fb.followUpQuestion = null;
+  fb.passMsg = null;
+  if(fb.score>=100){
+    fb.passMsg = isAdvancedQ
+      ? '🎉 완벽해요! 이 응용 문제까지 확실히 이해했어요.'
+      : '🎉 완벽해요! 심화 질문으로 넘어갈 준비가 되었구나!';
+  } else if(fb.score>=50){
+    if(submitBtn) submitBtn.textContent='🤖 꼬리질문을 준비하고 있어요...';
+    const trackType = isAdvancedQ ? 'advanced-probe' : 'basic-fill';
+    fb.followUpQuestion = await generateFollowUp(q, rawText, fb.score, trackType);
+  }
+  // score<50인 경우: 꼬리질문 없이 바로 오답 처리 (모범답안·놓친 개념은 기존 피드백 화면에 이미 표시됨)
+
+  state._followUpAnswerText='';
+  state._followUpAnswered=false;
+  state._followUpComment=null;
+
+  state.feedback = fb;
+  state.records.push({id:q.id, q:q.q, cat:q.cat, score:fb.score, answer:rawText});
+
+  // 학생별 오답노트 업데이트
+  const s = getStudent(state.name);
+  if(fb.score < WRONG_THRESHOLD){
+    s.wrong[q.id] = {lastScore:fb.score, lastAnswer:rawText, date:fmtDT(Date.now())};
+    s.everWrong[q.id] = {lastScore:fb.score, lastAnswer:rawText, date:fmtDT(Date.now())}; // 누적 오답: 나중에 맞혀도 삭제하지 않음
+  } else {
+    if(s.wrong[q.id]) delete s.wrong[q.id];
+  }
+  // 진행 상황 자동 저장: 스킬 방식 - 일반/오답 모드를 별도 슬롯에 저장
+  const isWrongMode = state.mode==='wrong'||state.mode==='cumwrong';
+  const snapSlot = isWrongMode ? 'inProgressWrong' : 'inProgress';
+  if(state.records.length < state.queue.length){
+    const snap = {
+      queueIds: state.queue.map(x=>x.id),
+      records: state.records.slice(),
+      modeLabel: state._modeLabel || '',
+      savedAt: fmtDT(Date.now()),
+      ts: Date.now(),
+      sessionId: state.sessionId
+    };
+    s[snapSlot] = snap;
+    // 서버 캐시도 업데이트 (같은 기기의 다른 탭에서 바로 반영)
+    if(serverResumeCache) serverResumeCache[isWrongMode?'wrong':'normal'] = snap;
+  } else {
+    delete s[snapSlot];
+    if(serverResumeCache) serverResumeCache[isWrongMode?'wrong':'normal'] = null;
+  }
+  setStudent(state.name, s);
+
+  // 문제 하나 풀 때마다 바로 구글 시트에 누적 전송 (중간에 그만둬도 지금까지 기록은 남도록)
+  const wrongIdsSoFar = state.records.filter(r=>r.score<WRONG_THRESHOLD).map(r=>r.id);
+  const avgSoFar = Math.round(state.records.reduce((sum,r)=>sum+r.score,0)/state.records.length);
+  const isInProgress = state.records.length < state.queue.length;
+  submitToSheet({
+    name: state.name,
+    modeLabel: (state._modeLabel||'') + (isInProgress? ' (진행중)':''),
+    score: avgSoFar,
+    totalCount: state.records.length,
+    wrongIds: wrongIdsSoFar,
+    records: state.records,
+    // 이어풀기를 위해 전체 문제 목록과 현재 진행 인덱스도 함께 저장
+    queueIds: isInProgress ? state.queue.map(x=>x.id) : [],
+    resumeIdx: isInProgress ? state.records.length : -1,
+    sessionId: state.sessionId
+  });
+
+  screen='feedback';
+  render();
+}
+
+function getInProgress(name){
+  if(!name || !name.trim()) return null;
+  // 로컬 스냅샷
+  const s = getStudent(name);
+  const localSnap = (()=>{
+    const ip = s.inProgress;
+    if(!ip || !ip.queueIds || !ip.queueIds.length) return null;
+    if((ip.records||[]).length >= ip.queueIds.length) return null;
+    return ip;
+  })();
+  // 서버 스냅샷 (로그인 시 캐싱된 것)
+  const serverSnap = serverResumeCache && serverResumeCache.normal;
+  // 스킬 방식: 더 최신 것을 선택
+  return pickNewerSnapshot(localSnap, serverSnap);
+}
+function resumeInterview(snap){
+  // snap이 없으면 getInProgress로 가져옴
+  const ip = snap || getInProgress(state.name);
+  if(!ip || !ip.queueIds || !ip.queueIds.length){ showAlert('이어서 풀 수 있는 면접이 없어요.'); return; }
+  // 위치(인덱스)가 아니라 문제 id를 기준으로 재구성해요.
+  // 앞으로 이 html 파일을 수정/재배포하더라도(질문이 추가되거나 순서가 바뀌어도)
+  // 기존 문제 id만 그대로 유지되면 "이미 푼 문제"와 "안 푼 문제"를 정확히 구분해서
+  // 이어풀기를 계속할 수 있어요. (기존 id를 삭제·변경하면 그 문제만 이어풀기에서 빠져요.)
+  const answeredIds = new Set((ip.records||[]).map(r=>r.id));
+  const origQueue = ip.queueIds.map(id=>QMAP[id]).filter(Boolean);
+  if(!origQueue.length){ showAlert('이어서 풀 수 있는 면접이 없어요. 문제 목록이 바뀐 것 같아요.'); return; }
+  const answeredQuestions = origQueue.filter(q=>answeredIds.has(q.id));
+  const remainingQuestions = origQueue.filter(q=>!answeredIds.has(q.id));
+  if(!remainingQuestions.length){ showAlert('이어서 풀 수 있는 면접이 없어요. 이미 다 푼 것 같아요.'); return; }
+  state.queue = answeredQuestions.concat(remainingQuestions);
+  state.records = (ip.records||[]).filter(r=>QMAP[r.id]); // 사라진 문제의 기록은 제외
+  state.idx = Math.min(state.records.length, state.queue.length-1);
+  state.answerText='';
+  state._modeLabel = (ip.modeLabel||'이어서 풀기');
+  // 기존 세션과 같은 sessionId를 이어서 써야, 앞으로 저장할 때 새 줄이 아니라
+  // 그 세션의 줄 하나만 계속 갱신돼요. (옛날 기록처럼 sessionId가 없으면 새로 발급)
+  state.sessionId = ip.sessionId || genSessionId();
+  recFinalBase='';
+  lastTTSQuestionId = null;
+  screen='quiz';
+  render();
+}
+function resumeApprox(snap){
+  // 정확한 이어풀기가 불가능한 옛날 기록용 근사 버전:
+  // 이미 풀었던 문제 id는 빼고, 같은 카테고리에서 새 문제들로 이어감(정확한 위치 복원은 아님)
+  if(!snap || !snap.cats || !snap.cats.length){ showAlert('비슷하게 이어갈 수 있는 기록이 없어요.'); return; }
+  const excludeIds = new Set(snap.answeredIds||[]);
+  const pool = QUESTIONS.filter(q => snap.cats.includes(q.cat) && !excludeIds.has(q.id));
+  if(!pool.length){ showAlert('이 카테고리에서 아직 안 푼 새 문제가 없어요.'); return; }
+  const shuffled = pool.slice().sort(()=>Math.random()-0.5);
+  const count = Math.min(shuffled.length, 10); // 원래 몇 문제였는지는 알 수 없어서 기본 10문제로 시작
+  state.queue = shuffled.slice(0, count);
+  state.idx = 0;
+  state.records = [];
+  state.answerText='';
+  state._modeLabel = (snap.modeLabel||'부분 학습') + ' (비슷하게 이어감)';
+  state.sessionId = genSessionId();
+  recFinalBase='';
+  lastTTSQuestionId = null;
+  screen='quiz';
+  render();
+}
+function discardProgress(name){
+  const s = getStudent(name);
+  delete s.inProgress;
+  setStudent(name, s);
+  // 서버 캐시도 초기화
+  if(serverResumeCache) serverResumeCache.normal = null;
+}
+
+function buildAllQHTML(){
+  const cats = ['수와 연산','문자와 식','함수','기하','확률과 통계'];
+  const grade_order = ['중1','중2','중3'];
+  let html = '';
+  grade_order.forEach(grade=>{
+    cats.forEach(cat=>{
+      const qs = QUESTIONS.filter(q=>q.grade===grade && q.cat===cat);
+      if(!qs.length) return;
+      html += `<div style="font-size:13px;font-weight:800;color:#1b2a4a;margin:14px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px;">${grade} · ${cat}</div>`;
+      qs.forEach((q,i)=>{
+        const isAdv = q.level==='advanced';
+        html += `<div style="border:1px solid #ddd;border-radius:5px;padding:8px 10px;margin-bottom:6px;${isAdv?'background:#fffbe6;':''}break-inside:avoid;page-break-inside:avoid;">
+          <div style="font-size:11.5px;font-weight:700;color:#1b2a4a;margin-bottom:3px;">${isAdv?'⭐ ':''}${q.q}</div>
+          <div style="font-size:10.5px;color:#2f7d5b;"><b>모범답안:</b> ${q.a}</div>
+        </div>`;
+      });
+    });
+  });
+  if(TOP_PAIRS.length){
+    html += `<div style="font-size:13px;font-weight:800;color:#b8860b;margin:14px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px;">🏆 최상위문제 (꼬리 질문 포함)</div>`;
+    TOP_PAIRS.forEach(pair=>{
+      [pair.main, pair.follow].forEach(q=>{
+        const isFollow = q.id.endsWith('F');
+        html += `<div style="border:1px solid #e6c869;border-radius:5px;padding:8px 10px;margin-bottom:6px;${isFollow?'background:#fffdf0;':''}break-inside:avoid;page-break-inside:avoid;">
+          <div style="font-size:11.5px;font-weight:700;color:#1b2a4a;margin-bottom:3px;">${isFollow?'↳ (꼬리질문) ':''}${q.q}</div>
+          <div style="font-size:10.5px;color:#2f7d5b;"><b>모범답안:</b> ${q.a}</div>
+        </div>`;
+      });
+    });
+  }
+  return html;
+}
+function printAllQuestions(){
+  const area = document.getElementById('printArea');
+  area.innerHTML = `
+    <h1 style="font-size:18px;color:#1b2a4a;margin:0 0 4px;">중등 수학 구술면접 전체 문제 + 모범답안</h1>
+    <p style="font-size:11px;color:#666;margin:0 0 10px;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${TOP_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>
+    ${buildAllQHTML()}
+  `;
+  area.classList.remove('hidden');
+  window.print();
+  area.classList.add('hidden');
+  area.innerHTML='';
+}
+async function downloadAllQuestionsPDF(){
+  if(!window.html2canvas || !(window.jspdf && window.jspdf.jsPDF)){
+    await showAlert('PDF 라이브러리를 불러오는 중이에요. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+  const statusEl = document.getElementById('allQStatus');
+  if(statusEl) statusEl.textContent='⏳ PDF 생성 중... 잠시만 기다려주세요.';
+  const helper = document.createElement('div');
+  helper.style.cssText='position:fixed;left:-9999px;top:0;width:700px;background:#fff;box-sizing:border-box;font-family:"Noto Sans KR",sans-serif;';
+  document.body.appendChild(helper);
+  try{
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const usableW = pageW - margin*2;
+    let y = margin;
+    // 제목
+    helper.innerHTML = `<h1 style="font-size:17px;color:#1b2a4a;margin:0 0 3px;">중등 수학 구술면접 전체 문제 + 모범답안</h1><p style="font-size:10px;color:#666;margin:0;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${TOP_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>`;
+    let canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
+    let imgH = canvas.height*usableW/canvas.width;
+    pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
+    y += imgH+4;
+    // 문항별
+    const cats = ['수와 연산','문자와 식','함수','기하','확률과 통계'];
+    const grade_order = ['중1','중2','중3'];
+    let qNum = 0;
+    for(const grade of grade_order){
+      for(const cat of cats){
+        const qs = QUESTIONS.filter(q=>q.grade===grade && q.cat===cat);
+        if(!qs.length) continue;
+        // 섹션 헤더
+        helper.innerHTML=`<div style="font-size:12px;font-weight:800;color:#1b2a4a;border-bottom:1px solid #ccc;padding-bottom:2px;">${grade} · ${cat}</div>`;
+        canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
+        imgH = canvas.height*usableW/canvas.width;
+        if(y+imgH > pageH-margin){ pdf.addPage(); y=margin; }
+        pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
+        y+=imgH+2;
+        for(const q of qs){
+          qNum++;
+          const isAdv = q.level==='advanced';
+          helper.innerHTML=`<div style="border:1px solid #ddd;border-radius:5px;padding:7px 9px;background:${isAdv?'#fffbe6':'#fff'};">
+            <div style="font-size:11px;font-weight:700;color:#1b2a4a;margin-bottom:2px;">${isAdv?'⭐ ':''}${q.q}</div>
+            <div style="font-size:10px;color:#2f7d5b;"><b>모범답안:</b> ${q.a}</div>
+          </div>`;
+          canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
+          imgH = canvas.height*usableW/canvas.width;
+          if(y+imgH > pageH-margin){ pdf.addPage(); y=margin; }
+          pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
+          y+=imgH+3;
+        }
+        if(statusEl) statusEl.textContent=`⏳ 생성 중... ${qNum}/${QUESTIONS.length}문항`;
+      }
+    }
+    // 최상위문제(꼬리 질문 포함) 섹션 — 본문제와 꼬리질문을 쌍으로 붙여서 표시
+    if(TOP_PAIRS.length){
+      helper.innerHTML=`<div style="font-size:12px;font-weight:800;color:#b8860b;border-bottom:1px solid #ccc;padding-bottom:2px;margin-top:6px;">🏆 최상위문제 (꼬리 질문 포함)</div>`;
+      canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
+      imgH = canvas.height*usableW/canvas.width;
+      if(y+imgH > pageH-margin){ pdf.addPage(); y=margin; }
+      pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
+      y+=imgH+2;
+      for(const pair of TOP_PAIRS){
+        for(const q of [pair.main, pair.follow]){
+          qNum++;
+          const isFollow = q.id.endsWith('F');
+          helper.innerHTML=`<div style="border:1px solid #e6c869;border-radius:5px;padding:7px 9px;background:${isFollow?'#fffdf0':'#fff'};">
+            <div style="font-size:11px;font-weight:700;color:#1b2a4a;margin-bottom:2px;">${isFollow?'↳ (꼬리질문) ':''}${q.q}</div>
+            <div style="font-size:10px;color:#2f7d5b;"><b>모범답안:</b> ${q.a}</div>
+          </div>`;
+          canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
+          imgH = canvas.height*usableW/canvas.width;
+          if(y+imgH > pageH-margin){ pdf.addPage(); y=margin; }
+          pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
+          y+=imgH+3;
+        }
+        if(statusEl) statusEl.textContent=`⏳ 생성 중... ${qNum}/${QUESTIONS.length+TOP_PAIRS.length*2}문항 (최상위문제 포함)`;
+      }
+    }
+    lastPdfFilename = `중등수학_구술면접_전체문제_${new Date().toLocaleDateString('ko-KR').replace(/\./g,'').replace(/ /g,'')}.pdf`;
+    lastPdfBlobUrl = URL.createObjectURL(new File([pdf.output('blob')], lastPdfFilename, {type:'application/pdf'}));
+    if(statusEl) statusEl.textContent='✅ PDF 준비 완료!';
+    showPdfReadyModal('📘 전체 문제 + 모범답안 PDF가 준비됐어요!<br>아래 버튼을 <b>직접 눌러서</b> 저장하거나 열어 주세요.');
+  }catch(e){
+    if(statusEl) statusEl.textContent='⚠️ PDF 생성 중 오류가 발생했어요.';
+  } finally {
+    if(helper.parentNode) helper.parentNode.removeChild(helper);
+  }
+}
+function printResultA4(){
+  const wrongItems = state.records.filter(r=>r.score<WRONG_THRESHOLD);
+  const avg = Math.round(state.records.reduce((s,r)=>s+r.score,0)/state.records.length);
+  const itemsHtml = wrongItems.map((r,i)=>{
+    const q = QMAP[r.id];
+    if(!q) return '';
+    return `<div class="print-item">
+      <div style="font-weight:700;margin-bottom:4px;">${i+1}. [${q.cat}] ${q.q}</div>
+      <div style="color:#b3432b;font-size:12px;">내 답변: ${escapeHtml(r.answer)||'(답변 없음)'} (${r.score}점)</div>
+      <div style="color:#2f7d5b;font-weight:700;font-size:12px;margin-top:3px;">모범 답안: ${q.a}</div>
+    </div>`;
+  }).join('');
+  const area = document.getElementById('printArea');
+  area.innerHTML = `
+    <h1 style="font-size:20px;margin:0 0 4px;">${escapeHtml(state.name)}님의 면접 결과</h1>
+    <p style="font-size:12px;color:#666;margin:0 0 14px;">중등 수학 구술면접 마스터 · GMS학원 이은정 강사 · ${new Date().toLocaleDateString('ko-KR')}</p>
+    <p style="font-size:14px;margin:0 0 14px;"><b>평균 ${avg}점</b> · 총 ${state.records.length}문항 · 오답 ${wrongItems.length}문항</p>
+    ${itemsHtml || '<p>오답이 없어요. 완벽해요!</p>'}
+  `;
+  area.classList.remove('hidden');
+  window.print();
+  area.classList.add('hidden');
+  area.innerHTML='';
+}
+function finishSession(){
+  cancelQuestionAudio(); // 혹시 남아있을 음성/카운트다운 타이머를 확실히 정리
+  const s = getStudent(state.name);
+  const avg = Math.round(state.records.reduce((sum,r)=>sum+r.score,0)/state.records.length);
+  s.examLogs.push({
+    date: fmtDT(Date.now()),
+    avg, count: state.records.length,
+    cats: [...new Set(state.records.map(r=>r.cat))],
+    modeLabel: state._modeLabel
+  });
+  if(s.examLogs.length>40) s.examLogs = s.examLogs.slice(-40);
+  // 완료 시 모드별 이어풀기 슬롯 모두 정리
+  const isWrongMode = state.mode==='wrong'||state.mode==='cumwrong';
+  if(isWrongMode){ delete s.inProgressWrong; if(serverResumeCache) serverResumeCache.wrong=null; }
+  else { delete s.inProgress; if(serverResumeCache) serverResumeCache.normal=null; }
+  setStudent(state.name, s);
+  const wrongIds = state.records.filter(r=>r.score<WRONG_THRESHOLD).map(r=>r.id);
+  submitToSheet({
+    name: state.name,
+    modeLabel: state._modeLabel,
+    score: avg,
+    totalCount: state.records.length,
+    wrongIds: wrongIds,
+    records: state.records,
+    sessionId: state.sessionId
+  }).then(ok=>{
+    const el=document.getElementById('sheetSendStatus');
+    if(el) el.textContent = ok? '✅ 선생님께 결과가 전송됐어요.' : '⚠️ 전송에 실패했어요 (인터넷 연결을 확인해주세요).';
+  });
+  screen='result';
+  render();
+}
+async function finishEarly(){
+  if(!state.records.length){
+    await showAlert('아직 답변한 문제가 없어요. 최소 한 문제는 풀고 눌러주세요.');
+    return;
+  }
+  const remain = state.queue.length - state.records.length;
+  const ok = await showConfirm(`지금까지 ${state.records.length}문항을 풀었어요. 여기서 끝내고 점수를 볼까요?${remain>0? ` (나머지 ${remain}문항은 풀지 않은 것으로 처리돼요)`:''}`);
+  if(!ok) return;
+  finishSession();
+}
+function goNext(){
+  if(state.idx < state.queue.length-1){
+    state.idx += 1;
+    state.answerText='';
+    recFinalBase='';
+    screen='quiz';
+    render();
+  } else {
+    finishSession();
+  }
+}
+
+render();
+</script>
+</body>
+</html>
