@@ -1742,7 +1742,10 @@ const TOP_PAIRS = [
     follow:{id:'ZS4F',cat:'확률과 통계',grade:'중2',q:'이 기댓값이 2×(3/5)와 같은 이유를 설명하시오.',
       a:'꺼낸 공 각각이 빨간 공일 확률은 순서와 관계없이 3/5로 같고, 두 공 중 빨간 공의 평균 개수는 각 공이 빨간 공일 때의 기여를 더한 것이므로 3/5+3/5=2×(3/5)=6/5입니다. 이렇게 각 공을 따로 생각해서 더하면 경우를 나누어 계산하지 않고도 기댓값을 구할 수 있습니다.',
       kw:[{l:'각 공이 빨간 공일 확률 3/5',a:['3/5']},{l:'더하면 2×3/5',a:['더하','2×']}]} },
-  // ===== 낯선 소재 확인형 (W) : 교과서 밖 소재를 중학교 도구로 "직접 계산해 확인 → 이유를 식으로 설명" =====
+];
+
+// ===== 낯선 소재 확인형 (최상위문제와 별도로 선택해서 풀 수 있음) =====
+const UNFAMILIAR_PAIRS = [
   { main:{id:'W1',cat:'수와 연산',grade:'중3',q:'【낯선 소재】 피보나치 수열 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, …에서 이웃한 두 항의 비(뒤÷앞)가 황금비(약 1.618)에 가까워진다고 합니다. 이를 직접 계산하여 확인하는 방법을 말해 보시오.',
       a:'이웃한 항의 비를 차례로 계산합니다. 1/1=1, 2/1=2, 3/2=1.5, 5/3≈1.667, 8/5=1.6, 13/8=1.625, 21/13≈1.615, 34/21≈1.619, 55/34≈1.6176으로 점점 1.618 근처에 모입니다. 값이 1.618보다 크고 작은 쪽을 번갈아 가며 그 값에 다가가는 것도 관찰됩니다. 또 1.618의 제곱은 약 2.618이고 1.618+1=2.618이어서 x²=x+1을 만족하므로 황금비의 성질과 일치합니다.',
       kw:[{l:'이웃한 항의 비를 직접 계산(8/5, 13/8 등)',a:['8/5','13/8','21/13','비를 계산']},{l:'1.618 근처로 모임',a:['1.618','1.6']},{l:'크고 작게 번갈아 다가감 / x²=x+1',a:['번갈아','x²=x+1','2.618']}]},
@@ -1883,8 +1886,25 @@ const TOP_PAIRS = [
       a:'AE=(1+√5)/2=φ이고 AD=1입니다. 정사각형을 자르면 남은 직사각형은 가로 AE−1=φ−1, 세로 1입니다. φ−1=1/φ이므로 남은 직사각형의 세로:가로=1:(1/φ)=φ:1이고 처음 직사각형의 가로:세로 φ:1과 같아 닮음입니다. 이 과정을 반복해도 닮은 직사각형이 계속 생기는 것이 황금비의 특징입니다.',
       kw:[{l:'남은 변 φ−1=1/φ',a:['φ−1','1/φ']},{l:'비가 φ:1로 같아 닮음',a:['닮음','φ:1']},{l:'반복해도 닮은 직사각형',a:['반복']}]} },
 ];
+const PRINT_PAIRS = TOP_PAIRS.concat(UNFAMILIAR_PAIRS);
+const UNFAMILIAR_TITLES = {W1:'피보나치 비 → 황금비 확인',W2:'피보나치 수의 합·제곱의 합',W3:'파스칼의 삼각형',W4:'홀수의 합과 삼각수',W5:'콜라츠 수열(3n+1)',W6:'495 규칙(세 자리 수 뒤집어 빼기)',W7:'n²+n+41은 항상 소수? (반례)',W8:'완전수 6, 28, 496',W9:'체스판의 정사각형·직사각형 개수',W10:'비둘기집 원리',W11:'3×3·4×4 마방진',W12:'한붓그리기',W13:'1/(k(k+1)) 소거 합',W14:'쌀알 문제·종이 42번 접기',W15:'몬티홀 문제',W16:'왕복 평균 속력',W17:'섭씨·화씨 온도',W18:'에라토스테네스의 지구 둘레',W19:'소수는 무한히 많다',W20:'종이접기로 만드는 황금비'};
+function unfamiliarSelSet(){ return new Set(state.unSel || UNFAMILIAR_PAIRS.map(p=>p.main.id)); }
+function unfamiliarSelHtml(){
+  const sel=unfamiliarSelSet();
+  const rows=UNFAMILIAR_PAIRS.map(p=>`<label style="display:flex;align-items:flex-start;gap:8px;padding:7px 4px;border-bottom:1px solid var(--line);font-size:13.5px;cursor:pointer;"><input type="checkbox" class="unChk" data-id="${p.main.id}" ${sel.has(p.main.id)?'checked':''} style="margin-top:3px;"><span><b>${p.main.id}</b> ${UNFAMILIAR_TITLES[p.main.id]||''} <span style="color:var(--sub);font-size:11.5px;">(${p.main.cat})</span></span></label>`).join('');
+  return `<div style="margin-top:6px;">
+    <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;align-items:center;">
+      <button class="btn btn-outline" id="unAllBtn" style="padding:6px 12px;font-size:12.5px;width:auto;">전체 선택</button>
+      <button class="btn btn-outline" id="unNoneBtn" style="padding:6px 12px;font-size:12.5px;width:auto;">전체 해제</button>
+      <span id="unCount" style="font-size:12.5px;color:var(--sub);">선택 ${sel.size}쌍(${sel.size*2}문항)</span>
+    </div>
+    <div style="max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:2px 8px;background:#fffdf8;">${rows}</div>
+    <div class="small-note" style="margin-top:6px;">체크한 주제만 풀어요. 아래 "면접 시작하기"를 누르면 시작돼요.</div>
+  </div>`;
+}
 
-TOP_PAIRS.forEach(p=>{ QMAP[p.main.id]=p.main; QMAP[p.follow.id]=p.follow; }); // 오답노트/이어풀기 등에서도 id로 찾을 수 있게 등록
+TOP_PAIRS.forEach(p=>{ QMAP[p.main.id]=p.main; QMAP[p.follow.id]=p.follow; });
+UNFAMILIAR_PAIRS.forEach(p=>{ QMAP[p.main.id]=p.main; QMAP[p.follow.id]=p.follow; }); // 오답노트/이어풀기 등에서도 id로 찾을 수 있게 등록
 
 // ===== 학생별 자소서 맞춤 질문 =====
 // 학생 이름(로그인 시 입력한 이름과 정확히 같아야 함)을 key로, TOP_PAIRS와 같은 {main,follow} 쌍 배열을 value로 넣습니다.
@@ -2307,6 +2327,7 @@ function newSession(){
     name: lastUsedName(),
     mode:'category', cats:['수와 연산','문자와 식','함수','기하','확률과 통계'], grades:['중1','중2','중3'], count:999, shuffle:false,
     queue:[], idx:0, records:[], answerText:'', feedback:null,
+    unSel:null,
     micTestMsg:''
   };
 }
@@ -2710,6 +2731,16 @@ function renderSetup(){
     </div>
   </div>
 
+  <div class="card" style="border:2px solid #2f7d5b;">
+    <h2 class="card-title">🔭 낯선 소재 확인형 (꼬리 질문 포함)</h2>
+    <p class="card-sub">교과서에 없는 소재가 나왔을 때 "일단 직접 계산해서 확인 → 규칙을 말하기 → 이유를 식으로 설명하기" 순서로 답하는 연습이에요. 카드를 누르고 풀고 싶은 주제만 골라 보세요.</p>
+    <div class="mode-card ${state.mode==='unfamiliar'?'active':''}" data-mode="unfamiliar">
+      <div class="mt">🔭 낯선 소재 확인형 시작하기</div>
+      <div class="md">총 ${UNFAMILIAR_PAIRS.length}쌍(${UNFAMILIAR_PAIRS.length*2}문항) · 주제를 직접 선택할 수 있어요.</div>
+    </div>
+    ${state.mode==='unfamiliar' ? unfamiliarSelHtml() : ''}
+  </div>
+
   ${(STUDENT_QUESTIONS[name.trim()] && STUDENT_QUESTIONS[name.trim()].length) ? `
   <div class="card" style="border:2px solid #7a1f2b;">
     <h2 class="card-title">📝 내 자소서 맞춤 질문</h2>
@@ -2897,7 +2928,7 @@ function renderResult(){
   <div class="card">
     <h2 class="card-title" style="text-align:center;">${escapeHtml(state.name)}님의 면접 결과</h2>
     <div class="avg-big">${avg}<span style="font-size:20px;color:var(--sub);">점</span></div>
-    <div class="avg-sub">${total}문항 평균 점수 · ${state.mode==='wrong'?'오답 모드':state.mode==='cumwrong'?'누적 오답 모드':state.mode==='all'?'전체 모드':state.mode==='advanced'?'응용 모드(상)':state.mode==='random'?'랜덤 모드':state.mode==='top'?'최상위문제':state.mode==='myquestions'?'내 자소서 맞춤 질문':'부분 학습'}</div>
+    <div class="avg-sub">${total}문항 평균 점수 · ${state.mode==='wrong'?'오답 모드':state.mode==='cumwrong'?'누적 오답 모드':state.mode==='all'?'전체 모드':state.mode==='advanced'?'응용 모드(상)':state.mode==='random'?'랜덤 모드':state.mode==='top'?'최상위문제':state.mode==='myquestions'?'내 자소서 맞춤 질문':state.mode==='unfamiliar'?'낯선 소재 확인형':'부분 학습'}</div>
     <div class="result-list">${items}</div>
     <div class="row2" style="margin-top:16px;">
       <button class="btn btn-outline" id="wrongNoteBtn">오답노트 보기</button>
@@ -3726,6 +3757,17 @@ function bindEvents(){
         state.mode=m.dataset.mode; render();
       };
     });
+    (function(){
+      const upd=()=>{
+        const ids=Array.from(document.querySelectorAll('.unChk')).filter(x=>x.checked).map(x=>x.dataset.id);
+        state.unSel=ids;
+        const el=document.getElementById('unCount'); if(el) el.textContent='선택 '+ids.length+'쌍('+(ids.length*2)+'문항)';
+      };
+      document.querySelectorAll('.unChk').forEach(x=>{ x.onchange=upd; });
+      const allB=document.getElementById('unAllBtn'), noneB=document.getElementById('unNoneBtn');
+      if(allB) allB.onclick=()=>{ document.querySelectorAll('.unChk').forEach(x=>{x.checked=true;}); upd(); };
+      if(noneB) noneB.onclick=()=>{ document.querySelectorAll('.unChk').forEach(x=>{x.checked=false;}); upd(); };
+    })();
     document.getElementById('shuffleChk').onchange=(e)=>{ state.shuffle=e.target.checked; };
     document.getElementById('startBtn').onclick=async()=>{
       if(nameEl) state.name=nameEl.value.trim(); // 로그인 후에는 nameInput이 없으므로 기존 state.name(로그인 시 입력한 이름)을 그대로 사용
@@ -3880,8 +3922,8 @@ function bindEvents(){
     const printBtn=document.getElementById('printBtn');
     if(printBtn) printBtn.onclick=()=>printResultA4();
     document.getElementById('retryBtn').onclick=()=>{
-      const nm=state.name, cats=state.cats, grades=state.grades, count=state.count, shuffle=state.shuffle, mode=state.mode;
-      state=newSession(); state.name=nm; state.cats=cats; state.grades=grades; state.count=count; state.shuffle=shuffle; state.mode=mode;
+      const nm=state.name, cats=state.cats, grades=state.grades, count=state.count, shuffle=state.shuffle, mode=state.mode, unSel=state.unSel;
+      state=newSession(); state.name=nm; state.cats=cats; state.grades=grades; state.count=count; state.shuffle=shuffle; state.mode=mode; state.unSel=unSel;
       screen='setup'; render();
     };
   }
@@ -4043,6 +4085,14 @@ async function startInterview(){
     const pairsForPool = state.shuffle ? shuffleArr(TOP_PAIRS.slice()) : TOP_PAIRS.slice();
     pool = pairsForPool.flatMap(p=>[p.main, p.follow]);
     modeLabel='최상위문제';
+  } else if(state.mode==='unfamiliar'){
+    // 낯선 소재 확인형: 선택한 주제만, 본문제→꼬리질문 쌍 유지
+    const selSet = unfamiliarSelSet();
+    const chosen = UNFAMILIAR_PAIRS.filter(p=>selSet.has(p.main.id));
+    if(!chosen.length){ await showAlert('풀고 싶은 주제를 하나 이상 선택해주세요.'); return; }
+    const pairsForPool = state.shuffle ? shuffleArr(chosen.slice()) : chosen;
+    pool = pairsForPool.flatMap(p=>[p.main, p.follow]);
+    modeLabel='낯선 소재 확인형';
   } else if(state.mode==='myquestions'){
     // 내 자소서 맞춤 질문: 로그인한 학생 이름으로만 조회, 쌍 단위 유지는 top과 동일
     const myPairs = STUDENT_QUESTIONS[state.name.trim()] || [];
@@ -4052,7 +4102,7 @@ async function startInterview(){
   } else {
     pool = BASIC_QUESTIONS.filter(q=>state.cats.includes(q.cat) && state.grades.includes(q.grade));
   }
-  if(state.shuffle && state.mode!=='top' && state.mode!=='myquestions') pool = shuffleArr(pool); // top/myquestions은 위에서 쌍 단위로 이미 섞었으므로 여기서 또 섞지 않음(개별 섞으면 쌍이 떨어짐)
+  if(state.shuffle && state.mode!=='top' && state.mode!=='myquestions' && state.mode!=='unfamiliar') pool = shuffleArr(pool); // top/myquestions은 위에서 쌍 단위로 이미 섞었으므로 여기서 또 섞지 않음(개별 섞으면 쌍이 떨어짐)
   if((state.mode==='category'||state.mode==='advanced'||state.mode==='random') && state.count!==999) pool = pool.slice(0, Math.min(state.count, pool.length));
   if(!pool.length){ await showAlert('풀 수 있는 문제가 없어요.'); return; }
   state.queue = pool;
@@ -4247,9 +4297,9 @@ function buildAllQHTML(){
       });
     });
   });
-  if(TOP_PAIRS.length){
+  if(PRINT_PAIRS.length){
     html += `<div style="font-size:13px;font-weight:800;color:#b8860b;margin:14px 0 6px;border-bottom:1px solid #ccc;padding-bottom:3px;">🏆 최상위문제 (꼬리 질문 포함)</div>`;
-    TOP_PAIRS.forEach(pair=>{
+    PRINT_PAIRS.forEach(pair=>{
       [pair.main, pair.follow].forEach(q=>{
         const isFollow = q.id.endsWith('F');
         html += `<div style="border:1px solid #e6c869;border-radius:5px;padding:8px 10px;margin-bottom:6px;${isFollow?'background:#fffdf0;':''}break-inside:avoid;page-break-inside:avoid;">
@@ -4265,7 +4315,7 @@ function printAllQuestions(){
   const area = document.getElementById('printArea');
   area.innerHTML = `
     <h1 style="font-size:18px;color:#1b2a4a;margin:0 0 4px;">중등 수학 구술면접 전체 문제 + 모범답안</h1>
-    <p style="font-size:11px;color:#666;margin:0 0 10px;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${TOP_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>
+    <p style="font-size:11px;color:#666;margin:0 0 10px;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${PRINT_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>
     ${buildAllQHTML()}
   `;
   area.classList.remove('hidden');
@@ -4292,7 +4342,7 @@ async function downloadAllQuestionsPDF(){
     const usableW = pageW - margin*2;
     let y = margin;
     // 제목
-    helper.innerHTML = `<h1 style="font-size:17px;color:#1b2a4a;margin:0 0 3px;">중등 수학 구술면접 전체 문제 + 모범답안</h1><p style="font-size:10px;color:#666;margin:0;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${TOP_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>`;
+    helper.innerHTML = `<h1 style="font-size:17px;color:#1b2a4a;margin:0 0 3px;">중등 수학 구술면접 전체 문제 + 모범답안</h1><p style="font-size:10px;color:#666;margin:0;">GMS학원 이은정 강사 · 총 ${QUESTIONS.length}문항 + 최상위문제 ${PRINT_PAIRS.length*2}문항 · ${new Date().toLocaleDateString('ko-KR')} · ⭐=응용(상) 문항</p>`;
     let canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
     let imgH = canvas.height*usableW/canvas.width;
     pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
@@ -4329,14 +4379,14 @@ async function downloadAllQuestionsPDF(){
       }
     }
     // 최상위문제(꼬리 질문 포함) 섹션 — 본문제와 꼬리질문을 쌍으로 붙여서 표시
-    if(TOP_PAIRS.length){
+    if(PRINT_PAIRS.length){
       helper.innerHTML=`<div style="font-size:12px;font-weight:800;color:#b8860b;border-bottom:1px solid #ccc;padding-bottom:2px;margin-top:6px;">🏆 최상위문제 (꼬리 질문 포함)</div>`;
       canvas = await html2canvas(helper,{scale:2,backgroundColor:'#fff',windowWidth:700});
       imgH = canvas.height*usableW/canvas.width;
       if(y+imgH > pageH-margin){ pdf.addPage(); y=margin; }
       pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
       y+=imgH+2;
-      for(const pair of TOP_PAIRS){
+      for(const pair of PRINT_PAIRS){
         for(const q of [pair.main, pair.follow]){
           qNum++;
           const isFollow = q.id.endsWith('F');
@@ -4350,7 +4400,7 @@ async function downloadAllQuestionsPDF(){
           pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',margin,y,usableW,imgH);
           y+=imgH+3;
         }
-        if(statusEl) statusEl.textContent=`⏳ 생성 중... ${qNum}/${QUESTIONS.length+TOP_PAIRS.length*2}문항 (최상위문제 포함)`;
+        if(statusEl) statusEl.textContent=`⏳ 생성 중... ${qNum}/${QUESTIONS.length+PRINT_PAIRS.length*2}문항 (최상위문제 포함)`;
       }
     }
     lastPdfFilename = `중등수학_구술면접_전체문제_${new Date().toLocaleDateString('ko-KR').replace(/\./g,'').replace(/ /g,'')}.pdf`;
