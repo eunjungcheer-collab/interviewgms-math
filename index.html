@@ -2665,6 +2665,80 @@ function cancelQuestionAudio(){
 }
 
 
+/* ===== D-day (학생별 면접일 · 기기 간 동기화) ===== */
+const DDAY_URL='https://script.google.com/macros/s/AKfycbz13PbCOXl3A-RcF-sPaFb1YTMpbqYALuBH5_0ITR3yUtbPJauXjQnnrCkZKUyvLmvv4w/exec';
+function ddayKey(n){ return 'dday_'+(n||'').trim(); }
+function getDday(n){ try{ return localStorage.getItem(ddayKey(n))||''; }catch(e){ return ''; } }
+function setDdayLocal(n,v){ try{ if(v) localStorage.setItem(ddayKey(n),v); else localStorage.removeItem(ddayKey(n)); }catch(e){} }
+function ddayDiff(v){
+  const p=v.split('-').map(Number); if(p.length!==3||p.some(isNaN)) return null;
+  const t=new Date(); const a=new Date(t.getFullYear(),t.getMonth(),t.getDate()); const b=new Date(p[0],p[1]-1,p[2]);
+  return Math.round((b-a)/86400000);
+}
+function ddayText(d){ return d===0?'D-DAY':(d>0?'D-'+d:'D+'+(-d)); }
+let ddayEditing=false, ddaySynced='', ddaySupported=null, ddayNote='';
+async function ddayFetchServer(name){
+  try{
+    const ctrl=new AbortController(); const tm=setTimeout(()=>ctrl.abort(),7000);
+    const r=await fetch(DDAY_URL+'?action=getDday&name='+encodeURIComponent(name.trim()),{signal:ctrl.signal}); clearTimeout(tm);
+    const j=await r.json();
+    if(j && j.supported===true){ ddaySupported=true; return String(j.date||''); }
+  }catch(e){}
+  ddaySupported=false; return null;
+}
+async function ddayPushServer(name,date){
+  if(ddaySupported!==true) return false;
+  try{
+    await fetch(DDAY_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'setDday',name:name.trim(),date:date})});
+    return true;
+  }catch(e){ return false; }
+}
+function ddaySyncOnce(){
+  const name=(state.name||'').trim(); if(!name||ddaySynced===name) return; ddaySynced=name;
+  ddayFetchServer(name).then(async sd=>{
+    if(sd===null){ ddayNote='이 기기에만 저장돼요'; updateDday(); return; }
+    ddayNote='';
+    const ld=getDday(name);
+    if(sd){ if(sd!==ld) setDdayLocal(name,sd); }
+    else if(ld){ await ddayPushServer(name,ld); }
+    updateDday();
+  });
+}
+function updateDday(){
+  const old=document.getElementById('ddayBox'); if(old) old.remove();
+  if(!['setup','quiz','feedback','result','mystats'].includes(screen)) return;
+  if(!state.name) return;
+  if(typeof hasStudentBank==='function' && !hasStudentBank(state.name)) return;
+  ddaySyncOnce();
+  const app=document.getElementById('app'); const v=getDday(state.name); const d=v?ddayDiff(v):null;
+  const box=document.createElement('div'); box.id='ddayBox';
+  if(d===null||ddayEditing){
+    if(screen!=='setup' && d===null) return;
+    box.className='card'; box.style.cssText='border:2px solid var(--navy);text-align:center;';
+    box.innerHTML='<h2 class="card-title" style="font-size:17px;">📅 면접일을 입력해 주세요</h2><p class="card-sub">입력하면 D-day가 화면에 크게 표시돼요. 다른 기기에서 로그인해도 같은 날짜가 보여요.</p><input type="date" id="ddayInput" value="'+(v||'')+'" style="padding:12px;font-size:16px;border-radius:10px;border:1.5px solid #ccc;"> <button class="btn btn-primary" id="ddaySave" style="margin-top:10px;">저장</button>'+(d!==null?' <button class="btn btn-ghost" id="ddayCancel" style="margin-top:10px;">취소</button>':'');
+  } else {
+    const big=(screen==='setup'); const wd=['일','월','화','수','목','금','토'];
+    const p=v.split('-').map(Number); const dow=wd[new Date(p[0],p[1]-1,p[2]).getDay()];
+    box.style.cssText='text-align:center;color:#fff;margin:0 0 '+(big?'18':'10')+'px;padding:'+(big?'26px 10px 22px':'8px 10px')+';border-radius:18px;background:linear-gradient(135deg,var(--navy2),var(--navy));position:relative;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.3);';
+    box.innerHTML=big
+     ? '<div style="font-size:13px;letter-spacing:2px;color:#e9d9a8;font-weight:700;">면접까지</div><div style="font-size:84px;line-height:1.05;font-weight:900;color:#fff;font-family:\'Noto Serif KR\',serif;text-shadow:0 4px 18px rgba(0,0,0,.35);">'+ddayText(d)+'</div><div style="font-size:13px;color:#dfe6ee;margin-top:4px;">'+p[0]+'.'+p[1]+'.'+p[2]+' ('+dow+') · '+state.name+'님의 면접일</div><button id="ddayEdit" style="margin-top:10px;background:transparent;border:1px solid rgba(255,255,255,.5);color:#dfe6ee;border-radius:14px;padding:4px 12px;font-size:12px;cursor:pointer;">면접일 변경</button>'+(ddayNote?'<div style="font-size:11px;color:#e9d9a8;margin-top:6px;">'+ddayNote+'</div>':'')
+     : '<b style="font-size:22px;font-family:\'Noto Serif KR\',serif;">'+ddayText(d)+'</b> <span style="font-size:12px;color:#dfe6ee;">'+p[1]+'/'+p[2]+' 면접</span>';
+  }
+  app.insertBefore(box,app.firstChild);
+}
+document.addEventListener('click',async function(e){
+  const t=e.target; if(!t||!t.id) return;
+  if(t.id==='ddayEdit'){ ddayEditing=true; updateDday(); }
+  else if(t.id==='ddayCancel'){ ddayEditing=false; updateDday(); }
+  else if(t.id==='ddaySave'){
+    const v=(document.getElementById('ddayInput')||{}).value||''; if(!v){ alert('날짜를 선택해 주세요.'); return; }
+    setDdayLocal(state.name,v); ddayEditing=false; updateDday();
+    if(ddaySupported===null){ await ddayFetchServer(state.name); }
+    await ddayPushServer(state.name,v);
+    ddayNote=(ddaySupported===true)?'':'이 기기에만 저장돼요'; updateDday();
+  }
+});
+
 function render(){
   const app=document.getElementById('app');
   if(screen==='login') app.innerHTML=renderLogin();
@@ -2677,6 +2751,7 @@ function render(){
   else if(screen==='tdash') app.innerHTML=renderTDash();
   else if(screen==='tdetail') app.innerHTML=renderTDetail();
   bindEvents();
+  updateDday();
 }
 
 function renderLogin(){
